@@ -16,6 +16,7 @@ public abstract class AbstractEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(insertable = true, updatable = false)
     protected Long id;
 
     /**

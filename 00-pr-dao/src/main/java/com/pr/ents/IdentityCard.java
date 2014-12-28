@@ -18,7 +18,7 @@ import java.util.Date;
 @Entity
 public class IdentityCard extends AbstractEntity {
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @PrimaryKeyJoinColumn
     private Person person;
 
@@ -58,6 +58,15 @@ public class IdentityCard extends AbstractEntity {
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date expiresAt;
+    
+    @Column
+    @NotEmpty
+    private String address;
+
+    //required by JPA
+    public IdentityCard() {
+        super();
+    }
 
     /**
      * The PNC value is being computed from Person instance field values.
@@ -125,6 +134,14 @@ public class IdentityCard extends AbstractEntity {
         this.expiresAt = expiresAt;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     // IDE generated methods
 
     @Override
@@ -154,6 +171,6 @@ public class IdentityCard extends AbstractEntity {
     public String toString() {
         return String.format("IdentityCard[person='%s', pnc='%s', series='%s', number='%s', emittedAt='%s', " +
                         "expiresAt='%s']", person.getFirstName() + " " + person.getLastName(), pnc, series, number,
-                String.format("%1$tm %1$te,%1$tY", emittedAt), String.format("%1$tm %1$te,%1$tY", expiresAt));
+                String.format("%1$tm %1$te,%1$tY", emittedAt, emittedAt, emittedAt), String.format("%1$tm %1$te,%1$tY", expiresAt, expiresAt,expiresAt));
     }
 }

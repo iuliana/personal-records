@@ -18,26 +18,15 @@
 
        <util:properties id="hibernateProps">
               <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
-              <!-- value in build.gradle-->
-              <prop key="hibernate.show_sql">${hibernateShowSql}</prop>
+
+              <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
               <prop key="hibernate.format_sql">true</prop>
               <prop key="hibernate.use_sql_comments">true</prop>
-              <!-- Create/update the database tables automatically when the JVM starts up -->
-              <!-- value in build.gradle-->
-              <prop key="hibernate.hbm2ddl.auto">${hibernateHbm2ddlAuto}</prop>
 
               <!-- An improved naming strategy that prefers embedded underscores to mixed case names-->
               <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
 
-              <!-- query cache -->
-              <prop key="hibernate.cache.use_query_cache">true</prop>
-              <prop key="hibernate.cache.use_structured_entries">true</prop>
-
-              <!-- second level cache -->
-              <prop key="hibernate.cache.use_second_level_cache">true</prop>
-
-              <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
-              <prop key="hibernate.cache.provider_configuration_file_resource_path">classpath:ehcache.xml</prop>
+              <prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
 
               <prop key="hibernate.connection.release_mode">auto</prop>
        </util:properties>

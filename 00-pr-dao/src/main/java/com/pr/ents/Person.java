@@ -17,6 +17,7 @@ import java.util.Set;
  * Created by iuliana.cosmina on 12/27/14.
  */
 @Entity
+@SequenceGenerator(name = "seqGen", allocationSize = 1)
 public class Person extends AbstractEntity {
 
     @Column(nullable = false)
@@ -48,6 +49,12 @@ public class Person extends AbstractEntity {
 
     @OneToMany(mappedBy = "person")
     private Set<Account> accounts = new HashSet<>();
+
+
+    //required by JPA
+    public Person() {
+        super();
+    }
 
     /**
      * Creates a new Person instance. All arguments are required and must be not null.
@@ -168,6 +175,6 @@ public class Person extends AbstractEntity {
     @Override
     public String toString() {
         return String.format("Person[firstName='%s', lastName='%s', dateOfBirth='%s', gender='%s', hospital='%s']", getFirstName(),
-                getLastName(), String.format("%1$tm %1$te,%1$tY", dateOfBirth), gender.toString(), hospital.getCode());
+                getLastName(), String.format("%tY-%tm-%td", dateOfBirth, dateOfBirth, dateOfBirth), gender.toString(), hospital.getCode());
     }
 }

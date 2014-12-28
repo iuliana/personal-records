@@ -11,6 +11,7 @@ import javax.persistence.*;
  * specific to a real bank account.
  * Created by iuliana.cosmina on 12/27/14.
  */
+@Entity
 public class Account extends AbstractEntity {
 
     /**

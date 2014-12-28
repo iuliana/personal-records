@@ -22,6 +22,7 @@ public class PncBuilderTest {
         String expectedPnc = "2701112121412";
         String producedPnc = PncBuilder.build(person);
         assertEquals(expectedPnc, producedPnc);
+        System.out.println(person);
     }
     
 }

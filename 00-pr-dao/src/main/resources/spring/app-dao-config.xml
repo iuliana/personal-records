@@ -2,28 +2,39 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-4.1.xsd">
 
-       <context:annotation-config/>
-       <!-- Scans the com.pr package for module @Components to install and configure -->
-       <context:component-scan base-package="com.pr" annotation-config="true"/>
-       <tx:annotation-driven/>
 
-       <!-- Configures the Hibernate Object Relational Mapper (ORM) for the Personal Records Manager application -->
-       <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
-             p:packagesToScan="sample.ents"
-             p:dataSource-ref="dataSource"
-             p:hibernateProperties-ref="hibernateProps"/>
+    <jpa:repositories base-package="com.pr.repos"/>
 
-       <!-- Drives transactions in a local Hibernate environment -->
-       <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"
-             p:sessionFactory-ref="sessionFactory"/>
+    <!-- Drives transactions in a local Hibernate environment -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+          p:entityManagerFactory-ref="entityManagerFactory"/>
+    
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+          p:persistenceUnitManager-ref="persistenceManager"
+          p:jpaVendorAdapter-ref="jpaVendorAdapter"
+          p:jpaProperties-ref="hibernateProps"/>
+    
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+          p:showSql="true"
+          p:generateDdl="true"
+          p:database="H2"/>
+
+    <bean id="persistenceManager" class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager"
+          p:packagesToScan-ref="packagesToScan"
+          p:defaultDataSource-ref="dataSource"/>
+
+    <util:list id="packagesToScan">
+        <value>com.pr.ents</value>
+    </util:list>
+
 
 </beans>
