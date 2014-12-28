@@ -1,4 +1,4 @@
-package com.pt.base;
+package com.pr.base;
 
 /**
  * Created by iuliana.cosmina on 12/27/14.

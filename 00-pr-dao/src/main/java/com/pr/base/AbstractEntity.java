@@ -1,4 +1,4 @@
-package com.pt.base;
+package com.pr.base;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * An abstract class which defines the common template for all entities in the project
+ * An template class which defines the common template for all entities in the project
  * Created by iuliana.cosmina on 12/27/14.
  */
 @MappedSuperclass
@@ -37,6 +37,9 @@ public abstract class AbstractEntity implements Serializable {
     @Version
     public int version;
 
+    /**
+     * This constructor is required by JPA. All subclasses of this class will inherit this constructor.
+     */
     protected AbstractEntity() {
         createdAt = new Date();
         modifiedAt = new Date();

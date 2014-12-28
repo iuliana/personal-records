@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+       <context:annotation-config/>
+       <!-- Scans the com.pr package for module @Components to install and configure -->
+       <context:component-scan base-package="com.pr" annotation-config="true"/>
+       <tx:annotation-driven/>
+
+       <!-- Configures the Hibernate Object Relational Mapper (ORM) for the Personal Records Manager application -->
+       <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+             p:packagesToScan="sample.ents"
+             p:dataSource-ref="dataSource"
+             p:hibernateProperties-ref="hibernateProps"/>
+
+       <!-- Drives transactions in a local Hibernate environment -->
+       <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+             p:sessionFactory-ref="sessionFactory"/>
+
+</beans>

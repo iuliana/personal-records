@@ -1,6 +1,6 @@
-package com.pt.ents;
+package com.pr.ents;
 
-import com.pt.base.AbstractEntity;
+import com.pr.base.AbstractEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
@@ -36,11 +36,6 @@ public class Hospital extends AbstractEntity {
     
     @OneToMany(mappedBy = "hospital")
     private Set<Person> persons = new HashSet<>();
-    
-
-    public Hospital() {
-        super();
-    }
 
     /**
      * Creates a new Hospital instance. All arguments are required and must be not null. 
@@ -49,7 +44,6 @@ public class Hospital extends AbstractEntity {
      * @param name
      */
     public Hospital(@NotEmpty String code, @NotEmpty String location, @NotEmpty String name) {
-        this();
         this.code = code;
         this.location = location;
         this.name = name;
@@ -101,6 +95,7 @@ public class Hospital extends AbstractEntity {
     }
 
     // IDE generated methods
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -127,11 +122,6 @@ public class Hospital extends AbstractEntity {
 
     @Override
     public String toString() {
-        return "Hospital{" +
-                "code=" + code +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", location='" + location + '\'' +
-                '}';
+        return String.format("Hospital[code=%s, name='%s', location='%s']", code, name, location);
     }
 }

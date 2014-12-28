@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-4.1.xsd">
+
+       <util:properties id="dbProp" location="classpath:datasource/db.properties"/>
+
+       <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+              <property name="driverClassName" value="#{dbProp.driverClassName}"/>
+              <property name="url" value="#{dbProp.url}"/>
+              <property name="username" value="#{dbProp.username}"/>
+              <property name="password" value="#{dbProp.password}"/>
+       </bean>
+
+       <util:properties id="hibernateProps">
+              <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+              <!-- value in build.gradle-->
+              <prop key="hibernate.show_sql">${hibernateShowSql}</prop>
+              <prop key="hibernate.format_sql">true</prop>
+              <prop key="hibernate.use_sql_comments">true</prop>
+              <!-- Create/update the database tables automatically when the JVM starts up -->
+              <!-- value in build.gradle-->
+              <prop key="hibernate.hbm2ddl.auto">${hibernateHbm2ddlAuto}</prop>
+
+              <!-- An improved naming strategy that prefers embedded underscores to mixed case names-->
+              <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+
+              <!-- query cache -->
+              <prop key="hibernate.cache.use_query_cache">true</prop>
+              <prop key="hibernate.cache.use_structured_entries">true</prop>
+
+              <!-- second level cache -->
+              <prop key="hibernate.cache.use_second_level_cache">true</prop>
+
+              <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+              <prop key="hibernate.cache.provider_configuration_file_resource_path">classpath:ehcache.xml</prop>
+
+              <prop key="hibernate.connection.release_mode">auto</prop>
+       </util:properties>
+</beans>

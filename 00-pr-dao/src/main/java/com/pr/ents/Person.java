@@ -1,7 +1,7 @@
-package com.pt.ents;
+package com.pr.ents;
 
-import com.pt.base.AbstractEntity;
-import com.pt.base.Gender;
+import com.pr.base.AbstractEntity;
+import com.pr.base.Gender;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -43,12 +43,11 @@ public class Person extends AbstractEntity {
     @JoinColumn(name = "HOSPITAL_ID", nullable = false)
     private Hospital hospital;
 
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
+    private IdentityCard identityCard;
+
     @OneToMany(mappedBy = "person")
     private Set<Account> accounts = new HashSet<>();
-
-    public Person() {
-        super();
-    }
 
     /**
      * Creates a new Person instance. All arguments are required and must be not null.
@@ -129,6 +128,16 @@ public class Person extends AbstractEntity {
         return accounts.add(account);
     }
 
+    public IdentityCard getIdentityCard() {
+        return identityCard;
+    }
+
+    public void setIdentityCard(IdentityCard identityCard) {
+        this.identityCard = identityCard;
+    }
+
+    // IDE generated methods
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -158,13 +167,7 @@ public class Person extends AbstractEntity {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "firstName='" + firstName + '\'' +
-                ", middleName='" + middleName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", gender=" + gender +
-                ", hospital=" + hospital +
-                '}';
+        return String.format("Person[firstName='%s', lastName='%s', dateOfBirth='%s', gender='%s', hospital='%s']", getFirstName(),
+                getLastName(), String.format("%1$tm %1$te,%1$tY", dateOfBirth), gender.toString(), hospital.getCode());
     }
 }
