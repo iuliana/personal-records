@@ -4,6 +4,8 @@ import com.pr.ents.Hospital;
 import com.pr.ents.Person;
 import org.joda.time.DateTime;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 
@@ -13,6 +15,8 @@ import static org.junit.Assert.assertEquals;
  * Created by iuliana.cosmina on 12/28/14.
  */
 public class PncBuilderTest {
+
+    private Logger logger = LoggerFactory.getLogger(PncBuilderTest.class);
     
     @Test
     public void test() throws ParseException {
@@ -22,7 +26,7 @@ public class PncBuilderTest {
         String expectedPnc = "2701112121412";
         String producedPnc = PncBuilder.build(person);
         assertEquals(expectedPnc, producedPnc);
-        System.out.println(person);
+        logger.info(person.toString());
     }
     
 }

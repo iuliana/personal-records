@@ -1,6 +1,26 @@
 rootProject.name = 'personal-records'
 
 include '00-pr-dao'
+include '01-pr-mvc-basic-solution'
+include '01-pr-mvc-basic-practice'
+include '02-pr-mvc-layout-practice'
+include '02-pr-mvc-layout-solution'
+include '03-pr-mvc-view-practice'
+include '03-pr-mvc-view-solution'
+include '04-pr-mvc-form-practice'
+include '04-pr-mvc-form-solution'
+include '05-pr-rest-practice'
+include '05-pr-rest-solution'
+include '06-pr-ajax-practice'
+include '06-pr-ajax-solution'
+include '07-pr-webflow-basic-practice'
+include '07-pr-webflow-basic-solution'
+include '08-pr-webflow-fundamentals-practice'
+include '08-pr-webflow-fundamentals-solution'
+include '09-pr-webflow-actions-practice'
+include '09-pr-webflow-actions-solution'
+include '10-pr-web-security-practice'
+include '10-pr-web-security-solution'
 
 //we check if the modules have gradle configuration files
 println(' This project is a Personal Records Manager proof of concept. It is meant to be used together with the "String Web Study Guide" ' +
@@ -12,3 +32,6 @@ rootProject.children.each { project ->
     assert project.buildFile.exists()
     assert project.buildFile.isFile()
 }
+
+
+

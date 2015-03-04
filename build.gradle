@@ -1,16 +1,20 @@
 allprojects {
     version = '1.0'
-    group = 'com.sample'
+    group = 'com.pr'
 }
 
 subprojects {
     apply plugin: 'java'
     sourceCompatibility = 1.8
+    // Make sure transitive project dependencies are resolved
+    configurations.compile.transitive = true
 
     repositories {
+        mavenLocal()
         mavenCentral()
+        jcenter()
     }
-
+    
     configurations {
         all*.exclude group: "commons-logging", module: "commons-logging"
     }
@@ -67,4 +71,14 @@ ext {
             securityTaglibs: "org.springframework.security:spring-security-taglibs:$springSecurityVersion",
             securityConfig : "org.springframework.security:spring-security-config:$springSecurityVersion"
     ]
+}
+
+task allCompile << {
+    description 'Task used to compile all modules in the project without running tests'
+    subprojects.each{ p ->
+        println "Building without tests $p.name ".center(50, '.')
+        p.getTasksByName("compileJava", true).each {t ->
+            t.execute();
+        }
+    }
 }
