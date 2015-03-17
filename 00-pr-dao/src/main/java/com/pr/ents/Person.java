@@ -37,7 +37,7 @@ public class Person extends AbstractEntity {
     private Date dateOfBirth;
 
     @Enumerated(EnumType.STRING)
-    @NotEmpty
+    @NotNull
     private Gender gender;
 
     @ManyToOne

@@ -37,6 +37,10 @@ public class Hospital extends AbstractEntity {
     @OneToMany(mappedBy = "hospital")
     private Set<Person> persons = new HashSet<>();
 
+    //required by JPA
+    public Hospital() {
+    }
+
     /**
      * Creates a new Hospital instance. All arguments are required and must be not null. 
      * @param code

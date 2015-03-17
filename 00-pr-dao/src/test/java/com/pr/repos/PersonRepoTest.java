@@ -47,7 +47,7 @@ public class PersonRepoTest {
 
     @Test
     public void update() {
-        List<Person> persons = personRepo.findByFirstnameOrLastname("Ada");
+        List<Person> persons = personRepo.getByFirstnameOrLastname("Ada");
         assertTrue(persons.size() == 1);
         Person person = persons.get(0);
         person.setMiddleName("Augusta");
@@ -63,7 +63,7 @@ public class PersonRepoTest {
 
     @Test
     public void find() {
-        List<Person> persons = personRepo.findByFirstnameOrLastnameLike("Peter");
+        List<Person> persons = personRepo.getByFirstnameOrLastnameLike("Peter");
         assertTrue(persons.size() == 1);
     }
 

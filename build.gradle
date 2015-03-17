@@ -76,7 +76,7 @@ ext {
 task allCompile << {
     description 'Task used to compile all modules in the project without running tests'
     subprojects.each{ p ->
-        println "Building without tests $p.name ".center(50, '.')
+        println "-> Building without tests $p.name "
         p.getTasksByName("compileJava", true).each {t ->
             t.execute();
         }

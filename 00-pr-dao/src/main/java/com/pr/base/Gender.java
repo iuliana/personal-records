@@ -16,4 +16,8 @@ public enum Gender {
     public int getCode() {
         return code;
     }
+
+    public Character getInitial(){
+        return this.name().charAt(0);
+    }
 }
