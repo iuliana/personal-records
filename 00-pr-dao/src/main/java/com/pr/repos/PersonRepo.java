@@ -29,4 +29,11 @@ public interface PersonRepo extends JpaRepository<Person, Long> {
      */
     @Query("select p from Person p where p.firstName like %?1% or p.lastName like %?1%")
     List<Person> getByFirstnameOrLastnameLike(String srg);
+
+
+    /**
+     * Returns all persons born ath the hospital with the given code
+     */
+    @Query("select p from Person p where p.hospital.code= :code")
+    List<Person> getByHospital(@Param("code") String code);
 }

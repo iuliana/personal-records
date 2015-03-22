@@ -1,25 +1,21 @@
 <%@ page session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>
+        <fmt:message key="person.title"/>
+    </title>
     <spring:theme var="cssStyle" code="css.style"/>
     <link type="text/css" rel="stylesheet" href="<c:url value="${cssStyle}" />"/>
     <link type="text/css" rel="stylesheet" href="<c:url value="/styles/general.css" />"/>
-    <title>
-        <fmt:message>
-            <tiles:insertAttribute name="pageTitle"/>
-        </fmt:message>
-    </title>
 </head>
 <body>
-<div class="page">
+<div id="page">
     <div class="banner"></div>
     <div class="themeLocal">
         <c:choose>
@@ -27,13 +23,13 @@
                 <c:url var="localeUrl" value="/">
                     <c:param name="locale" value="de"/>
                 </c:url>
-                <a href="${localeUrl}">German</a>
+                <a href="${localeUrl}"><fmt:message key="locale.de"/></a>
             </c:when>
             <c:otherwise>
                 <c:url var="localeUrl" value="/">
                     <c:param name="locale" value="en"/>
                 </c:url>
-                <a href="${localeUrl}">English</a>
+                <a href="${localeUrl}"><fmt:message key="locale.en"/></a>
             </c:otherwise>
         </c:choose> |
         <c:choose>
@@ -70,15 +66,37 @@
             </li>
         </ul>
     </div>
-
     <div class="content">
-        <tiles:insertAttribute name="content"/>
+        <div class="persons">
+            <table>
+                <tr>
+                    <th><fmt:message key="label.Person.firstname"/></th>
+                    <td>${person.firstName}</td>
+                </tr>
+                <tr>
+                    <th><fmt:message key="label.Person.lastname"/></th>
+                    <td>${person.lastName}</td>
+                </tr>
+                <tr>
+                    <th><fmt:message key="label.Person.dob"/></th>
+                    <td><fmt:formatDate value="${person.dateOfBirth}"/></td>
+                </tr>
+
+                <tr>
+                    <th><fmt:message key="label.Person.gender"/></th>
+                    <td>${person.gender.initial}</td>
+                </tr>
+                <tr>
+                    <th><fmt:message key="label.Hospital.name"/></th>
+                    <td>${person.hospital.name}</td>
+                </tr>
+            </table>
+        </div>
     </div>
 
     <div class="footer">
         <p><fmt:message key="footer.text"/></p>
     </div>
-
 </div>
 </body>
 </html>
