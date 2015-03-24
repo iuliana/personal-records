@@ -4,6 +4,6 @@ dependencies {
             spring.jdbc, spring.orm, spring.contextSupport, spring.data,
             misc.dbcp, misc.h2, misc.joda
 
-    testCompile misc.junit
+    testCompile tests.junit
     testCompile spring.test
 }

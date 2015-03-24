@@ -12,7 +12,7 @@
         <thead>
         <tr>
             <td>
-                <fmt:message key="label.Person.count"/>
+                <fmt:message key="label.count"/>
             </td>
             <td>
                 <fmt:message key="label.Person.firstname"/>
@@ -40,7 +40,8 @@
                     <a href="${showUrl}">${person.id}</a>
                 </td>
                 <td>
-                        ${person.firstName}
+                    <!-- TODO 7. Put a link on this value pointing to the method developed for TODO6-->
+                   ${person.firstName}
                 </td>
                 <td>
                         ${person.lastName}

@@ -62,10 +62,17 @@
                 </c:if>
             </li>
             <li><c:if test="${menuTab eq 'persons'}">
-                <strong><a href="<c:url value="/persons/list"/>"><fmt:message key="menu.persons"/></a></strong>
+                <strong><a href="<c:url value="/persons/"/>"><fmt:message key="menu.persons"/></a></strong>
             </c:if>
                 <c:if test="${menuTab != 'persons'}">
-                    <a href="<c:url value="/persons/list"/>"><fmt:message key="menu.persons"/></a>
+                    <a href="<c:url value="/persons/"/>"><fmt:message key="menu.persons"/></a>
+                </c:if>
+            </li>
+            <li><c:if test="${menuTab eq 'hospitals'}">
+                <strong><a href="<c:url value="/hospitals/"/>"><fmt:message key="menu.hospitals"/></a></strong>
+            </c:if>
+                <c:if test="${menuTab != 'hospitals'}">
+                    <a href="<c:url value="/hospitals/"/>"><fmt:message key="menu.hospitals"/></a>
                 </c:if>
             </li>
         </ul>

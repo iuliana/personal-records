@@ -13,4 +13,10 @@
         <put-attribute name="menuTab" value="home" />
     </definition>
 
+    <definition name="error" extends="layout">
+        <put-attribute name="pageTitle" value="error.title"/>
+        <put-attribute name="content" value="/WEB-INF/error.jsp"/>
+        <put-attribute name="menuTab" value="home" />
+    </definition>
+
 </tiles-definitions>

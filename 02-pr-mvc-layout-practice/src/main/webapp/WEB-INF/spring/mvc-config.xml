@@ -70,12 +70,7 @@
 
     <!-- Configures Tiles2 -->
     <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-        <property name="definitions">
-            <list>
-                <value>/WEB-INF/tiles.xml</value>
-                <value>/WEB-INF/persons/tiles.xml</value>
-            </list>
-        </property>
+        <!-- TODO 5.  Configure this bean properly in order for Tiles views to be resolved correctly-->
     </bean>
 
     <!-- Enables locale resolution with the help of a browser cookie -->

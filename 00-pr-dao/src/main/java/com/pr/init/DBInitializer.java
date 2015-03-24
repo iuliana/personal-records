@@ -2,6 +2,7 @@ package com.pr.init;
 
 import com.pr.base.Gender;
 import com.pr.ents.Hospital;
+import com.pr.ents.IdentityCard;
 import com.pr.ents.Person;
 import com.pr.repos.AccountRepo;
 import com.pr.repos.HospitalRepo;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by iuliana.cosmina on 3/17/15.
@@ -38,34 +40,50 @@ public class DBInitializer {
         Hospital hospital = new Hospital("134181", "Constance, Romania", "General Hospital");
         hospitalRepo.save(hospital);
         List<Person> list = new ArrayList<>();
-        list.add(new Person("John", "Smith", DateTime.parse("1935-10-01").toDate(), Gender.MALE, hospital));
-        list.add(new Person("Peter", "Doe", DateTime.parse("1940-11-02").toDate(), Gender.MALE, hospital));
-        list.add(new Person("Joe", "Williams", DateTime.parse("1950-12-10").toDate(), Gender.MALE, hospital));
-        list.add(new Person("Jessica", "Jones", DateTime.parse("1960-09-09").toDate(), Gender.FEMALE, hospital));
+        list.add(build("John", "Smith", "1935-10-01", Gender.MALE, hospital));
+        list.add(build("Peter", "Doe", "1940-11-02", Gender.MALE, hospital));
+        list.add(build("Joe", "Williams", "1950-12-10", Gender.MALE, hospital));
+        list.add(build("Jessica", "Jones", "1960-09-09", Gender.FEMALE, hospital));
 
         hospital = new Hospital("221345", "Bucharest, Romania", "\"Gh. Nica\" Clinical Hospital");
         hospitalRepo.save(hospital);
-        list.add(new Person("Leroy", "Smith", DateTime.parse("1970-10-08").toDate(), Gender.MALE, hospital));
-        list.add(new Person("Jane", "Doe", DateTime.parse("1980-07-21").toDate(), Gender.FEMALE, hospital));
-        list.add(new Person("Dan", "Wayne", DateTime.parse("1990-06-22").toDate(), Gender.MALE, hospital));
-        list.add(new Person("Dan", "Smith", DateTime.parse("1940-11-01").toDate(), Gender.MALE, hospital));
+        list.add(build("Leroy", "Smith", "1970-10-08", Gender.MALE, hospital));
+        list.add(build("Jane", "Doe", "1980-07-21", Gender.FEMALE, hospital));
+        list.add(build("Dan", "Wayne", "1990-06-22", Gender.MALE, hospital));
+        list.add(build("Dan", "Smith", "1940-11-01", Gender.MALE, hospital));
 
 
         hospital = new Hospital("112233", "Hermanstadt, Romania", "Polisano Hospital");
         hospitalRepo.save(hospital);
-        list.add(new Person("Leroy", "Smith", DateTime.parse("1973-10-01").toDate(), Gender.MALE, hospital));
-        list.add(new Person("Vince", "Dreyfuss", DateTime.parse("1980-07-23").toDate(), Gender.MALE, hospital));
-        list.add(new Person("Mariah", "Wayne", DateTime.parse("1992-06-22").toDate(), Gender.FEMALE, hospital));
-        list.add(new Person("Dan", "Smith", DateTime.parse("1943-11-01").toDate(), Gender.MALE, hospital));
+        list.add(build("Leroy", "Smith", "1973-10-01", Gender.MALE, hospital));
+        list.add(build("Vince", "Dreyfuss", "1980-07-23", Gender.MALE, hospital));
+        list.add(build("Mariah", "Wayne", "1992-06-22", Gender.FEMALE, hospital));
+        list.add(build("Dan", "Smith", "1943-11-01", Gender.MALE, hospital));
 
         hospital = new Hospital("324567", "Iassy, Romania", "\"Lady Helena\" General Hospital");
         hospitalRepo.save(hospital);
-        list.add(new Person("Leroy", "Smith", DateTime.parse("1972-02-08").toDate(), Gender.MALE, hospital));
-        list.add(new Person("Mimi", "Rogers", DateTime.parse("1983-07-20").toDate(), Gender.FEMALE, hospital));
-        list.add(new Person("Jessica", "Rabbit", DateTime.parse("1991-07-22").toDate(), Gender.FEMALE, hospital));
-        list.add(new Person("Dan", "Smith", DateTime.parse("1947-11-01").toDate(), Gender.MALE, hospital));
+        list.add(build("Leroy", "Smith", "1972-02-08", Gender.MALE, hospital));
+        list.add(build("Mimi", "Rogers", "1983-07-20", Gender.FEMALE, hospital));
+        list.add(build("Jessica", "Rabbit", "1991-07-22", Gender.FEMALE, hospital));
+        list.add(build("Dan", "Smith", "1947-11-01", Gender.MALE, hospital));
         personRepo.save(list);
         logger.info("Database initialization finished.");
+    }
+
+    private Person build(String fn, String ln, String dateStr, Gender gender, Hospital hospital){
+        DateTime dob = DateTime.parse(dateStr);
+        Person person = new Person(fn, ln, dob.toDate(), gender, hospital);
+        DateTime emmitedAt = dob.plusYears(14);
+        DateTime expiresAt = dob.plusYears(50);
+        IdentityCard ic = new IdentityCard(person, hospital.getLocation().substring(0,2).toUpperCase(),getRandomSeries(),
+                emmitedAt.toDate(), expiresAt.toDate());
+        ic.setAddress(UUID.randomUUID().toString());
+        person.setIdentityCard(ic);
+        return person;
+    }
+
+    private String getRandomSeries() {
+        return "" + ((int) Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000);
     }
 
 }

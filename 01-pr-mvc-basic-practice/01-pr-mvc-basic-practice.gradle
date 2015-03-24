@@ -9,7 +9,7 @@ dependencies {
             spring.webmvc,
             misc.dbcp, misc.h2, misc.joda, misc.jstl, misc.tilesJsp, misc.tilesReqApi
 
-    testCompile misc.junit
+    testCompile tests.junit
     testCompile spring.test
 }
 

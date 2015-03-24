@@ -14,6 +14,7 @@ table thead {
 table td th {
     padding: 5px;
     border: 0;
+    alignment: left;
 }
 
 table td {
@@ -31,4 +32,12 @@ table td {
     clear:both;
     text-align:left;
     padding:10px;
+}
+
+.error{
+    border: 1px solid;
+    margin: 10px 0px;
+    padding:15px 10px 15px 50px;
+    color: #D8000C;
+    background-color: #FFBABA;
 }

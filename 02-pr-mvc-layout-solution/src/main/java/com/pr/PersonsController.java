@@ -1,16 +1,14 @@
 package com.pr;
 
 import com.pr.ents.Person;
+import com.pr.problem.NotFoundException;
 import com.pr.repos.PersonRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +38,11 @@ public class PersonsController {
         return "persons/list";
     }
 
+    /**
+     * Method which is called via "redirect:" from the HospitalController
+     * @param persons
+     * @return
+     */
     @RequestMapping(value="/list", method = RequestMethod.GET)
     public String listh(@ModelAttribute("persons") ArrayList<Person> persons) {
         return "persons/list";
@@ -49,9 +52,25 @@ public class PersonsController {
      * Handles requests to shows details about one person.
      */
     @RequestMapping(value = "/{id:[\\d]*}", method = RequestMethod.GET)
-    public String show(@PathVariable Long id, Model model) {
+    public String show(@PathVariable Long id, Model model) throws NotFoundException {
         Person person = personRepo.findOne(id);
-        model.addAttribute("person", personRepo.findOne(id));
+        if(person == null) {
+            throw new NotFoundException(Person.class, id);
+        }
+        model.addAttribute("person", person);
+        return "persons/show";
+    }
+
+    /**
+     * Handles requests to shows details about one person.
+     */
+    @RequestMapping(value = "/show")
+    public String showp(@RequestParam Long id, Model model) throws NotFoundException {
+        Person person = personRepo.findOne(id);
+        if(person == null) {
+            throw new NotFoundException(Person.class, id);
+        }
+        model.addAttribute("person", person);
         return "persons/show";
     }
 }

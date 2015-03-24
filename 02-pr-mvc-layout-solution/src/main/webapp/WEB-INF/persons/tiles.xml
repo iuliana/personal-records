@@ -12,8 +12,8 @@
     </definition>
 
     <definition name="persons/show" extends="layout">
-        <put-attribute name="pageTitle" value="persons.list.title" />
-        <put-attribute name="content" value="/WEB-INF/persons/list.jsp" />
+        <put-attribute name="pageTitle" value="person.title" />
+        <put-attribute name="content" value="/WEB-INF/persons/show.jsp" />
         <put-attribute name="menuTab" value="persons" />
     </definition>
 

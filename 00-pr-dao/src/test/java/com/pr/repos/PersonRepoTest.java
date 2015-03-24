@@ -23,7 +23,6 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring/app-dao-config.xml", "classpath:spring/db-config.xml"})
 @Transactional
-@TransactionConfiguration
 public class PersonRepoTest {
     @Autowired
     private PersonRepo personRepo;

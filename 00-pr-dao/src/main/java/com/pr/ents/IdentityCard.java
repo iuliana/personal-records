@@ -37,7 +37,7 @@ public class IdentityCard extends AbstractEntity {
      * Series of the identity card. Two upper case letters specific to the district you were born into.
      */
     @Column(nullable = false)
-    @Pattern(regexp = "\\d{2}")
+    @Pattern(regexp = "\\w{2}")
     @NotEmpty
     private String series;
 

@@ -40,7 +40,11 @@
                     <a href="${showUrl}">${person.id}</a>
                 </td>
                 <td>
-                        ${person.firstName}
+                    <spring:url var="showUrl" value="show?id={id}">
+                        <spring:param name="id" value="${person.id}"/>
+                    </spring:url>
+                    <a href="${showUrl}">${person.firstName}</a>
+
                 </td>
                 <td>
                         ${person.lastName}

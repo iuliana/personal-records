@@ -141,6 +141,7 @@ public class Person extends AbstractEntity {
 
     public void setIdentityCard(IdentityCard identityCard) {
         this.identityCard = identityCard;
+        identityCard.setPerson(this);
     }
 
     // IDE generated methods

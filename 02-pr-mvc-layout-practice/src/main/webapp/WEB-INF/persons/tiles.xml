@@ -11,4 +11,7 @@
         <put-attribute name="menuTab" value="persons" />
     </definition>
 
+   <!-- TODO 8.Create Tiles definition for the persons/show.jsp view -->
+
+
 </tiles-definitions>
