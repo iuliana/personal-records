@@ -31,7 +31,7 @@ public class PersonsController {
     /**
      * Handles requests to list all persons.
      */
-    @RequestMapping(value="/", method = RequestMethod.GET)
+    @RequestMapping(value={"/"}, method = RequestMethod.GET)
     public String list(Model model) {
         logger.info("Populating model with list...");
         model.addAttribute("persons", personRepo.findAll());

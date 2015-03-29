@@ -7,12 +7,13 @@ dependencies {
             hibernate.ehcache, hibernate.em, hibernate.core, hibernate.validator,
             spring.jdbc, spring.orm, spring.contextSupport, spring.data,
             spring.webmvc,
-            misc.dbcp, misc.h2, misc.joda, misc.jstl, misc.tilesJsp, misc.tilesReqApi, misc.javaxEl
+            misc.dbcp, misc.h2, misc.joda, misc.jstl, misc.tilesJsp, misc.tilesReqApi, misc.javaxEl,
+            misc.poi,misc.jacksonCore, misc.jacksonDatabind, misc.jacksonAnnotations
 
     testCompile tests.junit, tests.mockito, spring.test, tests.hamcrestCore, tests.hamcrestLib
 }
 
 gretty {
     port = 8080
-    contextPath = '/mvc-thyme'
+    contextPath = '/mvc-view'
 }

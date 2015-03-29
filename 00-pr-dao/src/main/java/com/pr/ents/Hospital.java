@@ -1,5 +1,6 @@
 package com.pr.ents;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pr.base.AbstractEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -33,7 +34,8 @@ public class Hospital extends AbstractEntity {
     @Column(nullable = false)
     @NotEmpty
     private String location;
-    
+
+    @JsonIgnore
     @OneToMany(mappedBy = "hospital")
     private Set<Person> persons = new HashSet<>();
 

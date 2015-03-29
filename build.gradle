@@ -36,6 +36,8 @@ ext {
     hibernateVersion = '4.3.7.Final'
     h2Version = '1.4.184'
     logbackVersion = '1.1.2'
+    poiVersion = '3.11'
+    jacksonVersion = '2.5.1'
 
     //we group libraries by their purpose so we can import them easier in the modules
 
@@ -49,7 +51,11 @@ ext {
             jstl       : "javax.servlet:jstl:1.2",
             tilesJsp   : "org.apache.tiles:tiles-jsp:$tilesVersion",
             tilesReqApi: "org.apache.tiles:tiles-request-api:1.0.6",
-            javaxEl    : "javax.el:javax.el-api:3.0.0"
+            javaxEl    : "javax.el:javax.el-api:3.0.0",
+            poi               : "org.apache.poi:poi:${poiVersion}",
+            jacksonCore       : "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}",
+            jacksonDatabind   : "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}",
+            jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
     ]
 
     tests = [

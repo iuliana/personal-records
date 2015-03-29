@@ -68,7 +68,7 @@
         <property name="requestContextAttribute" value="requestContext"/>
     </bean>
 
-    <!-- Configures Tiles2 -->
+    <!-- Configures Tiles3 -->
     <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
         <property name="definitions">
             <list>

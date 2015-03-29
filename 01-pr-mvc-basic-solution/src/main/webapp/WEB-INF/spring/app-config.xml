@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-    <!-- Import configuration from the datasource and the rewardnetwork projects -->
+    <!-- Import configuration from the datasource and the  projects -->
     <import resource="classpath:spring/app-dao-config.xml"/>
     <import resource="classpath:spring/db-config.xml"/>
 </beans>

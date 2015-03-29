@@ -64,5 +64,5 @@ public class PersonsController {
     /**
      * Handles requests to shows details about one person.
      */
-    //TODO 6. implement the show method using @RequestParam
+    //TODO 6. Implement the show method using @RequestParam
 }

@@ -1,7 +1,10 @@
 package com.pr.ents;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.pr.base.AbstractEntity;
 import com.pr.base.PncBuilder;
+import com.pr.util.JsonDateSerializer;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,6 +21,7 @@ import java.util.Date;
 @Entity
 public class IdentityCard extends AbstractEntity {
 
+    @JsonIgnore
     @OneToOne
     @PrimaryKeyJoinColumn
     private Person person;
@@ -51,11 +55,13 @@ public class IdentityCard extends AbstractEntity {
 
     @Column
     @NotNull
+    @JsonSerialize(using=JsonDateSerializer.class)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date emittedAt;
 
     @Column
     @NotNull
+    @JsonSerialize(using=JsonDateSerializer.class)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date expiresAt;
     

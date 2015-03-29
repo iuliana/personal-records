@@ -1,7 +1,11 @@
 package com.pr.ents;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.pr.base.AbstractEntity;
 import com.pr.base.Gender;
+import com.pr.util.JsonDateSerializer;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -33,6 +37,8 @@ public class Person extends AbstractEntity {
 
     @Column
     @NotNull
+    //Specialized JSON annotation in order to describe how the date will be formatted in the JSON output
+    @JsonSerialize(using=JsonDateSerializer.class)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
@@ -47,6 +53,7 @@ public class Person extends AbstractEntity {
     @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
     private IdentityCard identityCard;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "person")
     private Set<Account> accounts = new HashSet<>();
 
