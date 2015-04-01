@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- Used to discover and autowire beans annotated bean definitions -->
+    <context:component-scan base-package="com.pr"/>
+
+    <!-- Enables hibernate validator -->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+
+    <!-- Defines basic MVC defaults (handler adapter, mapping, date formatting, etc) -->
+    <mvc:annotation-driven conversion-service="typeConversionService" validator="validator"/>
+
+    <!-- Define a custom ConversionService -->
+    <bean id="typeConversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <bean class="com.pr.util.DateFormatter"/>
+                <bean class="com.pr.util.HospitalFormatter"/>
+            </set>
+        </property>
+    </bean>
+
+    <!--
+      Configures a handler for serving static resources by forwarding to the
+      Servlet container's default Servlet.
+    -->
+    <mvc:default-servlet-handler/>
+
+    <!-- Serves up cached and compressed static content at /resources/* from the webapp root and classpath  -->
+    <mvc:resources mapping="/images/**" location="/images/"/>
+    <mvc:resources mapping="/styles/**" location="/styles/"/>
+
+    <!--
+       Interceptors for locale/theme changing and the setting of caching response headers.
+        Applied automatically against all handler mappings.
+    -->
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+        <bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor"/>
+        <bean class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+            <property name="cacheSeconds" value="0"/>
+            <property name="supportedMethods">
+                <null/>
+            </property>
+        </bean>
+    </mvc:interceptors>
+
+    <!--
+        Interceptors for locale/theme changing and the setting of caching response headers.
+         Applied automatically against all handler mappings.
+     -->
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+        <bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor"/>
+        <bean class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+            <property name="cacheSeconds" value="0"/>
+            <property name="supportedMethods">
+                <null/>
+            </property>
+        </bean>
+    </mvc:interceptors>
+
+    <!-- Define controllers which only render pages (i.e. nothing added to the model) -->
+    <mvc:view-controller path="/" view-name="home"/>
+    <mvc:view-controller path="/home" view-name="home"/>
+
+    <!-- Resolves messages to support internationalization -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+          p:defaultEncoding="UTF-8"
+          p:basename="/WEB-INF/messages/global"/>
+
+    <!-- Resolves logical view names to Tiles 3 definitions -->
+    <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"
+          p:order="0"
+          p:requestContextAttribute="requestContext"/>
+
+    <!-- Configures Tiles3 -->
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"
+          p:definitions-ref="tilesDefList"/>
+
+    <!-- sample usage of the util namespace to declare a list -->
+    <util:list id="tilesDefList">
+        <value>/WEB-INF/tiles.xml</value>
+        <value>/WEB-INF/persons/tiles.xml</value>
+    </util:list>
+
+    <!-- Enables locale resolution with the help of a browser cookie -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"
+          p:defaultLocale="en"
+          p:cookieMaxAge="3600"/>
+
+
+    <!-- Enables theme resolution with the help of a browser cookie -->
+    <bean id="themeResolver" class="org.springframework.web.servlet.theme.CookieThemeResolver"
+          p:defaultThemeName="green"
+          p:cookieMaxAge="3600"/>
+
+</beans>

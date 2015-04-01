@@ -70,6 +70,15 @@ public class DBInitializer {
         logger.info("Database initialization finished.");
     }
 
+    /**
+     * Method used to build a Person instance
+     * @param fn
+     * @param ln
+     * @param dateStr
+     * @param gender
+     * @param hospital
+     * @return
+     */
     private Person build(String fn, String ln, String dateStr, Gender gender, Hospital hospital){
         DateTime dob = DateTime.parse(dateStr);
         Person person = new Person(fn, ln, dob.toDate(), gender, hospital);
@@ -82,6 +91,10 @@ public class DBInitializer {
         return person;
     }
 
+    /**
+     * Method that generates a 6 digit sequence
+     * @return
+     */
     private String getRandomSeries() {
         return "" + ((int) Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000);
     }

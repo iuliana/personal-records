@@ -8,11 +8,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * An entity used as a template for Hospital instances. A hospital instance contains in its fields some data 
+ * An entity used as a template for Hospital instances. A hospital instance contains in its fields some data
  * specific to a real hospital.
  * Created by iuliana.cosmina on 12/27/14.
  */
@@ -20,17 +21,20 @@ import java.util.Set;
 public class Hospital extends AbstractEntity {
 
     @Column(nullable = false)
-    @Pattern(regexp="\\d{6}")
+    @Pattern(regexp = "\\d{6}")
     @NotEmpty
     private String code;
 
+    @Size(min = 2, max = 50)
     @Column(nullable = false)
     @NotEmpty
     private String name;
-    
+
+    @Size(max = 100)
     @Column
     private String address;
 
+    @Size(max = 20)
     @Column(nullable = false)
     @NotEmpty
     private String location;
@@ -44,7 +48,8 @@ public class Hospital extends AbstractEntity {
     }
 
     /**
-     * Creates a new Hospital instance. All arguments are required and must be not null. 
+     * Creates a new Hospital instance. All arguments are required and must be not null.
+     *
      * @param code
      * @param location
      * @param name
@@ -94,21 +99,21 @@ public class Hospital extends AbstractEntity {
     protected void setPersons(Set<Person> persons) {
         this.persons = persons;
     }
-    
-    public boolean addPerson(Person person){
+
+    public boolean addPerson(Person person) {
         person.setHospital(this);
         return persons.add(person);
     }
 
     // IDE generated methods
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Hospital hospital = (Hospital) o;
-        if(id != null && id.equals(hospital.id)) return true;
+        if (id != null && id.equals(hospital.id)) return true;
         if (address != null ? !address.equals(hospital.address) : hospital.address != null) return false;
         if (code != null ? !code.equals(hospital.code) : hospital.code != null) return false;
         if (location != null ? !location.equals(hospital.location) : hospital.location != null) return false;

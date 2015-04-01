@@ -1,16 +1,15 @@
 package com.pr.ents;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.pr.base.AbstractEntity;
 import com.pr.base.Gender;
 import com.pr.util.JsonDateSerializer;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,21 +24,21 @@ import java.util.Set;
 public class Person extends AbstractEntity {
 
     @Column(nullable = false)
-    @NotEmpty
+    @Size(min=2, max=50)
     public String firstName;
 
     @Column
     public String middleName;
 
     @Column(nullable = false)
-    @NotEmpty
+    @Size(min=2, max=50)
     public String lastName;
 
     @Column
     @NotNull
     //Specialized JSON annotation in order to describe how the date will be formatted in the JSON output
     @JsonSerialize(using=JsonDateSerializer.class)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
     @Enumerated(EnumType.STRING)
