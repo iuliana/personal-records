@@ -35,10 +35,14 @@ public class PersonController {
 
     private PersonRepo personRepo;
 
-    @Autowired
-    public PersonController(PersonRepo personRepo) {
+    public void setPersonRepo(PersonRepo personRepo) {
         this.personRepo = personRepo;
     }
+
+    public PersonController() {
+       // required by Liferay
+    }
+
 
     /**
      * @param model
@@ -102,14 +106,6 @@ public class PersonController {
     @ActionMapping(value = "search")
     public void actionSearch(ActionRequest request, ActionResponse response) {
         logger.info("Action Request Search performed!");
-    }
-
-    /**
-     *
-     */
-    @ResourceMapping(value = "asXls")
-    public void loadSearchResults(ResourceRequest resourceRequest, ResourceResponse resourceResponse) {
-        // resourceResponse.getWriter().write(dataResponse);
     }
 
     public static String getHttpRequestParam(RenderRequest renderRequest, String paramName) {

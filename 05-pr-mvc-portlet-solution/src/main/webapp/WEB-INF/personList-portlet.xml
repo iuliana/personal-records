@@ -8,6 +8,6 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-   <bean id="personSearch" class="com.pr.PersonController" p:personRepo-ref="personRepo"/>
+    <bean id="personList" class="com.pr.PersonListController" p:personRepo-ref="personRepo"/>
 
 </beans>

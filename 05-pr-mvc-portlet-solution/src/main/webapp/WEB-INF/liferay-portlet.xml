@@ -8,4 +8,9 @@
  		<remoteable>true</remoteable>
  	</portlet>
 
+    <portlet>
+        <portlet-name>personList</portlet-name>
+        <instanceable>true</instanceable>
+        <remoteable>true</remoteable>
+    </portlet>
  </liferay-portlet-app>

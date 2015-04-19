@@ -18,4 +18,19 @@
 		</portlet-info>
 	</portlet>
 
+    <portlet>
+        <portlet-name>personList</portlet-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+        <resource-bundle>content.Language-ext</resource-bundle>
+        <portlet-info>
+            <title>Person List</title>
+        </portlet-info>
+    </portlet>
+
+
+
 </portlet-app>
