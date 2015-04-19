@@ -9,18 +9,19 @@ include '03-pr-mvc-view-practice'
 include '03-pr-mvc-view-solution'
 include '04-pr-mvc-form-practice'
 include '04-pr-mvc-form-solution'
-include '05-pr-rest-practice'
-include '05-pr-rest-solution'
-include '06-pr-ajax-practice'
-include '06-pr-ajax-solution'
-include '07-pr-webflow-basic-practice'
-include '07-pr-webflow-basic-solution'
-include '08-pr-webflow-fundamentals-practice'
-include '08-pr-webflow-fundamentals-solution'
-include '09-pr-webflow-actions-practice'
-include '09-pr-webflow-actions-solution'
-include '10-pr-web-security-practice'
-include '10-pr-web-security-solution'
+include '05-pr-mvc-portlet-solution'
+include '06-pr-rest-practice'
+include '06-pr-rest-solution'
+include '07-pr-ajax-practice'
+include '07-pr-ajax-solution'
+include '08-pr-webflow-basic-practice'
+include '08-pr-webflow-basic-solution'
+include '09-pr-webflow-fundamentals-practice'
+include '09-pr-webflow-fundamentals-solution'
+include '10-pr-webflow-actions-practice'
+include '10-pr-webflow-actions-solution'
+include '11-pr-web-security-practice'
+include '11-pr-web-security-solution'
 
 //we check if the modules have gradle configuration files
 println(' This project is a collection of simple code samples. It is meant to be used together with the ' +
@@ -32,6 +33,8 @@ rootProject.children.each { project ->
     assert project.buildFile.exists()
     assert project.buildFile.isFile()
 }
+
+
 
 
 

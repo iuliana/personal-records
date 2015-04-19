@@ -22,7 +22,7 @@ subprojects {
 
 //We define versions for the libraries we will be using
 ext {
-    springVersion = '4.1.3.RELEASE'
+    springVersion = '4.1.6.RELEASE'
     springJpaVersion = '1.7.1.RELEASE'
     springSecurityVersion = '3.2.5.RELEASE'
     webflowVersion = '2.4.1.RELEASE'
@@ -55,7 +55,11 @@ ext {
             poi               : "org.apache.poi:poi:${poiVersion}",
             jacksonCore       : "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}",
             jacksonDatabind   : "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}",
-            jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
+            jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
+            portlet : "javax.portlet:portlet-api:2.0",
+            standard: "taglibs:standard:1.1.2",
+            servlet : "javax.servlet:javax.servlet-api:3.1.0",
+            liferayService :"com.liferay.portal:portal-service:6.2.2"
     ]
 
     tests = [
@@ -80,11 +84,13 @@ ext {
             aop            : "org.springframework:spring-aop:$springVersion",
             jdbc           : "org.springframework:spring-jdbc:$springVersion",
             orm            : "org.springframework:spring-orm:$springVersion",
+            mvcPortlet     : "org.springframework:spring-webmvc-portlet:$springVersion",
             contextSupport : "org.springframework:spring-context-support:$springVersion",
             securityWeb    : "org.springframework.security:spring-security-web:$springSecurityVersion",
             securityTaglibs: "org.springframework.security:spring-security-taglibs:$springSecurityVersion",
             securityConfig : "org.springframework.security:spring-security-config:$springSecurityVersion"
     ]
+
 }
 
 task allCompile << {
@@ -96,3 +102,4 @@ task allCompile << {
         }
     }
 }
+
