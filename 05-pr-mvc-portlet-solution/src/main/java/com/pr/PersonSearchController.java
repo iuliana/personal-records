@@ -1,19 +1,15 @@
 package com.pr;
 
 import com.pr.ents.Person;
-import com.pr.repos.HospitalRepo;
 import com.pr.repos.PersonRepo;
 import com.pr.util.DateFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
-import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 import com.liferay.portal.util.PortalUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,9 +25,9 @@ import java.util.List;
  */
 @Controller("personSearch")
 @RequestMapping("VIEW")
-public class PersonController {
+public class PersonSearchController {
 
-    private Logger logger = LoggerFactory.getLogger(PersonController.class);
+    private Logger logger = LoggerFactory.getLogger(PersonSearchController.class);
 
     private PersonRepo personRepo;
 
@@ -39,7 +35,7 @@ public class PersonController {
         this.personRepo = personRepo;
     }
 
-    public PersonController() {
+    public PersonSearchController() {
        // required by Liferay
     }
 
@@ -54,6 +50,7 @@ public class PersonController {
         String fieldName = getHttpRequestParam(request, "fieldName");
         String fieldValue = getHttpRequestParam(request, "fieldValue");
         String exactMatchStr = getHttpRequestParam(request, "exactMatch");
+
         model.addAttribute("fieldName", fieldName);
         model.addAttribute("fieldValue", fieldValue);
         model.addAttribute("exactMatch", exactMatchStr);

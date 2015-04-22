@@ -9,5 +9,4 @@
        http://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean id="personList" class="com.pr.PersonListController" p:personRepo-ref="personRepo"/>
-
 </beans>

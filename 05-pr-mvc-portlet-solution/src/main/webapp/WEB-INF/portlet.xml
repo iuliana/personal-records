@@ -12,7 +12,7 @@
 			<mime-type>text/html</mime-type>
 			<portlet-mode>view</portlet-mode>
 		</supports>
-		<resource-bundle>content.Language-ext</resource-bundle>
+		<resource-bundle>localization.global</resource-bundle>
 		<portlet-info>
 			<title>Person Search</title>
 		</portlet-info>
@@ -25,12 +25,10 @@
             <mime-type>text/html</mime-type>
             <portlet-mode>view</portlet-mode>
         </supports>
-        <resource-bundle>content.Language-ext</resource-bundle>
+        <resource-bundle>localization.global</resource-bundle>
         <portlet-info>
             <title>Person List</title>
         </portlet-info>
     </portlet>
-
-
 
 </portlet-app>
