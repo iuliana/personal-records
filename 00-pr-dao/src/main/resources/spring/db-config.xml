@@ -20,8 +20,9 @@
               <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
 
               <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
-              <prop key="hibernate.format_sql">true</prop>
-              <prop key="hibernate.use_sql_comments">true</prop>
+             <!--  <prop key="hibernate.format_sql">true</prop>-->
+             <!-- <prop key="hibernate.use_sql_comments">true</prop>-->
+             <prop key="show_sql">false</prop>
 
               <!-- An improved naming strategy that prefers embedded underscores to mixed case names-->
               <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>

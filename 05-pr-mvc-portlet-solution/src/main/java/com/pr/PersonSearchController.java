@@ -1,5 +1,6 @@
 package com.pr;
 
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.pr.ents.Person;
 import com.pr.repos.PersonRepo;
 import com.pr.util.DateFormatter;
@@ -103,6 +104,13 @@ public class PersonSearchController {
     @ActionMapping(value = "search")
     public void actionSearch(ActionRequest request, ActionResponse response) {
         logger.info("Action Request Search performed!");
+
+        String fieldName = request.getParameter("fieldName");
+        String fieldValue = (String)request.getAttribute("fieldValue");
+        String exactMatchStr = ParamUtil.getString(request, "exactMatch");
+
+        logger.info("ACTION: Performing search for parameters: {}, {}, {} ", new Object[]{fieldName, fieldValue, exactMatchStr});
+
     }
 
     public static String getHttpRequestParam(RenderRequest renderRequest, String paramName) {

@@ -4,6 +4,7 @@ import com.pr.ents.Account;
 import com.pr.ents.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -15,6 +16,6 @@ public interface AccountRepo extends JpaRepository<Account, Long>{
     /**
      * Find all the accounts for the given person.
      */
-    @Query("select h from Hospital h where h.code = :code")
-    List<Account> findByPerson(Person person);
+    @Query("select a from Account a where a.person = :person")
+    List<Account> findByPerson(@Param("person")Person person);
 }

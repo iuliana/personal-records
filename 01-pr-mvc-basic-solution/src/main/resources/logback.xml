@@ -1,35 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <logger name="com.pr" level="INFO" additivity="false">
-        <appender-ref ref="STDOUT" />
-    </logger>
+    <logger name="com.pr" level="debug"/>
 
-    <logger name="org.springframework.beans" level="DEBUG" additivity="false">
-        <appender-ref ref="STDOUT" />
-    </logger>
+    <logger name="org.springframework" level="off"/>
 
+    <logger name="org.springframework.jdbc" level="warn"/>
 
-    <logger name="    org.springframework.orm.jpa.JpaTransactionManager" level="INFO" additivity="false">
-        <appender-ref ref="STDOUT" />
-    </logger>
+    <logger name="org.hibernate.SQL" additivity="false" level="off" />
 
+    <logger name="org.hibernate.type" additivity="false" level="off" />
 
-    <logger name="org.springframework.web" level="INFO" additivity="false">
-        <appender-ref ref="STDOUT" />
-    </logger>
+    <logger name="org.hibernate.tool.hbm2ddl" level="off"/>
 
-    <logger name="org.hibernate" level="OFF" additivity="false">
-        <appender-ref ref="STDOUT" />
-    </logger>
-
-    <root level="DEBUG">
-        <appender-ref ref="STDOUT" />
+    <root level="info">
+        <appender-ref ref="console" />
     </root>
 </configuration>
