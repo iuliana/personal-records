@@ -1,5 +1,5 @@
 dependencies {
-    compile misc.slf4jApi, misc.slf4jJcl, misc.logback,
+    compile log.slf4jApi, log.slf4jJcl, log.logback, log.jbossLog, log.slf4jLog4j,
             hibernate.ehcache, hibernate.em, hibernate.core, hibernate.validator,
             spring.jdbc, spring.orm, spring.contextSupport, spring.data,
             misc.dbcp, misc.h2, misc.joda,
