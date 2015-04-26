@@ -1,21 +1,23 @@
-package com.pr;
+package com.pr.search;
 
-import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.util.PortalUtil;
+import com.pr.FieldGroup;
 import com.pr.ents.Person;
 import com.pr.repos.PersonRepo;
 import com.pr.util.DateFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
-import com.liferay.portal.util.PortalUtil;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.RenderRequest;
 import javax.servlet.http.HttpServletRequest;
-
-import javax.portlet.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,16 +32,8 @@ public class PersonSearchController {
 
     private Logger logger = LoggerFactory.getLogger(PersonSearchController.class);
 
+    @Autowired
     private PersonRepo personRepo;
-
-    public void setPersonRepo(PersonRepo personRepo) {
-        this.personRepo = personRepo;
-    }
-
-    public PersonSearchController() {
-       // required by Liferay
-    }
-
 
     /**
      * @param model
@@ -106,11 +100,10 @@ public class PersonSearchController {
         logger.info("Action Request Search performed!");
 
         String fieldName = request.getParameter("fieldName");
-        String fieldValue = (String)request.getAttribute("fieldValue");
-        String exactMatchStr = ParamUtil.getString(request, "exactMatch");
+        String fieldValue = request.getParameter("fieldValue");
+        String exactMatchStr = request.getParameter("exactMatch");
 
         logger.info("ACTION: Performing search for parameters: {}, {}, {} ", new Object[]{fieldName, fieldValue, exactMatchStr});
-
     }
 
     public static String getHttpRequestParam(RenderRequest renderRequest, String paramName) {

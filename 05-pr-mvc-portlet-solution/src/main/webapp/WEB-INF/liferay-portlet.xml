@@ -8,7 +8,8 @@
  		<remoteable>true</remoteable>
         <requires-namespaced-parameters>false</requires-namespaced-parameters>
         <header-portlet-css>/styles/general.css</header-portlet-css>
- 	</portlet>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
 
     <portlet>
         <portlet-name>personList</portlet-name>
@@ -16,5 +17,6 @@
         <remoteable>true</remoteable>
         <requires-namespaced-parameters>false</requires-namespaced-parameters>
         <header-portlet-css>/styles/general.css</header-portlet-css>
+        <add-default-resource>true</add-default-resource>
     </portlet>
  </liferay-portlet-app>

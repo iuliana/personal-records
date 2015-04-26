@@ -11,7 +11,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.pr" level="debug"/>
+    <logger name="com.pr" level="info"/>
 
     <logger name="org.springframework" level="off"/>
 
