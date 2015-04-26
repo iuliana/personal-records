@@ -48,21 +48,7 @@
                 <td>
                         ${person.hospital.name}
                 </td>
-                <td align="center" valign="top" width="100px"><a
-                        href="
-						<portlet:renderURL>
-							<portlet:param name="action" value="personEdit" />
-							<portlet:param name="id" value="${person.id}" />
-						</portlet:renderURL>
-					"><b>Edit</b></a>
-                    /
-                    <a href="
-						<portlet:actionURL>
-							<portlet:param name="action" value="personDelete" />
-							<portlet:param name="id" value="${person.id}" />
-						</portlet:actionURL>
-					" onclick="javascript: return confirmRemove()"><b>Remove</b></a></td>
             </tr>
         </c:forEach>
     </table>
-</div>f>
+</div>

@@ -9,39 +9,6 @@
     <portlet:param name="javax.portlet.action" value="search"/>
 </portlet:actionURL>
 
-
-<style type="text/css">
-    table {
-        background-color: #FFFFE0;
-        border-collapse: collapse;
-        color: #FFFFFF;
-    }
-
-    table thead {
-        background-color: #BDB76B;
-        color: white;
-        width: 50%;
-        font-weight: bold;
-    }
-
-    table td {
-        padding: 5px;
-        border: 0;
-    }
-
-    table td {
-        border-bottom: 1px dotted #BDB76B;
-    }
-
-    .error {
-        border: 1px solid;
-        margin: 5px 0px;
-        padding: 5px 5px 5px 50px;
-        color: #D8000C;
-        background-color: #FFBABA;
-    }
-</style>
-
 <div id="searchContent">
     <h3>
         <fmt:message key="persons.search.title"/>

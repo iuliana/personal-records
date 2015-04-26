@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.0.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_0_0.dtd">
+<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.2.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_2_0.dtd">
 
  <liferay-portlet-app>
  	<portlet>
  		<portlet-name>personSearch</portlet-name>
  		<instanceable>true</instanceable>
  		<remoteable>true</remoteable>
+        <requires-namespaced-parameters>false</requires-namespaced-parameters>
+        <header-portlet-css>/styles/general.css</header-portlet-css>
  	</portlet>
 
     <portlet>
         <portlet-name>personList</portlet-name>
         <instanceable>true</instanceable>
         <remoteable>true</remoteable>
+        <requires-namespaced-parameters>false</requires-namespaced-parameters>
+        <header-portlet-css>/styles/general.css</header-portlet-css>
     </portlet>
  </liferay-portlet-app>
