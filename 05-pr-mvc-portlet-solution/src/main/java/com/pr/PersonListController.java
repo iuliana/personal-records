@@ -4,6 +4,7 @@ import com.pr.ents.Person;
 import com.pr.repos.PersonRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,18 +23,11 @@ public class PersonListController {
 
     private Logger logger = LoggerFactory.getLogger(PersonListController.class);
 
+    @Autowired
     private PersonRepo personRepo;
 
-    public void setPersonRepo(PersonRepo personRepo) {
-        this.personRepo = personRepo;
-    }
-
-    public PersonListController() {
-        // required by Liferay
-    }
-
     @RenderMapping
-    public String showPersons() {
+    public String render() {
         return "list";
     }
 
