@@ -38,13 +38,13 @@ public class Person extends AbstractEntity {
     @NotNull
     //Specialized JSON annotation in order to describe how the date will be formatted in the JSON output
     @JsonSerialize(using=JsonDateSerializer.class)
-    //@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
     @Enumerated(EnumType.STRING)
     @NotNull
     private Gender gender;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "HOSPITAL_ID", nullable = false)
     private Hospital hospital;
@@ -181,7 +181,7 @@ public class Person extends AbstractEntity {
 
     @Override
     public String toString() {
-        return String.format("Person[firstName='%s', lastName='%s', dateOfBirth='%s', gender='%s', hospital='%s']", getFirstName(),
-                getLastName(), String.format("%tY-%tm-%td", dateOfBirth, dateOfBirth, dateOfBirth), gender.toString(), hospital.getCode());
+        return String.format("Person[firstName='%s', lastName='%s', dateOfBirth='%s', gender='%s', hospital='%s']", firstName,
+                lastName, String.format("%tY-%tm-%td", dateOfBirth, dateOfBirth, dateOfBirth), gender);
     }
 }

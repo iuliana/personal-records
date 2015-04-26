@@ -46,7 +46,7 @@ public class IdentityCardRepoTest {
         Person person = personRepo.save(PersonRepoTest.of("Barbara", "Liskov", "1939-11-07", Gender.FEMALE, hospital));
         DateTime dt1 = DateTime.parse("1953-11-05");
         DateTime dt2 = DateTime.parse("1963-11-05");
-        IdentityCard identityCard = new IdentityCard(person, "187313", "BL", dt1.toDate(), dt2.toDate());
+        IdentityCard identityCard = new IdentityCard(person, "BL", "187313", dt1.toDate(), dt2.toDate());
         person.setIdentityCard(identityCard);
         personRepo.save(person);
 
@@ -55,7 +55,7 @@ public class IdentityCardRepoTest {
         person = personRepo.save(PersonRepoTest.of("Stephen", "Hawking", "1942-01-08", Gender.MALE, hospital));
         dt1 = DateTime.parse("1956-01-05");
         dt2 = DateTime.parse("1966-11-05");
-        identityCard = new IdentityCard(person, "189313", "SH", dt1.toDate(), dt2.toDate());
+        identityCard = new IdentityCard(person, "SH", "189313", dt1.toDate(), dt2.toDate());
         person.setIdentityCard(identityCard);
         personRepo.saveAndFlush(person);
 

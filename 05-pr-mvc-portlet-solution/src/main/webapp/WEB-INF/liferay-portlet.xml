@@ -2,6 +2,15 @@
 <!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.2.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_2_0.dtd">
 
  <liferay-portlet-app>
+    <portlet>
+        <portlet-name>personAdd</portlet-name>
+        <instanceable>true</instanceable>
+        <remoteable>true</remoteable>
+        <requires-namespaced-parameters>false</requires-namespaced-parameters>
+        <header-portlet-css>/styles/general.css</header-portlet-css>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
  	<portlet>
  		<portlet-name>personSearch</portlet-name>
  		<instanceable>true</instanceable>
@@ -11,12 +20,4 @@
         <add-default-resource>true</add-default-resource>
     </portlet>
 
-    <portlet>
-        <portlet-name>personList</portlet-name>
-        <instanceable>true</instanceable>
-        <remoteable>true</remoteable>
-        <requires-namespaced-parameters>false</requires-namespaced-parameters>
-        <header-portlet-css>/styles/general.css</header-portlet-css>
-        <add-default-resource>true</add-default-resource>
-    </portlet>
  </liferay-portlet-app>

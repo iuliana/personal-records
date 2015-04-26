@@ -1,20 +1,32 @@
-<!-- Created by iuliana.cosmina on 3/29/15. -->
-
+<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 
-<h2>
-    <fmt:message key="persons.edit.title"/>
-</h2>
+<portlet:defineObjects />
+
+<h3>
+    <fmt:message key="persons.add.title"/>
+</h3>
+
+<portlet:actionURL var="addPersonUrl">
+    <portlet:param name="javax.portlet.action" value="add"/>
+</portlet:actionURL>
+
+<portlet:renderURL var="cleanPersonUrl">
+    <portlet:param name="action" value="clean" />
+</portlet:renderURL>
 
 <div class="person">
-    <spring:url value="/persons/{id}" var="editUrl">
-        <spring:param name="id" value="${person.id}"/>
-    </spring:url>
-    <sf:form modelAttribute="person" action="${editUrl}" method="POST">
+
+    <c:if test="${message ne null}">
+        <div class="success"><c:out value="${message}"/></div>
+    </c:if>
+    <c:if test="${error ne null}">
+        <div class="error"><c:out value="${error}"/></div>
+    </c:if>
+    <sf:form name="person" modelAttribute="person" action="${addPersonUrl}" method="POST">
         <table>
             <tr>
                 <th>
@@ -49,20 +61,21 @@
                         <span class="man">*</span> <fmt:message key="label.Person.dob"/> :
                     </label>
                 </th>
-                <td><sf:input path="dateOfBirth"/></td>
+                <td><sf:input path="dateOfBirth"  sf:placeholder="YYYY-MM-DD"/></td>
                 <td><sf:errors cssClass="error" path="dateOfBirth"/></td>
             </tr>
 
             <tr>
                 <th>
                     <label for="gender">
-                        <fmt:message key="label.Person.gender"/> :
+                        <span class="man">*</span> <fmt:message key="label.Person.gender"/> :
                     </label>
                 </th>
                 <td>
                     <sf:radiobutton path="gender" value="MALE"/> <fmt:message key="label.Person.male"/>
                     <sf:radiobutton path="gender" value="FEMALE"/> <fmt:message key="label.Person.female"/>
                 </td>
+                <td><sf:errors cssClass="error" path="gender"/></td>
             </tr>
             <tr>
                 <th>
@@ -83,19 +96,15 @@
 
                         <sf:options items="${hospitalList}" itemValue="id" itemLabel="name"/>
                     </sf:select>
-
                 </td>
+                <td><sf:errors cssClass="error" path="hospital"/></td>
             </tr>
             <tr>
                 <td>
-                    <button id="saveButton" type="submit">
-                        <fmt:message key="command.save"/>
-                    </button>
+                    <input type="submit" value=" <fmt:message key='command.save'/>">
                 </td>
                 <td>
-                    <a href="${editUrl}">
-                        <fmt:message key="command.cancel"/>
-                    </a>
+                    <a href="${cleanPersonUrl}"><fmt:message key="command.cancel"/></a>
                 </td>
             </tr>
         </table>

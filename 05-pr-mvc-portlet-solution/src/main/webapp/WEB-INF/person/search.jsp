@@ -3,13 +3,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <fmt:setBundle basename="localization/global"/>
-<portlet:defineObjects/>
+
+<portlet:defineObjects />
 
 <portlet:actionURL var="searchRequestURL">
     <portlet:param name="javax.portlet.action" value="search"/>
 </portlet:actionURL>
 
-<div id="searchContent">
+<portlet:actionURL var="deletePersonUrl">
+    <portlet:param name="javax.portlet.action" value="delete"/>
+</portlet:actionURL>
+
+<div id="person">
     <h3>
         <fmt:message key="persons.search.title"/>
     </h3>
@@ -41,9 +46,8 @@
                 <th>
                     <fmt:message key="label.Criteria.fieldvalue"/> :
                 </th>
-                <td>
-                    <input type="text" id="fieldValue" name="fieldValue" value="${fieldValue}"/>
-                    <em><br><fmt:message key="label.dateFormat.accepted"/></em>
+                <td valign="top">
+                    <input type="text" id="fieldValue" name="fieldValue" value="${fieldValue}"/> <em><br><fmt:message key="label.dateFormat.accepted"/></em>
                     <c:if test="${not empty error}">
                         <span class="error">${error}</span>
                     </c:if>
@@ -95,12 +99,13 @@
                     <td>
                         <fmt:message key="label.Hospital.name"/>
                     </td>
+                    <td></td>
                 </tr>
                 </thead>
                 <c:forEach var="person" items="${persons}">
                     <tr>
                         <td>
-                                ${person.id}
+                                ${person.identityCard.pnc}
                         </td>
                         <td>
                                 ${person.firstName}
@@ -117,6 +122,7 @@
                         <td>
                                 ${person.hospital.name}
                         </td>
+                        <td><a href="${deletePersonUrl}&personId=${person.id}"><fmt:message key="command.delete"/></a></td>
                     </tr>
                 </c:forEach>
             </table>

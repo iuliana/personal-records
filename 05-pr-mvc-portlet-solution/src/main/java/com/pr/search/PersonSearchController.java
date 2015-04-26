@@ -8,9 +8,11 @@ import com.pr.util.DateFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
@@ -19,9 +21,7 @@ import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by iuliana.cosmina on 4/18/15.
@@ -42,17 +42,60 @@ public class PersonSearchController {
     @RenderMapping
     public String render(Model model, RenderRequest request) {
         logger.info("Render Request performed!");
-        String fieldName = getHttpRequestParam(request, "fieldName");
-        String fieldValue = getHttpRequestParam(request, "fieldValue");
-        String exactMatchStr = getHttpRequestParam(request, "exactMatch");
+        String fieldName = (String) model.asMap().get("fieldName");
+        String fieldValue = (String) model.asMap().get("fieldValue");
+        String exactMatchStr = (String)  model.asMap().get("exactMatch");
+
+        logger.info("RENDER: Performing search for parameters: {}, {}, {} ", new Object[]{fieldName, fieldValue, exactMatchStr});
 
         model.addAttribute("fieldName", fieldName);
         model.addAttribute("fieldValue", fieldValue);
         model.addAttribute("exactMatch", exactMatchStr);
 
-        logger.info("Performing search for parameters: {}, {}, {} ", new Object[]{fieldName, fieldValue, exactMatchStr});
+        model.addAttribute("persons", revtrieveList(fieldName, fieldValue, exactMatchStr, model));
 
-        boolean exactMatch = exactMatchStr != null && exactMatchStr.equalsIgnoreCase("on")? true: false;
+        return "search";
+    }
+
+    /**
+     * @param request
+     * @param response
+     */
+    @ActionMapping("search")
+    public void actionSearch(ActionRequest request, ActionResponse response, Model model) {
+        logger.info("Action Request Search performed!");
+
+        String fieldName = request.getParameter("fieldName");
+        String fieldValue = request.getParameter("fieldValue");
+        String exactMatchStr = request.getParameter("exactMatch");
+        logger.info("ACTION: Performing search for parameters: {}, {}, {} ", new Object[]{fieldName, fieldValue, exactMatchStr});
+
+        model.addAttribute("fieldName", fieldName);
+        model.addAttribute("fieldValue", fieldValue);
+        model.addAttribute("exactMatch", exactMatchStr);
+    }
+
+
+    @ActionMapping("delete")
+    public void actionDelete(@RequestParam Long personId) {
+        logger.info("ACTION: Deleting person with id= " + personId);
+        personRepo.delete(personId);
+    }
+
+    //--------------------- Utility methods ---------------------
+
+    public static String getHttpRequestParam(RenderRequest renderRequest, String paramName) {
+        HttpServletRequest convertReq = PortalUtil.getHttpServletRequest(renderRequest);
+        HttpServletRequest originalReq = PortalUtil.getOriginalServletRequest(convertReq);
+        return originalReq.getParameter(paramName);
+    }
+
+    public static boolean isEmpty(String str) {
+        return str == null || str.length() == 0;
+    }
+
+    private List<Person> revtrieveList(String fieldName, String fieldValue, String exactMatchStr, Model model) {
+        boolean exactMatch = exactMatchStr != null && exactMatchStr.equalsIgnoreCase("on") ? true : false;
 
         List<Person> persons = new ArrayList<Person>();
         if (!isEmpty(fieldName) && !isEmpty(fieldValue)) {
@@ -84,35 +127,10 @@ public class PersonSearchController {
                             : personRepo.getByPncLike(fieldValue);
                     break;
             }
+        } else {
+            persons = personRepo.findAll();
         }
 
-       model.addAttribute("persons", persons);
-
-        return "search";
-    }
-
-    /**
-     * @param request
-     * @param response
-     */
-    @ActionMapping(value = "search")
-    public void actionSearch(ActionRequest request, ActionResponse response) {
-        logger.info("Action Request Search performed!");
-
-        String fieldName = request.getParameter("fieldName");
-        String fieldValue = request.getParameter("fieldValue");
-        String exactMatchStr = request.getParameter("exactMatch");
-
-        logger.info("ACTION: Performing search for parameters: {}, {}, {} ", new Object[]{fieldName, fieldValue, exactMatchStr});
-    }
-
-    public static String getHttpRequestParam(RenderRequest renderRequest, String paramName) {
-        HttpServletRequest convertReq = PortalUtil.getHttpServletRequest(renderRequest);
-        HttpServletRequest originalReq = PortalUtil.getOriginalServletRequest(convertReq);
-        return originalReq.getParameter(paramName);
-    }
-
-    public static boolean isEmpty(String str) {
-        return str == null || str.length() == 0;
+        return persons;
     }
 }

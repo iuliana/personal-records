@@ -48,7 +48,7 @@ public class IdentityCard extends AbstractEntity {
     /**
      * The number of the identity card. Six digits.
      */
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @Pattern(regexp = "\\d{6}")
     @NotEmpty
     private String number;
@@ -56,13 +56,11 @@ public class IdentityCard extends AbstractEntity {
     @Column
     @NotNull
     @JsonSerialize(using=JsonDateSerializer.class)
-    //@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date emittedAt;
 
     @Column
     @NotNull
     @JsonSerialize(using=JsonDateSerializer.class)
-    //@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date expiresAt;
     
     @Column

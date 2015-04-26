@@ -3,7 +3,7 @@
 
  <display>
  	<category name="Personal Records">
- 		<portlet id="personSearch" />
-        <portlet id="personList" />
+        <portlet id="personAdd" />
+        <portlet id="personSearch" />
  	</category>
  </display>

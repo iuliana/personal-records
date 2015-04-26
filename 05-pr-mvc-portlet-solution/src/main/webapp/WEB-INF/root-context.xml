@@ -8,11 +8,11 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="com.pr"/>
-
     <!-- Import configuration for the datasource and the dao project -->
     <import resource="classpath:spring/app-dao-config.xml"/>
     <import resource="classpath:spring/db-config.xml"/>
+
+    <context:component-scan base-package="com.pr"/>
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
@@ -23,4 +23,19 @@
           class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
           p:basename="classpath:localization/global"
           lazy-init="true"/>
+
+    <!-- Define a custom ConversionService -->
+    <bean id="typeConversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <bean class="com.pr.util.DateFormatter"/>
+                <bean class="com.pr.util.HospitalFormatter"/>
+            </set>
+        </property>
+    </bean>
+
+
+    <bean id="validator"
+          class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
 </beans>

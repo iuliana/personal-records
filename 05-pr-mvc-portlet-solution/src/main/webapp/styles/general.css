@@ -1,7 +1,13 @@
 table {
     background-color: #FFFFE0;
     border-collapse: collapse;
-    color: #FFFFFF;
+    color: #ffffff;
+}
+
+.aui .person label {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 200;
 }
 
 table thead {
@@ -14,16 +20,45 @@ table thead {
 table td {
     padding: 5px;
     border: 0;
+    alignment: left;
 }
 
 table td {
     border-bottom: 1px dotted #BDB76B;
 }
 
-.error {
+.menu{
+    line-height:30px;
+    width:150px;
+    float:left;
+    padding:5px;
+}
+
+.footer{
+    clear:both;
+    text-align:left;
+    padding:10px;
+}
+
+.error{
     border: 1px solid;
     margin: 5px 0px;
-    padding: 5px 5px 5px 50px;
+    padding:5px 5px 5px 50px;
     color: #D8000C;
     background-color: #FFBABA;
+}
+
+
+.success{
+    border: 1px solid;
+    margin: 5px 0px;
+    padding:5px 5px 5px 50px;
+    color:#21610B;
+    background-color: #BDB76B;
+}
+
+
+.man {
+    color: #D8000C;
+    font-weight: bold;
 }

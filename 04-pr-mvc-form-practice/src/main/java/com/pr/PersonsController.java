@@ -1,5 +1,6 @@
 package com.pr;
 
+import com.pr.ents.Hospital;
 import com.pr.ents.Person;
 import com.pr.problem.NotFoundException;
 import com.pr.repos.HospitalRepo;
@@ -63,8 +64,6 @@ public class PersonsController {
      */
     @RequestMapping(value="/edit", method = RequestMethod.GET)
     public String edit(Model model) {
-        //we add the hospitalList to show in the Hospital drop-down list
-        model.addAttribute(hospitalRepo.findAll());
         return "persons/edit";
     }
 
@@ -81,12 +80,16 @@ public class PersonsController {
     // TODO 12. Enable validation for the form object
     public String save(Person person, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            // we need to add this here as the dropdown list has to be populated correctly
-            model.addAttribute(hospitalRepo.findAll());
             return "persons/edit";
         }
         personRepo.save(person);
         return "redirect:/persons/" + person.getId();
+    }
+
+
+    @ModelAttribute
+    private List<Hospital> getHospitals() {
+        return hospitalRepo.findAll();
     }
 
 }
