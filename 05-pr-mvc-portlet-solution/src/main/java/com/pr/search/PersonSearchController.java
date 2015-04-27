@@ -84,12 +84,6 @@ public class PersonSearchController {
 
     //--------------------- Utility methods ---------------------
 
-    public static String getHttpRequestParam(RenderRequest renderRequest, String paramName) {
-        HttpServletRequest convertReq = PortalUtil.getHttpServletRequest(renderRequest);
-        HttpServletRequest originalReq = PortalUtil.getOriginalServletRequest(convertReq);
-        return originalReq.getParameter(paramName);
-    }
-
     public static boolean isEmpty(String str) {
         return str == null || str.length() == 0;
     }
