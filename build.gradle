@@ -45,7 +45,6 @@ ext {
             slf4jApi   : "org.slf4j:slf4j-api:$slf4jVersion",
             slf4jJcl   : "org.slf4j:jcl-over-slf4j:$slf4jVersion",
             logback    : "ch.qos.logback:logback-classic:$logbackVersion",
-            jbossLog : "org.jboss.logging:jboss-logging-log4j:2.1.2.GA",
             slf4jLog4j: "org.slf4j:log4j-over-slf4j:$slf4jVersion"
     ]
 
