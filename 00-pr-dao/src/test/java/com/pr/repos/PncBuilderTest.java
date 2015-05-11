@@ -1,5 +1,7 @@
-package com.pr.base;
+package com.pr.repos;
 
+import com.pr.base.Gender;
+import com.pr.base.PncBuilder;
 import com.pr.ents.Hospital;
 import com.pr.ents.Person;
 import org.joda.time.DateTime;

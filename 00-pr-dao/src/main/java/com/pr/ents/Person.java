@@ -181,7 +181,7 @@ public class Person extends AbstractEntity {
 
     @Override
     public String toString() {
-        return String.format("Person[firstName='%s', lastName='%s', dateOfBirth='%s', gender='%s', hospital='%s']", firstName,
-                lastName, String.format("%tY-%tm-%td", dateOfBirth, dateOfBirth, dateOfBirth), gender);
+        return String.format("Person[firstName='%s', lastName='%s', dateOfBirth='%s', gender='%s', hospital='%s']", getFirstName(),
+                getLastName(), String.format("%tY-%tm-%td", dateOfBirth, dateOfBirth, dateOfBirth), gender.toString(), hospital.getCode());
     }
 }

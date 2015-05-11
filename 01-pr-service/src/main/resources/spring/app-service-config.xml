@@ -36,5 +36,20 @@
         <value>com.pr.ents</value>
     </util:list>
 
+    <util:properties id="hibernateProps">
+        <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+
+        <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+        <!--  <prop key="hibernate.format_sql">true</prop>-->
+        <!-- <prop key="hibernate.use_sql_comments">true</prop>-->
+
+        <!-- An improved naming strategy that prefers embedded underscores to mixed case names-->
+        <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+
+        <prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
+
+        <prop key="hibernate.connection.release_mode">auto</prop>
+    </util:properties>
+
 
 </beans>

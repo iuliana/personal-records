@@ -69,7 +69,7 @@ public interface PersonRepo extends JpaRepository<Person, Long> {
      * Find all persons with the given dob
      */
     @Query("select p from Person p where p.dateOfBirth = :dob")
-    List<Person> getByDateOfBirth(@Param("dob") Date  dob);
+    List<Person> getByDateOfBirth(@Param("dob") Date dob);
 
     /**
      * Returns all persons born ath the hospital with the given code
