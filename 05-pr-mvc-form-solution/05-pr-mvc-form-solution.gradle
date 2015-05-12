@@ -1,0 +1,19 @@
+apply plugin: 'war'
+apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
+
+dependencies {
+    compile project(':01-pr-service')
+    compile log.slf4jApi, log.slf4jJcl, log.logback, log.slf4jLog4j,
+            hibernate.ehcache, hibernate.em, hibernate.core, hibernate.validator,
+            spring.jdbc, spring.orm, spring.contextSupport, spring.data,
+            spring.webmvc,
+            misc.dbcp, misc.h2, misc.joda, misc.jstl, misc.tilesJsp, misc.tilesReqApi, misc.javaxEl,
+            misc.poi,misc.jacksonCore, misc.jacksonDatabind, misc.jacksonAnnotations
+
+    testCompile tests.junit, tests.mockito, spring.test, tests.hamcrestCore, tests.hamcrestLib
+}
+
+gretty {
+    port = 8080
+    contextPath = '/mvc-form'
+}

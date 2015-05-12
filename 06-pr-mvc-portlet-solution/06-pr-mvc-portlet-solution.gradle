@@ -1,0 +1,49 @@
+apply plugin: 'idea'
+apply plugin: "war"
+
+configurations {
+    provided
+    provided.extendsFrom(compile)
+}
+
+idea {
+    module {
+        scopes.PROVIDED.plus += [configurations.provided]
+    }
+}
+
+sourceSets {
+    main { compileClasspath += configurations.provided }
+}
+
+dependencies {
+    compile project(':01-pr-service')
+    compile log.slf4jApi, log.slf4jJcl, log.logback, log.slf4jLog4j,
+            hibernate.ehcache, hibernate.em, hibernate.core, hibernate.validator,
+            spring.jdbc, spring.orm, spring.contextSupport, spring.data,
+            spring.webmvc,spring.mvcPortlet, misc.standard,
+            misc.javaxEl,misc.poi,
+            misc.dbcp, misc.h2, misc.joda, misc.jstl
+
+    provided misc.portlet
+    provided misc.liferayService
+    provided misc.servlet
+}
+
+
+task warCreate << {
+    description 'Task used build a new war every time this task is executed'
+    this.getTasksByName("clean", true).each { t ->
+        t.execute();
+    }
+    this.getTasksByName("compileJava", true).each { t ->
+        t.execute();
+    }
+    this.getTasksByName("processResources", true).each { t ->
+        t.execute();
+    }
+    this.getTasksByName("war", true).each { t ->
+        t.execute();
+    }
+}
+
