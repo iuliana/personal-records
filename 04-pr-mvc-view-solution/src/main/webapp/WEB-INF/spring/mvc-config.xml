@@ -50,21 +50,26 @@
           p:favorParameter="false"
           p:favorPathExtension="true"
           p:useNotAcceptableStatusCode="true"
-          p:defaultViews-ref="defaultViewsList">
+          p:defaultViews-ref="defaultViewsList"
+          p:viewResolvers-ref="resolverList"
+          p:order="-1"/>
 
+    <util:list id="resolverList">
+        <bean class="com.pr.resolver.JsonViewResolver"/>
+        <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+        <!-- Resolves logical view names to Tiles 3 definitions -->
+        <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"
+              p:contentType="text/html"
+              p:requestContextAttribute="requestContext"/>
+    </util:list>
 
-        <property name="viewResolvers">
-            <list>
-                <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />
-                <!-- Resolves logical view names to Tiles 3 definitions -->
-                <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"
-                      p:contentType="text/html"
-                      p:requestContextAttribute="requestContext"/>
-                <bean class="com.pr.resolver.JsonViewResolver"/>
-            </list>
-        </property>
-
-    </bean>
+    <!-- Fallback Resolver: If no extension matched, use JSP view -->
+    <!-- Resolves view names to protected .jsp resources within the
+            /WEB-INF directory -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/"
+          p:suffix=".jsp"
+          p:order="0"/>
 
     <!-- A view that generates a Account report as an Excel spreadsheet -->
     <bean class="com.pr.views.PersonsExcelView"/>
@@ -130,5 +135,4 @@
             </property>
         </bean>
     </mvc:interceptors>
-
 </beans>
