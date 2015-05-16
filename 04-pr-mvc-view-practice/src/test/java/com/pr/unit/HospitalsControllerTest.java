@@ -1,8 +1,8 @@
 package com.pr.unit;
 
 import com.pr.HospitalsController;
-import com.pr.repos.HospitalRepo;
-import com.pr.repos.PersonRepo;
+import com.pr.service.HospitalManager;
+import com.pr.service.PersonManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,20 +29,20 @@ public class HospitalsControllerTest {
     private HospitalsController hospitalsController;
 
     @Mock
-    private PersonRepo personRepoMock;
+    private PersonManager personManagerMock;
     @Mock
-    private HospitalRepo hospitalRepoMock;
+    private HospitalManager hospitalManagerMock;
 
     @Before
     public void setUp() {
         hospitalsController = new HospitalsController();
-        hospitalsController.setHospitalManager(hospitalRepoMock);
-        hospitalsController.setPersonManager(personRepoMock);
+        hospitalsController.setHospitalManager(hospitalManagerMock);
+        hospitalsController.setPersonManager(personManagerMock);
     }
 
     @Test
     public void list() {
-        when(hospitalRepoMock.findAll()).thenReturn(new ArrayList<>());
+        when(hospitalManagerMock.findAll()).thenReturn(new ArrayList<>());
 
         Model model = new BindingAwareModelMap();
         String view = hospitalsController.list(model);
@@ -53,7 +53,7 @@ public class HospitalsControllerTest {
 
     @Test
     public void showBornHere() {
-        when(personRepoMock.getByHospital(TEST_CODE)).thenReturn(new ArrayList<>());
+        when(personManagerMock.getByHospital(TEST_CODE)).thenReturn(new ArrayList<>());
 
         RedirectAttributes attributes = Mockito.mock(RedirectAttributes.class);
         String view = hospitalsController.showBornHere(TEST_CODE, attributes);

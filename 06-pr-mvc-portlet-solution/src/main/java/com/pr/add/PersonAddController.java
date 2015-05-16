@@ -3,12 +3,8 @@ package com.pr.add;
 import com.pr.ents.Hospital;
 import com.pr.ents.IdentityCard;
 import com.pr.ents.Person;
-import com.pr.repos.HospitalRepo;
-import com.pr.repos.PersonRepo;
 import com.pr.service.HospitalManager;
 import com.pr.service.PersonManager;
-import com.pr.util.DateFormatter;
-import com.pr.util.HospitalFormatter;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,19 +21,14 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
-import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.portlet.ResourceResponse;
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by iuliana.cosmina on 4/26/15.

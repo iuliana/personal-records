@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.pr.base.AbstractEntity;
 import com.pr.base.PncBuilder;
 import com.pr.util.JsonDateSerializer;
+import com.pr.util.Pnc;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -35,6 +36,7 @@ public class IdentityCard extends AbstractEntity {
     @Column(nullable = false)
     @Pattern(regexp = "\\d{13}")
     @NotEmpty
+    @Pnc
     private String pnc;
 
     /**

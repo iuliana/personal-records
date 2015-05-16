@@ -25,6 +25,8 @@ public class Person extends AbstractEntity {
 
     @Column(nullable = false)
     @Size(min=2, max=50)
+
+    @NotEmpty
     public String firstName;
 
     @Column

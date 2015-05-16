@@ -125,7 +125,7 @@
     </div>
 </div>
 <div class="footer">
-    <p><fmt:message key="footer.text"/></p>
+    <p><spring:message code="footer.text"/></p>
 </div>
 </div>
 </body>

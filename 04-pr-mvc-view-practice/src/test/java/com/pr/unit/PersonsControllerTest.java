@@ -3,7 +3,7 @@ package com.pr.unit;
 import com.pr.PersonsController;
 import com.pr.ents.Person;
 import com.pr.problem.NotFoundException;
-import com.pr.repos.PersonRepo;
+import com.pr.service.PersonManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,16 +29,16 @@ public class PersonsControllerTest {
     private PersonsController personsController;
 
     @Mock
-    private PersonRepo repoMock;
+    private PersonManager managerMock;
 
     @Before
     public void setUp() {
-        personsController = new PersonsController(repoMock);
+        personsController = new PersonsController(managerMock);
     }
 
     @Test
     public void list() {
-        when(repoMock.findAll()).thenReturn(new ArrayList<>());
+        when(managerMock.findAll()).thenReturn(new ArrayList<>());
 
         Model model = new BindingAwareModelMap();
         String view = personsController.list(model);
@@ -49,7 +49,7 @@ public class PersonsControllerTest {
 
     @Test
     public void show() throws NotFoundException {
-        when(repoMock.findOne(TEST_ID)).thenReturn(new Person());
+        when(managerMock.findById(TEST_ID)).thenReturn(new Person());
 
         Model model = new BindingAwareModelMap();
         String view = personsController.show(TEST_ID, model);
@@ -59,7 +59,7 @@ public class PersonsControllerTest {
 
     @Test(expected = NotFoundException.class)
     public void dontShow() throws NotFoundException {
-        when(repoMock.findOne(TEST_ID)).thenReturn(null);
+        when(managerMock.findById(TEST_ID)).thenReturn(null);
 
         Model model = new BindingAwareModelMap();
         personsController.show(TEST_ID, model);

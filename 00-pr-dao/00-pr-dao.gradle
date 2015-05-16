@@ -8,3 +8,8 @@ dependencies {
     testCompile tests.junit
     testCompile spring.test
 }
+
+task allCompileDeps(type: DependencyReportTask){
+    description 'Task used to print dependencies'
+    configurations = [this.configurations.compile] as Set
+}

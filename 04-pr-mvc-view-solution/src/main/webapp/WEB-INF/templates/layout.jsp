@@ -12,9 +12,9 @@
     <link type="text/css" rel="stylesheet" href="<c:url value="${cssStyle}" />"/>
     <link type="text/css" rel="stylesheet" href="<c:url value="/styles/general.css" />"/>
     <title>
-        <spring:message>
+        <fmt:message>
             <tiles:insertAttribute name="pageTitle"/>
-        </spring:message>
+        </fmt:message>
     </title>
 </head>
 <body>

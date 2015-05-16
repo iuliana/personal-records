@@ -18,7 +18,7 @@
     <context:component-scan base-package="com.pr"/>
 
     <!-- Defines basic MVC defaults (handler adapter, mapping, date formatting, etc) -->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven conversion-service="typeConversionService"/>
 
     <!-- Define a custom ConversionService -->
     <bean id="typeConversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
@@ -39,6 +39,83 @@
     <mvc:resources mapping="/images/**" location="/images/"/>
     <mvc:resources mapping="/styles/**" location="/styles/"/>
 
+    <!-- Define controllers which only render pages (i.e. nothing added to the model) -->
+    <mvc:view-controller path="/" view-name="home"/>
+    <mvc:view-controller path="/home" view-name="home"/>
+
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver"
+          p:mediaTypes-ref="mediaTypesMap"
+          p:defaultContentType="text/html"
+          p:ignoreAcceptHeader="true"
+          p:favorParameter="false"
+          p:favorPathExtension="true"
+          p:useNotAcceptableStatusCode="true"
+          p:defaultViews-ref="defaultViewsList">
+
+
+        <property name="viewResolvers">
+            <list>
+                <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+                <!-- Resolves logical view names to Tiles 3 definitions -->
+                <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"
+                      p:contentType="text/html"
+                      p:requestContextAttribute="requestContext"/>
+                <bean class="com.pr.resolver.JsonViewResolver"/>
+            </list>
+        </property>
+
+    </bean>
+
+    <!-- A view that generates a Account report as an Excel spreadsheet -->
+    <bean class="com.pr.views.PersonsExcelView"/>
+
+    <!-- sample usage of the util namespace to declare a map -->
+    <util:properties id="mediaTypesMap">
+        <prop key="html">text/html</prop>
+        <prop key="xls">application/vnd.ms-excel</prop>
+        <prop key="json">application/json</prop>
+    </util:properties>
+
+    <!-- sample usage of the util namespace to declare a list -->
+    <util:list id="defaultViewsList">
+        <!-- Excel view-->
+        <bean class="com.pr.views.PersonsExcelView"/>
+        <!-- JSON View -->
+        <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+    </util:list>
+
+    <!-- Resolves logical view names to Tiles 3 definitions -->
+    <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"
+          p:contentType="text/html"
+          p:requestContextAttribute="requestContext"/>
+
+    <!-- Configures Tiles3 -->
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"
+          p:definitions-ref="tilesDefList"/>
+
+    <!-- sample usage of the util namespace to declare a list -->
+    <util:list id="tilesDefList">
+        <value>/WEB-INF/tiles.xml</value>
+        <value>/WEB-INF/persons/tiles.xml</value>
+        <value>/WEB-INF/hospitals/tiles.xml</value>
+    </util:list>
+
+    <!-- Resolves messages to support internationalization -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+          p:defaultEncoding="UTF-8"
+          p:basename="/WEB-INF/messages/global"/>
+
+    <!-- Enables locale resolution with the help of a browser cookie -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"
+          p:defaultLocale="en"
+          p:cookieMaxAge="3600"/>
+
+
+    <!-- Enables theme resolution with the help of a browser cookie -->
+    <bean id="themeResolver" class="org.springframework.web.servlet.theme.CookieThemeResolver"
+          p:defaultThemeName="green"
+          p:cookieMaxAge="3600"/>
+
     <!--
        Interceptors for locale/theme changing and the setting of caching response headers.
         Applied automatically against all handler mappings.
@@ -53,85 +130,5 @@
             </property>
         </bean>
     </mvc:interceptors>
-
-    <!--
-        Interceptors for locale/theme changing and the setting of caching response headers.
-         Applied automatically against all handler mappings.
-     -->
-    <mvc:interceptors>
-        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
-        <bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor"/>
-        <bean class="org.springframework.web.servlet.mvc.WebContentInterceptor">
-            <property name="cacheSeconds" value="0"/>
-            <property name="supportedMethods">
-                <null/>
-            </property>
-        </bean>
-    </mvc:interceptors>
-
-    <!-- Define controllers which only render pages (i.e. nothing added to the model) -->
-    <mvc:view-controller path="/" view-name="home"/>
-    <mvc:view-controller path="/home" view-name="home"/>
-
-    <!-- Resolves messages to support internationalization -->
-    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
-          p:defaultEncoding="UTF-8"
-          p:basename="/WEB-INF/messages/global"/>
-
-    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver"
-          p:order="0"
-          p:defaultViews-ref="defaultViewsList">
-
-        <property name="contentNegotiationManager">
-            <bean class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean"
-                  p:defaultContentType="text/html"
-                  p:ignoreAcceptHeader="true"
-                  p:favorParameter="false"
-                  p:favorPathExtension="true"
-                  p:mediaTypes-ref="mediaTypesMap"/>
-        </property>
-    </bean>
-
-    <!-- sample usage of the util namespace to declare a map -->
-    <util:map id="mediaTypesMap">
-        <entry key="html" value="text/html"/>
-        <entry key="xls" value="application/vnd.ms-excel"/>
-        <entry key="json" value="application/json"/>
-    </util:map>
-
-    <!-- sample usage of the util namespace to declare a list -->
-    <util:list id="defaultViewsList">
-        <!-- Excel view-->
-        <bean class="com.pr.views.PersonsExcelView"/>
-        <!-- JSON View -->
-        <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
-    </util:list>
-
-    <!-- Resolves logical view names to Tiles 3 definitions -->
-    <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"
-          p:order="1"
-          p:requestContextAttribute="requestContext"/>
-
-    <!-- Configures Tiles3 -->
-    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"
-          p:definitions-ref="tilesDefList"/>
-
-    <!-- sample usage of the util namespace to declare a list -->
-    <util:list id="tilesDefList">
-        <value>/WEB-INF/tiles.xml</value>
-        <value>/WEB-INF/persons/tiles.xml</value>
-        <value>/WEB-INF/hospitals/tiles.xml</value>
-    </util:list>
-
-    <!-- Enables locale resolution with the help of a browser cookie -->
-    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"
-          p:defaultLocale="en"
-          p:cookieMaxAge="3600"/>
-
-
-    <!-- Enables theme resolution with the help of a browser cookie -->
-    <bean id="themeResolver" class="org.springframework.web.servlet.theme.CookieThemeResolver"
-          p:defaultThemeName="green"
-          p:cookieMaxAge="3600"/>
 
 </beans>
