@@ -44,22 +44,26 @@
     <mvc:view-controller path="/home" view-name="home"/>
 
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver"
-          p:mediaTypes-ref="mediaTypesMap"
-          p:defaultContentType="text/html"
-          p:ignoreAcceptHeader="true"
-          p:favorParameter="false"
-          p:favorPathExtension="true"
-          p:useNotAcceptableStatusCode="true"
+          p:order="-1"
           p:defaultViews-ref="defaultViewsList"
-          p:viewResolvers-ref="resolverList"
-          p:order="-1"/>
+          p:viewResolvers-ref="resolverList">
+        <property name="contentNegotiationManager">
+            <bean class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean"
+                  p:defaultContentType="text/html"
+                  p:ignoreAcceptHeader="true"
+                  p:favorParameter="false"
+                  p:favorPathExtension="true"
+                  p:mediaTypes-ref="mediaTypesMap"/>
+        </property>
+    </bean>
+
+
 
     <util:list id="resolverList">
         <bean class="com.pr.resolver.JsonViewResolver"/>
         <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
         <!-- Resolves logical view names to Tiles 3 definitions -->
         <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"
-              p:contentType="text/html"
               p:requestContextAttribute="requestContext"/>
     </util:list>
 
@@ -75,11 +79,12 @@
     <bean class="com.pr.views.PersonsExcelView"/>
 
     <!-- sample usage of the util namespace to declare a map -->
-    <util:properties id="mediaTypesMap">
-        <prop key="html">text/html</prop>
-        <prop key="xls">application/vnd.ms-excel</prop>
-        <prop key="json">application/json</prop>
-    </util:properties>
+    <util:map id="mediaTypesMap">
+        <entry key="html" value="text/html"/>
+        <entry key="xls" value="application/vnd.ms-excel"/>
+        <entry key="pdf" value="application/pdf"/>
+        <entry key="json" value="application/json"/>
+    </util:map>
 
     <!-- sample usage of the util namespace to declare a list -->
     <util:list id="defaultViewsList">
