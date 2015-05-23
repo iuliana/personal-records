@@ -1,5 +1,6 @@
 package com.pr.config;
 
+import com.pr.rest.AuditRestInterceptor;
 import com.pr.util.DateFormatter;
 import com.pr.util.HospitalFormatter;
 import org.springframework.context.MessageSource;
@@ -112,7 +113,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addInterceptor(localeChangeInterceptor());
         registry.addInterceptor(themeChangeInterceptor());
         registry.addInterceptor(webChangeInterceptor());
-
     }
 
     @Bean

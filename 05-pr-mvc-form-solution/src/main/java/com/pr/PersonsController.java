@@ -46,10 +46,13 @@ public class PersonsController {
      * @return
      */
     @ModelAttribute
-    protected Person findPerson(@PathVariable Long id) {
-        return personManager.findById(id);
+    protected Person findPerson(@PathVariable Long id) throws NotFoundException {
+        Person person = personManager.findById(id);
+        if(person == null) {
+            throw new NotFoundException(Person.class, id);
+        }
+        return person;
     }
-
     /**
      * Handler method to show details of a person in non editable mode
      * @return

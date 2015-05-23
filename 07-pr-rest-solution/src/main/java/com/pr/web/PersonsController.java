@@ -3,6 +3,7 @@ package com.pr.web;
 import com.pr.BaseController;
 import com.pr.ents.Hospital;
 import com.pr.ents.Person;
+import com.pr.problem.NotFoundException;
 import com.pr.service.HospitalManager;
 import com.pr.service.PersonManager;
 import org.slf4j.Logger;
@@ -31,8 +32,12 @@ public class PersonsController extends BaseController {
      * @return
      */
     @ModelAttribute
-    protected Person findPerson(@PathVariable Long id) {
-        return personManager.findById(id);
+    protected Person findPerson(@PathVariable Long id) throws NotFoundException {
+        Person person = personManager.findById(id);
+        if(person == null) {
+            throw new NotFoundException(Person.class, id.toString());
+        }
+        return person;
     }
 
     /**

@@ -2,6 +2,7 @@ package com.pr;
 
 import com.pr.ents.Hospital;
 import com.pr.ents.Person;
+import com.pr.problem.NotFoundException;
 import com.pr.repos.HospitalRepo;
 import com.pr.repos.PersonRepo;
 import com.pr.service.HospitalManager;
@@ -47,8 +48,13 @@ public class PersonsController {
      * @return
      */
     //TODO 10. Annotate this method properly in order for it to be execute before every request being handled by this controller
-    protected Person findPerson(@PathVariable Long id) {
-        return personManager.findById(id);
+    @ModelAttribute
+    protected Person findPerson(@PathVariable Long id) throws NotFoundException {
+        Person person = personManager.findById(id);
+        if(person == null) {
+            throw new NotFoundException(Person.class, id);
+        }
+        return person;
     }
 
     /**
