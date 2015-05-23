@@ -49,7 +49,7 @@ public interface PersonRepo extends JpaRepository<Person, Long> {
      * Find all persons with the given pnc.
      */
     @Query("select p from Person p where p.identityCard.pnc = :pnc")
-    List<Person> getByPnc(@Param("pnc") String pnc);
+    Person getByPnc(@Param("pnc") String pnc);
 
     /**
      *

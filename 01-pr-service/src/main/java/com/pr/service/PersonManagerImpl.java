@@ -75,7 +75,7 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     @Override
-    public List<Person> getByPnc(String pnc) {
+    public Person getByPnc(String pnc) {
         return personRepo.getByPnc(pnc);
     }
 
@@ -136,8 +136,11 @@ public class PersonManagerImpl implements PersonManager {
                         : personRepo.getByHospitalNameLike(criteria.getFieldValue());
                 break;
             case PNC:
-                persons = criteria.getExactMatch() ? personRepo.getByPnc(criteria.getFieldValue())
-                        : personRepo.getByPncLike(criteria.getFieldValue());
+                if(criteria.getExactMatch()) {
+                    persons.add(personRepo.getByPnc(criteria.getFieldValue()));
+                } else {
+                    persons = personRepo.getByPncLike(criteria.getFieldValue());
+                }
                 break;
         }
         return persons;

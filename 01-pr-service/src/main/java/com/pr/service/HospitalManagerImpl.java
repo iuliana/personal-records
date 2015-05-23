@@ -44,11 +44,11 @@ public class HospitalManagerImpl implements HospitalManager {
 
     @Override
     public Hospital findByCode(String code) {
-        return findByCode(code);
+        return hospitalRepo.findByCode(code);
     }
 
     @Override
     public List<Hospital> findByCodeLike(String code) {
-        return findByCodeLike(code);
+        return hospitalRepo.findByCodeLike(code);
     }
 }

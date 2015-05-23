@@ -107,3 +107,6 @@ task allCompile << {
     }
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4'
+}

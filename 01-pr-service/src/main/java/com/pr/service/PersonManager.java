@@ -30,7 +30,7 @@ public interface PersonManager extends BaseManager<Person> {
     List<Person> getByFirstnameLike(String firstName);
 
     @Transactional(readOnly = true)
-    List<Person> getByPnc(String pnc);
+    Person getByPnc(String pnc);
 
     @Transactional(readOnly = true)
     List<Person> getByPncLike(String pnc);

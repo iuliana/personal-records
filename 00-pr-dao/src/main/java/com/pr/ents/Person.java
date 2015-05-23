@@ -158,13 +158,14 @@ public class Person extends AbstractEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
         Person person = (Person) o;
         if (id != null && id.equals(person.id)) return true;
         if (dateOfBirth != null ? !dateOfBirth.equals(person.dateOfBirth) : person.dateOfBirth != null) return false;
         if (firstName != null ? !firstName.equals(person.firstName) : person.firstName != null) return false;
         if (gender != person.gender) return false;
-        if (hospital != null ? !hospital.equals(person.hospital) : person.hospital != null) return false;
+        if (identityCard != null ? !identityCard.getPnc().equals(person.identityCard.getPnc()) : person.identityCard != null) return false;
         if (lastName != null ? !lastName.equals(person.lastName) : person.lastName != null) return false;
 
         return true;
@@ -177,7 +178,7 @@ public class Person extends AbstractEntity {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (dateOfBirth != null ? dateOfBirth.hashCode() : 0);
         result = 31 * result + (gender != null ? gender.hashCode() : 0);
-        result = 31 * result + (hospital != null ? hospital.hashCode() : 0);
+        result = 31 * result + (identityCard != null ? identityCard.hashCode() : 0);
         return result;
     }
 
