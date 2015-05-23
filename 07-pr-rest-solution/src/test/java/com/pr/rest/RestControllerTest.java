@@ -7,17 +7,13 @@ import com.pr.ents.Person;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.http.*;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -36,16 +32,8 @@ public class RestControllerTest {
 
 
     @Before
-    public void setUp(){
-        List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
-        List<MediaType> supportedMediaTypes = new ArrayList<>();
-        MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
-        supportedMediaTypes.add(mediaType);
-        MappingJackson2HttpMessageConverter jacksonConverter = new MappingJackson2HttpMessageConverter();
-        jacksonConverter.setSupportedMediaTypes(supportedMediaTypes);
-        messageConverters.add(jacksonConverter);
+    public void setUp() {
         restTemplate = new RestTemplate();
-        restTemplate.setMessageConverters(messageConverters);
     }
 
     @Test
@@ -64,19 +52,7 @@ public class RestControllerTest {
     @Test
     public void createPerson() throws URISyntaxException {
         String url = PERSON_BASE_URL + "create";
-        Hospital hospital = getHospital();
-        assertNotNull(hospital);
-
-        Person person = new Person();
-        person.setFirstName("Jonathan");
-        person.setLastName("Brandis");
-        person.setDateOfBirth(DateTime.parse("1976-04-13").toDate());
-        person.setGender(Gender.MALE);
-        hospital.addPerson(person);
-        IdentityCard ic = new IdentityCard(person,"MY", "125223", DateTime.parse("1986-04-13").toDate(),
-                DateTime.parse("1996-04-13").toDate());
-        ic.setAddress("-");
-        person.setIdentityCard(ic);
+        Person person = buildPerson();
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -106,11 +82,40 @@ public class RestControllerTest {
 
 
     /**
+     * Negative test: test non existent person retrieval by id using REST request
+     */
+    @Test(expected = HttpClientErrorException.class)
+    public void getNotExistingPerson() {
+        String url = PERSON_BASE_URL + "id/{id}";
+        Person person = restTemplate.getForObject(url, Person.class, "99");
+
+        assertNotNull(person);
+    }
+
+    /**
+     * Negative test: test to create duplicate person
+     */
+    @Test(expected = HttpClientErrorException.class)
+    public void duplicate() {
+        String url = PERSON_BASE_URL + "create";
+        Person person = buildPerson();
+
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add("custom", true + "");
+
+        final HttpEntity<Person> wineRequest = new HttpEntity<>(person, headers);
+        this.restTemplate.postForObject(url, wineRequest, Person.class);
+        this.restTemplate.postForObject(url, wineRequest, Person.class);
+    }
+
+
+    /**
      * Test person deletion by Personal Numerical Code.
      * This method deletes the Person instance crested by the createPerson test method.
      */
     @Test
-    public void deletePerson(){
+    public void deletePerson() {
         String url = PERSON_BASE_URL + "delete/1760413324567";
         restTemplate.delete(url);
 
@@ -121,6 +126,7 @@ public class RestControllerTest {
 
     /**
      * Method that retrieves Hospital instance with code "324567"
+     *
      * @return
      */
     private Hospital getHospital() {
@@ -130,5 +136,26 @@ public class RestControllerTest {
         return hospital;
     }
 
+    /**
+     * Utility method used to create a person
+     *
+     * @return
+     */
+    private Person buildPerson() {
+        Hospital hospital = getHospital();
+        assertNotNull(hospital);
+
+        Person person = new Person();
+        person.setFirstName("Jonathan");
+        person.setLastName("Brandis");
+        person.setDateOfBirth(DateTime.parse("1976-04-13").toDate());
+        person.setGender(Gender.MALE);
+        hospital.addPerson(person);
+        IdentityCard ic = new IdentityCard(person, "MY", "125223", DateTime.parse("1986-04-13").toDate(),
+                DateTime.parse("1996-04-13").toDate());
+        ic.setAddress("-");
+        person.setIdentityCard(ic);
+        return person;
+    }
 
 }

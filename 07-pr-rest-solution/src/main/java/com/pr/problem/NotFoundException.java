@@ -5,17 +5,17 @@ package com.pr.problem;
  */
 public class NotFoundException extends Exception {
 
-    private Long objIdentifier;
+    private String objIdentifier;
 
     private String objType;
 
-    public <T> NotFoundException(Class<T> cls, Long id) {
+    public <T> NotFoundException(Class<T> cls, String id) {
         super(cls.getSimpleName() + " with id: " + id + " does not exist!");
         objIdentifier = id;
         objType = cls.getSimpleName();
     }
 
-    public Long getObjIdentifier() {
+    public String getObjIdentifier() {
         return objIdentifier;
     }
 

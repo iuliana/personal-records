@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by iuliana.cosmina on 3/22/15.
  */
-@ControllerAdvice
+@ControllerAdvice(basePackages = "com.pr.web")
 public class GlobalExceptionHandler {
 
     private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);

@@ -3,9 +3,12 @@ package com.pr.rest;
 import com.pr.BaseController;
 import com.pr.ents.Hospital;
 import com.pr.ents.Person;
+import com.pr.problem.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriTemplate;
 
@@ -22,19 +25,27 @@ public class PersonsRestController extends BaseController {
     /**
      * Provide the details of a person with the given id.
      */
-    @RequestMapping(value = "id/{id}", method = RequestMethod.GET, produces = "application/json")
-    public Person getPersonById(@PathVariable Long id) {
+    @RequestMapping(value = "id/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Person getPersonById(@PathVariable Long id) throws NotFoundException {
         logger.info("-----> PERSON: " + id);
-        return personManager.findById(id);
+        Person person = personManager.findById(id);
+        if (person == null) {
+            throw new NotFoundException(Person.class, id.toString());
+        }
+        return person;
     }
 
     /**
      * Provide the details of a person with the given id.
      */
-    @RequestMapping(value = "pnc/{pnc}", method = RequestMethod.GET, produces = "application/json")
-    public Person getPersonByPnc(@PathVariable String pnc) {
+    @RequestMapping(value = "pnc/{pnc}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Person getPersonByPnc(@PathVariable String pnc) throws NotFoundException {
         logger.info("-----> PERSON: " + pnc);
-        return personManager.getByPnc(pnc);
+        Person person = personManager.getByPnc(pnc);
+        if (person == null) {
+            throw new NotFoundException(Person.class, pnc);
+        }
+        return person;
     }
 
     /**
@@ -42,13 +53,14 @@ public class PersonsRestController extends BaseController {
      *
      * @return
      */
-    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Person> getAll() {
         logger.info("-----> ALL ");
         return personManager.findAll();
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, headers = {"Accept=*/*", "Content-Type=application/json"})
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     public Person createPerson(@RequestBody Person newPerson) {
         logger.info("-----> CREATE");
         Hospital hospital = hospitalManager.findByCode(newPerson.getHospital().getCode());
@@ -74,10 +86,33 @@ public class PersonsRestController extends BaseController {
      */
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(value = "/delete/{pnc}", method = RequestMethod.DELETE)
-    public void deletePerson(@PathVariable String pnc) {
+    public void deletePerson(@PathVariable String pnc) throws NotFoundException {
         Person person = personManager.getByPnc(pnc);
         if (person != null) {
             personManager.delete(person);
+        } else {
+            throw new NotFoundException(Person.class, pnc);
         }
+    }
+
+
+    /**
+     * Maps IllegalArgumentExceptions to a 404 Not Found HTTP status code.
+     */
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "This person is not found in the system")
+    @ExceptionHandler({NotFoundException.class})
+    public void handleNotFound() {
+        // just return empty 404
+        logger.info("-----> PERSON not found.");
+    }
+
+    /**
+     * Maps DataIntegrityViolationException to a 409 Conflict HTTP status code.
+     */
+    @ResponseStatus(value = HttpStatus.CONFLICT, reason = "Another person with the same identity card exists")
+    @ExceptionHandler({DataIntegrityViolationException.class})
+    public void handleAlreadyExists() {
+        // just return empty 409
+        logger.info("-----> Database operation failure");
     }
 }

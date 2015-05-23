@@ -1,60 +1,53 @@
 package com.pr.rest;
 
+import com.pr.async.AppConfig;
+import com.pr.async.RestConsumerService;
+import com.pr.config.WebConfig;
 import com.pr.ents.Person;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
-import org.springframework.web.client.RestTemplate;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by iuliana.cosmina on 5/23/15.
  */
+@EnableAsync
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {AppConfig.class})
 public class AsyncConsumerTest {
 
-    private RestTemplate restTemplate = null;
-    private static final String PERSON_BASE_URL = "http://localhost:8080/mvc-rest/rest-persons/";
+   @Autowired
+   RestConsumerService service;
 
     @Before
-    public void setUp() {
-        List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
-        List<MediaType> supportedMediaTypes = new ArrayList<>();
-        MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
-        supportedMediaTypes.add(mediaType);
-        MappingJackson2HttpMessageConverter jacksonConverter = new MappingJackson2HttpMessageConverter();
-        jacksonConverter.setSupportedMediaTypes(supportedMediaTypes);
-        messageConverters.add(jacksonConverter);
-        restTemplate = new RestTemplate();
-        restTemplate.setMessageConverters(messageConverters);
+    public void setUp(){
+        assertNotNull(service);
     }
-
 
     @Test
-    public void asyncGet() throws Exception {
-        Future<Person> personFuture = findPerson();
-        Person person = personFuture.get();
+    public void asyncOp() throws InterruptedException, ExecutionException {
+        Future<Person> personFuture1 = service.findPerson(1L);
+        Future<Person> personFuture2 = service.findPerson(2L);
+        Future<Person> personFuture3 = service.findPerson(3L);
 
-        assertNotNull(person);
-        assertEquals("John", person.getFirstName());
-        assertEquals("Smith", person.getLastName());
+        //wait until requests are done
+        while (!(personFuture1.isDone() && personFuture2.isDone() && personFuture3.isDone())) {
+            Thread.sleep(10); //10-millisecond pause between each check
+        }
+
+        assertNotNull(personFuture1.get());
+        assertNotNull(personFuture2.get());
+        assertNotNull(personFuture3.get());
     }
 
-    @Async
-    public Future<Person> findPerson() throws InterruptedException {
-        String url = PERSON_BASE_URL + "id/1";
-        Person person = restTemplate.getForObject(url, Person.class);
-        Thread.sleep(1000L);
-        return new AsyncResult<>(person);
-    }
 }
