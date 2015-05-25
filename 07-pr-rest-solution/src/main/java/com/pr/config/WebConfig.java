@@ -1,6 +1,5 @@
 package com.pr.config;
 
-import com.pr.rest.AuditRestInterceptor;
 import com.pr.util.DateFormatter;
 import com.pr.util.HospitalFormatter;
 import org.springframework.context.MessageSource;
@@ -18,8 +17,8 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
 import org.springframework.web.servlet.theme.CookieThemeResolver;
 import org.springframework.web.servlet.theme.ThemeChangeInterceptor;
-import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
+import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 import java.util.Locale;
 
@@ -93,7 +92,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         TilesConfigurer tilesConfigurer = new TilesConfigurer();
         tilesConfigurer.setDefinitions(
                 "/WEB-INF/tiles.xml",
-                "/WEB-INF/persons/tiles.xml"
+                "/WEB-INF/persons/tiles.xml",
+                "/WEB-INF/hospitals/tiles.xml"
         );
         tilesConfigurer.setCheckRefresh(true);
         return tilesConfigurer;

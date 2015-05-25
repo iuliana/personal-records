@@ -12,10 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +35,16 @@ public class PersonsListController extends BaseController {
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("persons", personManager.findAll());
+        return "persons/list";
+    }
+
+    /**
+     * Method which is called via "redirect:" from the HospitalController
+     * @param persons
+     * @return
+     */
+    @RequestMapping(value="/list", method = RequestMethod.GET)
+    public String listh(@ModelAttribute("persons") ArrayList<Person> persons) {
         return "persons/list";
     }
 

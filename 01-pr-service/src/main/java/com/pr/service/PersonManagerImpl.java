@@ -113,6 +113,7 @@ public class PersonManagerImpl implements PersonManager {
     public List<Person> getByCriteriaDto(CriteriaDto criteria) throws InvalidCriteriaException {
         List<Person> persons = new ArrayList<>();
         FieldGroup fg = FieldGroup.getField(criteria.getFieldName());
+
         switch (fg) {
             case FIRSTNAME:
                 persons = criteria.getExactMatch() ? personRepo.getByFirstname(criteria.getFieldValue())

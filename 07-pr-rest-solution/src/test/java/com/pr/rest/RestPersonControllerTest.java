@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
  * Created by iuliana.cosmina on 5/21/15.
  * Description: This class tests the REST methods
  */
-public class RestControllerTest {
+public class RestPersonControllerTest {
     /**
      * Rest Services endpoints
      */
@@ -58,9 +58,9 @@ public class RestControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add("custom", true + "");
 
-        final HttpEntity<Person> wineRequest = new HttpEntity<>(person, headers);
-        Person newPerson = this.restTemplate.postForObject(url, wineRequest,
-                Person.class);
+        final HttpEntity<Person> personRequest = new HttpEntity<>(person, headers);
+        Person newPerson = this.restTemplate.postForObject(url, personRequest, Person.class);
+
         assertNotNull(newPerson);
         assertEquals(newPerson.getFirstName(), person.getFirstName());
         assertEquals(newPerson.getLastName(), person.getLastName());
@@ -104,9 +104,9 @@ public class RestControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add("custom", true + "");
 
-        final HttpEntity<Person> wineRequest = new HttpEntity<>(person, headers);
-        this.restTemplate.postForObject(url, wineRequest, Person.class);
-        this.restTemplate.postForObject(url, wineRequest, Person.class);
+        final HttpEntity<Person> personRequest = new HttpEntity<>(person, headers);
+        this.restTemplate.postForObject(url, personRequest, Person.class);
+        this.restTemplate.postForObject(url, personRequest, Person.class);
     }
 
 
@@ -114,7 +114,7 @@ public class RestControllerTest {
      * Test person deletion by Personal Numerical Code.
      * This method deletes the Person instance crested by the createPerson test method.
      */
-    @Test
+    @Test(expected = HttpClientErrorException.class)
     public void deletePerson() {
         String url = PERSON_BASE_URL + "delete/1760413324567";
         restTemplate.delete(url);

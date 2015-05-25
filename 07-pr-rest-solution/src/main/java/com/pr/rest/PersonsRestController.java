@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriTemplate;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -25,6 +26,7 @@ public class PersonsRestController extends BaseController {
     /**
      * Provide the details of a person with the given id.
      */
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "id/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Person getPersonById(@PathVariable Long id) throws NotFoundException {
         logger.info("-----> PERSON: " + id);
@@ -38,6 +40,7 @@ public class PersonsRestController extends BaseController {
     /**
      * Provide the details of a person with the given id.
      */
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "pnc/{pnc}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Person getPersonByPnc(@PathVariable String pnc) throws NotFoundException {
         logger.info("-----> PERSON: " + pnc);
@@ -53,15 +56,23 @@ public class PersonsRestController extends BaseController {
      *
      * @return
      */
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Person> getAll() {
         logger.info("-----> ALL ");
         return personManager.findAll();
     }
 
+    /**
+     * Create a new person
+     *
+     * @param newPerson
+     * @return
+     */
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person createPerson(@RequestBody Person newPerson) {
+    public Person createPerson(@RequestBody @Valid Person newPerson) {
         logger.info("-----> CREATE");
         Hospital hospital = hospitalManager.findByCode(newPerson.getHospital().getCode());
         newPerson.setHospital(hospital);
@@ -95,24 +106,4 @@ public class PersonsRestController extends BaseController {
         }
     }
 
-
-    /**
-     * Maps IllegalArgumentExceptions to a 404 Not Found HTTP status code.
-     */
-    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "This person is not found in the system")
-    @ExceptionHandler({NotFoundException.class})
-    public void handleNotFound() {
-        // just return empty 404
-        logger.info("-----> PERSON not found.");
-    }
-
-    /**
-     * Maps DataIntegrityViolationException to a 409 Conflict HTTP status code.
-     */
-    @ResponseStatus(value = HttpStatus.CONFLICT, reason = "Another person with the same identity card exists")
-    @ExceptionHandler({DataIntegrityViolationException.class})
-    public void handleAlreadyExists() {
-        // just return empty 409
-        logger.info("-----> Database operation failure");
-    }
 }

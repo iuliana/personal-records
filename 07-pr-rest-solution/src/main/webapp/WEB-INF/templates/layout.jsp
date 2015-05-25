@@ -67,6 +67,13 @@
                     <a href="<c:url value="/persons/"/>"><spring:message code="menu.persons"/></a>
                 </c:if>
             </li>
+            <li><c:if test="${menuTab eq 'hospitals'}">
+                <strong><a href="<c:url value="/hospitals/"/>"><spring:message code="menu.hospitals"/></a></strong>
+            </c:if>
+                <c:if test="${menuTab != 'hospitals'}">
+                    <a href="<c:url value="/hospitals/"/>"><spring:message code="menu.hospitals"/></a>
+                </c:if>
+            </li>
             <li><c:if test="${menuTab eq 'search'}">
                 <strong><a href="<c:url value="/persons/search/"/>"><spring:message code="menu.search"/></a></strong>
             </c:if>

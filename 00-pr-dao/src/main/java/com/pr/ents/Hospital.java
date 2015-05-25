@@ -20,7 +20,7 @@ import java.util.Set;
 @Entity
 public class Hospital extends AbstractEntity {
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @Pattern(regexp = "\\d{6}")
     @NotEmpty
     private String code;
