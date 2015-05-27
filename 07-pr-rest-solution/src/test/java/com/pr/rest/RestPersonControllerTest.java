@@ -9,11 +9,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpMessageConverterExtractor;
+import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
@@ -74,6 +80,29 @@ public class RestPersonControllerTest {
     public void getPerson() {
         String url = PERSON_BASE_URL + "id/{id}";
         Person person = restTemplate.getForObject(url, Person.class, "1");
+
+        assertNotNull(person);
+        assertEquals("John", person.getFirstName());
+        assertEquals("Smith", person.getLastName());
+    }
+
+    /**
+     * Test person retrieval by id using REST request ans the execute method with a RequestCallback that prints all headers.
+     */
+    @Test
+    public void getPersonWithExecute() {
+        String url = PERSON_BASE_URL + "id/{id}";
+        Person person  = restTemplate.execute(url, HttpMethod.GET, new RequestCallback() {
+            @Override
+            public void doWithRequest(ClientHttpRequest request) throws IOException {
+                HttpHeaders headers = request.getHeaders();
+                headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+                System.out.println("Request headers = " + headers);
+            }
+        }, new HttpMessageConverterExtractor<Person>(Person.class, restTemplate.getMessageConverters())
+                , new HashMap<String, Object>() {{
+            put("id", "1");
+        }});
 
         assertNotNull(person);
         assertEquals("John", person.getFirstName());

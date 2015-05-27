@@ -46,6 +46,19 @@ public class HospitalsRestController extends BaseController {
     }
 
     /**
+     * Provide a list with all persons born at a hospital
+     *
+     * @return
+     */
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/{code}/persons", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Person> getPersons(@PathVariable String code) {
+        logger.info("-----> ALL PERSONS BORN AT: "  + code);
+        return personManager.getByHospital(code);
+    }
+
+
+    /**
      * Create a new hospital
      *
      * @param newHospital

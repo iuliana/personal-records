@@ -40,6 +40,17 @@ public class RestHospitalControllerTest {
         assertTrue(hospitals.length >= 4);
     }
 
+    @Test
+    public void listPersons() {
+        String url = HOSPITAL_BASE_URL + "{code}/persons";
+        // we have to use Person[] instead of List<Person>, or Jackson won't know what type to unmarshall to
+        Person[] persons = restTemplate.getForObject(url, Person[].class, "134181");
+
+        // Initially 4 persons in database, for Hospital with code 134181,
+        // but just in case you created more using the RestPersonControllerTest, the assertion will assume >=4 persons
+        assertTrue(persons.length >= 4);
+    }
+
     /**
      * Test person retrieval by id using REST request
      */
