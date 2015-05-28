@@ -7,17 +7,13 @@ import com.pr.ents.Person;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.client.ClientHttpRequest;
+import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpMessageConverterExtractor;
-import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 
@@ -73,6 +69,55 @@ public class RestPersonControllerTest {
         assertEquals(newPerson.getIdentityCard().getPnc(), person.getIdentityCard().getPnc());
     }
 
+
+    /**
+     * Test person creation using REST POST request
+     */
+    @Test
+    public void createPerson2() throws URISyntaxException {
+        String url = PERSON_BASE_URL + "create2";
+        Person person = buildPerson();
+
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add("custom", true + "");
+
+        final HttpEntity<Person> personRequest = new HttpEntity<>(person, headers);
+        URI uri = this.restTemplate.postForLocation(url, personRequest, Person.class);
+
+        Person newPerson = restTemplate.getForObject(uri, Person.class);
+
+        assertNotNull(newPerson);
+        assertEquals(newPerson.getFirstName(), person.getFirstName());
+        assertEquals(newPerson.getLastName(), person.getLastName());
+        assertEquals(newPerson.getIdentityCard().getPnc(), person.getIdentityCard().getPnc());
+    }
+
+    /**
+     * Test person creation using REST POST request sent via RequestEntity
+     */
+    @Test
+    public void createPerson3() throws URISyntaxException, MalformedURLException {
+        String url = PERSON_BASE_URL + "create";
+        Person person = buildPerson();
+
+        final RequestEntity<Person> entity = RequestEntity.post(new URI(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("custom", "true")
+                .body(person);
+
+        ResponseEntity<Person> response = restTemplate.exchange(entity, Person.class);
+
+        Person newPerson = response.getBody();
+
+        assertNotNull(newPerson);
+        assertEquals(newPerson.getFirstName(), person.getFirstName());
+        assertEquals(newPerson.getLastName(), person.getLastName());
+        assertEquals(newPerson.getIdentityCard().getPnc(), person.getIdentityCard().getPnc());
+    }
+
+
     /**
      * Test person retrieval by id using REST request
      */
@@ -92,13 +137,10 @@ public class RestPersonControllerTest {
     @Test
     public void getPersonWithExecute() {
         String url = PERSON_BASE_URL + "id/{id}";
-        Person person  = restTemplate.execute(url, HttpMethod.GET, new RequestCallback() {
-            @Override
-            public void doWithRequest(ClientHttpRequest request) throws IOException {
-                HttpHeaders headers = request.getHeaders();
-                headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
-                System.out.println("Request headers = " + headers);
-            }
+        Person person  = restTemplate.execute(url, HttpMethod.GET, request -> {
+            HttpHeaders headers = request.getHeaders();
+            headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+            System.out.println("Request headers = " + headers);
         }, new HttpMessageConverterExtractor<Person>(Person.class, restTemplate.getMessageConverters())
                 , new HashMap<String, Object>() {{
             put("id", "1");

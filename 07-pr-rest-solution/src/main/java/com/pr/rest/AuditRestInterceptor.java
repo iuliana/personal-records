@@ -24,7 +24,7 @@ public class AuditRestInterceptor extends JsonViewResponseBodyAdvice {
     @Override
     public boolean supports(MethodParameter returnType, Class converterType) {
         logger.info("-----> Audit REST interceptor supports() ? " + Person.class.isAssignableFrom(returnType.getParameterType()));
-        return (super.supports(returnType, converterType) && returnType.getMethodAnnotation(JsonView.class) != null && Person.class.isAssignableFrom(returnType.getParameterType()));
+        return (super.supports(returnType, converterType) && returnType.getMethodAnnotation(JsonView.class) != null);
     }
 
     @Override

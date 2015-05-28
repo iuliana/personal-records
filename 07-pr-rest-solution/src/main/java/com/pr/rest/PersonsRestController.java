@@ -6,13 +6,15 @@ import com.pr.ents.Person;
 import com.pr.problem.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriTemplate;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -64,12 +66,12 @@ public class PersonsRestController extends BaseController {
     }
 
     /**
-     * Create a new person
+     * Create a new person and return the resource representation as responsebody
      *
      * @param newPerson
      * @return
      */
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public Person createPerson(@RequestBody @Valid Person newPerson) {
@@ -81,12 +83,53 @@ public class PersonsRestController extends BaseController {
         return person;
     }
 
+
+    /**
+     * Create a new person and return the resource URI using the "Location" header
+     *
+     * @param newPerson
+     * @return
+     */
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(value = "/create2", method = RequestMethod.POST)
+    public void createPerson2(@RequestBody @Valid Person newPerson, @Value("#{request.requestURL}")
+    StringBuffer originalUrl, HttpServletResponse response) {
+        logger.info("-----> CREATE");
+        Hospital hospital = hospitalManager.findByCode(newPerson.getHospital().getCode());
+        newPerson.setHospital(hospital);
+        Person person = personManager.save(newPerson);
+        logger.info("-----> PERSON: " + person);
+        response.setHeader("Location", getLocationForPersonResource(originalUrl, person.getId()));
+    }
+
+    /**
+     * Create a new person and use the ResponseEntity
+     *TODO remove this
+     * @return
+     */
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(value = "/create3", method = RequestMethod.POST)
+    public ResponseEntity<Person> handle(HttpEntity<byte[]> requestEntity,
+                                         @Value("#{request.requestURL}") StringBuffer originalUrl) throws UnsupportedEncodingException {
+        String requestHeader = requestEntity.getHeaders().getFirst("custom"); // will return "true"
+        byte[] requestBody = requestEntity.getBody();
+
+        Person newPerson =  null; //build(requestBody);
+        Person person = personManager.save(newPerson);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Location",  getLocationForPersonResource(originalUrl, person.getId()));
+        return new ResponseEntity<>(person, responseHeaders, HttpStatus.CREATED);
+    }
+    
     /**
      * Determines URL of person resource based on the full URL of the given request,
      * appending the path info with the given childIdentifier using a UriTemplate.
      */
-    protected static String getLocationForPersonResource(StringBuilder url, Object childIdentifier) {
-        UriTemplate template = new UriTemplate(url.append("/{id}").toString());
+    protected static String getLocationForPersonResource(StringBuffer url, Object childIdentifier) {
+        String newURL =  url.toString();
+        newURL = newURL.replace("create2", "id/{id}");
+        UriTemplate template = new UriTemplate(newURL);
         return template.expand(childIdentifier).toASCIIString();
     }
 
