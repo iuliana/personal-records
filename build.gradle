@@ -12,6 +12,7 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
+        maven { url "http://repo.spring.io/libs-release" }
         jcenter()
     }
 
@@ -92,7 +93,8 @@ ext {
             contextSupport : "org.springframework:spring-context-support:$springVersion",
             securityWeb    : "org.springframework.security:spring-security-web:$springSecurityVersion",
             securityTaglibs: "org.springframework.security:spring-security-taglibs:$springSecurityVersion",
-            securityConfig : "org.springframework.security:spring-security-config:$springSecurityVersion"
+            securityConfig : "org.springframework.security:spring-security-config:$springSecurityVersion",
+            hateoas        : "org.springframework.hateoas:spring-hateoas:0.17.0.RELEASE"
     ]
 
 }

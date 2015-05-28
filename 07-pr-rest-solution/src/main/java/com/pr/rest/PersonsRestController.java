@@ -3,6 +3,7 @@ package com.pr.rest;
 import com.pr.BaseController;
 import com.pr.ents.Hospital;
 import com.pr.ents.Person;
+import com.pr.hateoas.PersonHateoas;
 import com.pr.problem.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,26 +103,6 @@ public class PersonsRestController extends BaseController {
         response.setHeader("Location", getLocationForPersonResource(originalUrl, person.getId()));
     }
 
-    /**
-     * Create a new person and use the ResponseEntity
-     *TODO remove this
-     * @return
-     */
-    @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(value = "/create3", method = RequestMethod.POST)
-    public ResponseEntity<Person> handle(HttpEntity<byte[]> requestEntity,
-                                         @Value("#{request.requestURL}") StringBuffer originalUrl) throws UnsupportedEncodingException {
-        String requestHeader = requestEntity.getHeaders().getFirst("custom"); // will return "true"
-        byte[] requestBody = requestEntity.getBody();
-
-        Person newPerson =  null; //build(requestBody);
-        Person person = personManager.save(newPerson);
-
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("Location",  getLocationForPersonResource(originalUrl, person.getId()));
-        return new ResponseEntity<>(person, responseHeaders, HttpStatus.CREATED);
-    }
-    
     /**
      * Determines URL of person resource based on the full URL of the given request,
      * appending the path info with the given childIdentifier using a UriTemplate.

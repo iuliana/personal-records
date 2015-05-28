@@ -27,7 +27,7 @@ import java.util.Locale;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.pr, com.pr.web, com.pr.rest"})
+@ComponentScan(basePackages = {"com.pr, com.pr.web, com.pr.rest, com.pr.hateoas"})
 @ImportResource({"classpath:spring/app-service-config.xml", "classpath:spring/db-config.xml"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
