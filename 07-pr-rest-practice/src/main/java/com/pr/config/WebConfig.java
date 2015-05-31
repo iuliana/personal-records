@@ -1,7 +1,10 @@
 package com.pr.config;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pr.util.DateFormatter;
 import com.pr.util.HospitalFormatter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,9 +12,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.handler.MappedInterceptor;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
@@ -20,6 +26,7 @@ import org.springframework.web.servlet.theme.ThemeChangeInterceptor;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -30,6 +37,23 @@ import java.util.Locale;
 @ComponentScan(basePackages = {"com.pr, com.pr.web, com.pr.rest, com.pr.hateoas"})
 @ImportResource({"classpath:spring/app-service-config.xml", "classpath:spring/db-config.xml"})
 public class WebConfig extends WebMvcConfigurerAdapter {
+
+    /**
+     * Setting the MappingJackson2HttpMessageConverter and configuring it
+     * @param converters
+     */
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        final MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        final ObjectMapper objectMapper = new ObjectMapper();
+        //do not serialize null values
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        converter.setObjectMapper(objectMapper);
+        converters.add(converter);
+        //print Json in pretty format
+        converter.setPrettyPrint(true);
+        super.configureMessageConverters(converters);
+    }
 
     @Bean
     public Validator validator() {
@@ -111,9 +135,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(localeChangeInterceptor());
-        registry.addInterceptor(themeChangeInterceptor());
-        registry.addInterceptor(webChangeInterceptor());
+        registry.addInterceptor(localeChangeInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(themeChangeInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(webChangeInterceptor()).addPathPatterns("/**");
     }
 
     @Bean
@@ -151,4 +175,5 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         cookieThemeResolver.setCookieName("theme");
         return cookieThemeResolver;
     }
+
 }

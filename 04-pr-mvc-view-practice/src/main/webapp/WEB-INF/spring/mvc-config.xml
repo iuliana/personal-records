@@ -79,7 +79,7 @@
           p:basename="/WEB-INF/messages/global"/>
 
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-        <!-- TODO 9.Provide a proper configuration for this bean in order for the views to be resolved correctly. -->
+        <!-- TODO 09. Provide a proper configuration for this bean in order for the views to be resolved correctly. -->
     </bean>
 
     <!-- sample usage of the util namespace to declare a map -->
