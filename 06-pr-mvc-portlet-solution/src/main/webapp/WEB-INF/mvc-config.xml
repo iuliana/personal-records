@@ -8,12 +8,6 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- Import configuration for the datasource and the dao project -->
-    <import resource="classpath:spring/app-service-config.xml"/>
-    <import resource="classpath:spring/db-config.xml"/>
-
-    <context:component-scan base-package="com.pr"/>
-
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:viewClass="org.springframework.web.servlet.view.JstlView"

@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.UUID;
 /**
  * Created by iuliana.cosmina on 3/17/15.
  */
-@Component
+@Service
 public class DBInitializer {
 
     private Logger logger = LoggerFactory.getLogger(DBInitializer.class);
