@@ -39,7 +39,7 @@
                 <td><sf:input path="fieldValue" id="fieldValue"/>
                     <em><br><spring:message code="label.dateFormat.accepted"/></em>
                 </td>
-                <td><sf:errors cssClass="error" path="fieldValue"/>
+                <td><label class="error" id="fieldValueError"/>
                 </td>
             </tr>
             <tr>
@@ -86,35 +86,44 @@
 
 
 <script type="text/javascript">
+    //global variables
+    var fieldValueErrMessage = "${fieldValueErrMessage}";
+    var fieldDateErrMessage = "${fieldDateErrMessage}";
+
     $(document).ready(function () {
+        $("#fieldValueError").hide();
         $("#resultDiv").hide();
-        $("#searchButton").bind('click', sendAjaxReq);
-        $("#cleanButton").click (function(){
-            event.preventDefault();
-            $("#resultDiv").fadeOut('fast');
-            $("#resultTable").empty();
-        });
+
+        $("#searchButton").click(
+                function (event) {
+                    event.preventDefault();
+                    var fieldName = $("#fieldName").val();
+                    var fieldValue = $("#fieldValue").val();
+                    var exactMatch = $("#exactMatch").is(':checked');
+                    //console.log('Criteria:' + fieldName + ", " + fieldValue + ", " + exactMatch);
+
+                    if (isValid(fieldName, fieldValue)) {
+                        var params = {
+                            fieldName: fieldName,
+                            fieldValue: fieldValue,
+                            exactMatch: exactMatch
+                        }
+                        $("#fieldValueError").hide();
+                        $.getJSON("${personsUrl}/ajax", params, displayResults);
+                    }
+                    return false;
+                });
+
+
+        $("#cleanButton").click(
+                function (event) {
+                    event.preventDefault();
+                    $("#resultDiv").fadeOut('fast');
+                    $("#fieldValueError").hide();
+                    $("#resultTable").empty();
+                    return false;
+                });
     });
-
-    function sendAjaxReq(event) {
-        event.preventDefault();
-        var fieldName = $("#fieldName").val();
-        var fieldValue = $("#fieldValue").val();
-        var exactMatch = $("#exactMatch").is(':checked');
-        console.log('Criteria:' + fieldName + ", " + fieldValue + ", " + exactMatch);
-        if (fieldValue.length == 0) {
-            $("#fieldValue").focus();
-        } else {
-            var params = {
-                fieldName: fieldName,
-                fieldValue: fieldValue,
-                exactMatch: exactMatch
-            }
-            $.getJSON("${personsUrl}/ajax", params, displayResults);
-
-        }
-        return false;
-    }
 
     function displayResults(results) {
         if (results.length == 0) {
@@ -122,16 +131,48 @@
         } else {
             $("#resultTable").empty();
             for (var i = 0; i < results.length; i++) {
-                // First pass: $("#resultTable").append('<tr><td>' + results[i].number + '</td><td>' + results[i].name + '</td></tr>');
-                $("#resultTable").append('<tr><td><a href="#" onclick="getPersonDetails(' + results[i].id + ')" >'
-                + results[i].identityCard.pnc + '</a></td><td>' + results[i].firstName + '</td><td>' + results[i].lastName
-                + '</td></tr>');
+                $("#resultTable").append('<tr><td><a href="#" onclick="getPersonDetails(\''+ results[i].identityCard.pnc +'\')">'+ results[i].identityCard.pnc +'</a></td>' +
+                '<td>'+ results[i].firstName+ '</td>' + '<td>'+ results[i].lastName+ '</td>' +
+                '</tr>');
             }
             $("#resultDiv").fadeIn('fast');
         }
     }
 
+    function isValid(fieldName, fieldValue){
+        var err='';
+        //console.log(fieldName, fieldValue, fieldValue.length);
+        if(fieldValue.length == 0) {
+            err = fieldValueErrMessage;
+        } else if(fieldName == 'dob' && !isValidDate(fieldValue)) {
+            err = fieldDateErrMessage;
+        }
+
+        //console.log(err, err.length);
+        if(err.length > 0) {
+            $("#fieldValue").focus();
+            $("#fieldValueError").text(err);
+            $("#fieldValueError").fadeIn('fast');
+            return false;
+        }
+        return true;
+    }
+
     function getPersonDetails(data) {
-        //TODO
+        $.getJSON('${personsUrl}/' + data, function(person) {
+            var s = "=== Person Details ===\n\n";
+            s += "First Name: " + person.firstName + "\n";
+            s += "Last Name: " + person.lastName + "\n";
+            s += "Date of birth: " + person.dateOfBirth + "\n";
+            s += "Personal Numeric Code: " + person.identityCard.pnc + "\n";
+            s += "Series: " + person.identityCard.series + "\n";
+            s += "Number: " + person.identityCard.number;
+            alert(s);
+        });
+    }
+
+    function isValidDate(dateString) {
+        var regEx = /^\d{4}-\d{2}-\d{2}$/;
+        return dateString.match(regEx) != null;
     }
 </script>

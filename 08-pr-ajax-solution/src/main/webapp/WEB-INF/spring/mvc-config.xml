@@ -48,7 +48,6 @@
         Applied automatically against all handler mappings.
     -->
     <mvc:interceptors>
-        <bean class="com.pr.FragmentRequestHandlingInterceptor"/>
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
         <bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor"/>
         <bean class="org.springframework.web.servlet.mvc.WebContentInterceptor">

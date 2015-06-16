@@ -36,8 +36,7 @@ table td {
 
 .error{
     border: 1px solid;
-    margin: 5px 0px;
-    padding:5px 5px 5px 50px;
+    margin: 2px 0px;
     color: #D8000C;
     background-color: #FFBABA;
 }
