@@ -11,6 +11,7 @@
     <spring:theme var="cssStyle" code="css.style"/>
     <link type="text/css" rel="stylesheet" href="<c:url value="${cssStyle}" />"/>
     <link type="text/css" rel="stylesheet" href="<c:url value="/styles/general.css" />"/>
+    <script type="text/javascript" src="<c:url value="/js/jquery-2.1.4.js" /> "></script>
     <title>
         <fmt:message>
             <tiles:insertAttribute name="pageTitle"/>
@@ -58,13 +59,6 @@
             </c:if>
                 <c:if test="${menuTab != 'home'}">
                     <a href="<c:url value="/"/>"><spring:message code="menu.home"/></a>
-                </c:if>
-            </li>
-            <li><c:if test="${menuTab eq 'persons'}">
-                <strong><a href="<c:url value="/persons/"/>"><spring:message code="menu.persons"/></a></strong>
-            </c:if>
-                <c:if test="${menuTab != 'persons'}">
-                    <a href="<c:url value="/persons/"/>"><spring:message code="menu.persons"/></a>
                 </c:if>
             </li>
             <li><c:if test="${menuTab eq 'search'}">

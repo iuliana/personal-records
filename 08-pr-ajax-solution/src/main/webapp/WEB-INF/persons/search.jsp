@@ -58,7 +58,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="3"><sf:errors cssClass="error" path="noResults"/></td>
+                <td colspan="3"><label class="error" id="noResults"/></td>
             </tr>
         </table>
     </sf:form>
@@ -91,7 +91,7 @@
     var fieldDateErrMessage = "${fieldDateErrMessage}";
 
     $(document).ready(function () {
-        $("#fieldValueError").hide();
+        $(".error").hide();
         $("#resultDiv").hide();
 
         $("#searchButton").click(
@@ -108,7 +108,7 @@
                             fieldValue: fieldValue,
                             exactMatch: exactMatch
                         }
-                        $("#fieldValueError").hide();
+                        $(".error").hide();
                         $.getJSON("${personsUrl}/ajax", params, displayResults);
                     }
                     return false;
@@ -119,7 +119,7 @@
                 function (event) {
                     event.preventDefault();
                     $("#resultDiv").fadeOut('fast');
-                    $("#fieldValueError").hide();
+                    $(".error").hide();
                     $("#resultTable").empty();
                     return false;
                 });
@@ -127,14 +127,15 @@
 
     function displayResults(results) {
         if (results.length == 0) {
-            alert("No results for search");
+            $("#noResults").text("No results for search");
         } else {
             $("#resultTable").empty();
-            for (var i = 0; i < results.length; i++) {
-                $("#resultTable").append('<tr><td><a href="#" onclick="getPersonDetails(\''+ results[i].identityCard.pnc +'\')">'+ results[i].identityCard.pnc +'</a></td>' +
-                '<td>'+ results[i].firstName+ '</td>' + '<td>'+ results[i].lastName+ '</td>' +
+            results.forEach(function(person){
+                $("#resultTable").append('<tr><td><a href="#" onclick="getPersonDetails(\''+ person.identityCard.pnc +'\')">'
+                + person.identityCard.pnc +'</a></td>' +
+                '<td>'+ person.firstName+ '</td>' + '<td>'+ person.lastName+ '</td>' +
                 '</tr>');
-            }
+            });
             $("#resultDiv").fadeIn('fast');
         }
     }
