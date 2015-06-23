@@ -95,34 +95,11 @@
         $("#resultDiv").hide();
 
         $("#searchButton").click(
-                function (event) {
-                    event.preventDefault();
-                    var fieldName = $("#fieldName").val();
-                    var fieldValue = $("#fieldValue").val();
-                    var exactMatch = $("#exactMatch").is(':checked');
-                    //console.log('Criteria:' + fieldName + ", " + fieldValue + ", " + exactMatch);
-
-                    if (isValid(fieldName, fieldValue)) {
-                        var params = {
-                            fieldName: fieldName,
-                            fieldValue: fieldValue,
-                            exactMatch: exactMatch
-                        }
-                        $(".error").hide();
-                        $.getJSON("${personsUrl}/ajax", params, displayResults);
-                    }
-                    return false;
-                });
-
+                /*TODO 24. Define a function to perform a JQuery get request and retrieve
+                search results based on the values in fieldName, fieldValue and exactMatch HTML elements. */
 
         $("#cleanButton").click(
-                function (event) {
-                    event.preventDefault();
-                    $("#resultDiv").fadeOut('fast');
-                    $(".error").hide();
-                    $("#resultTable").empty();
-                    return false;
-                });
+                /*TODO 25. Define a function to clear all data in the form and the results. */
     });
 
     function displayResults(results) {
@@ -160,16 +137,7 @@
     }
 
     function getPersonDetails(data) {
-        $.getJSON('${personsUrl}/' + data, function(person) {
-            var s = "=== Person Details ===\n\n";
-            s += "First Name: " + person.firstName + "\n";
-            s += "Last Name: " + person.lastName + "\n";
-            s += "Date of birth: " + person.dateOfBirth + "\n";
-            s += "Personal Numeric Code: " + person.identityCard.pnc + "\n";
-            s += "Series: " + person.identityCard.series + "\n";
-            s += "Number: " + person.identityCard.number;
-            alert(s);
-        });
+       /*TODO 26. Define a function to retrieve the details of a person and display them using an alert method. */
     }
 
     function isValidDate(dateString) {

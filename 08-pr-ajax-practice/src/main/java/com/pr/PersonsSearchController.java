@@ -56,17 +56,9 @@ public class PersonsSearchController {
         return "persons/search";
     }
 
-    @RequestMapping(value = "/ajax", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<Person> getPersons(CriteriaDto criteria) {
-        try {
-            List<Person> persons = personManager.getByCriteriaDto(criteria);
-            return persons;
-        } catch (InvalidCriteriaException ice) {
-            ice.printStackTrace();
-        }
-        return new ArrayList<>();
-    }
+    /* TODO 23. Implement a RESTful handler method that returns a list of persons based
+     on a search criteria provided by the client and make sure the handler method is
+     mapped to the "/ajax" url*/
+
 
 }
