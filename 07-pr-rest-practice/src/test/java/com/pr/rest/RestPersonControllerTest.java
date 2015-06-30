@@ -127,6 +127,10 @@ public class RestPersonControllerTest {
 
         Person newPerson = response.getBody();
 
+        HttpHeaders headers = response.getHeaders();
+        URI uri = headers.getLocation();
+        assertNotNull(uri);
+
         assertNotNull(newPerson);
         assertEquals(newPerson.getFirstName(), person.getFirstName());
         assertEquals(newPerson.getLastName(), person.getLastName());
@@ -145,7 +149,7 @@ public class RestPersonControllerTest {
          that retrieves a list of Person instances some modification has to be done. Look in the
          RestPersonController.java in order to see what the link should be.
          */
-        String url = PERSON_BASE_URL ; // + "??";
+        String url = PERSON_BASE_URL; // + "??";
         Person person = null;
 
         assertNotNull(person);
@@ -159,7 +163,7 @@ public class RestPersonControllerTest {
     @Test
     public void getPersonWithExecute() {
         String url = PERSON_BASE_URL + "id/{id}";
-        Person person  = restTemplate.execute(url, HttpMethod.GET, request -> {
+        Person person = restTemplate.execute(url, HttpMethod.GET, request -> {
             HttpHeaders headers = request.getHeaders();
             headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
             System.out.println("Request headers = " + headers);
@@ -195,7 +199,6 @@ public class RestPersonControllerTest {
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("custom", true + "");
 
         final HttpEntity<Person> personRequest = new HttpEntity<>(person, headers);
         this.restTemplate.postForObject(url, personRequest, Person.class);

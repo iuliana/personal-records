@@ -16,7 +16,7 @@ public class RestExceptionProcessor {
     private Logger logger = LoggerFactory.getLogger(RestExceptionProcessor.class);
 
     /**
-     * Maps IllegalArgumentExceptions to a 404 Not Found HTTP status code.
+     * Maps NotFoundException to a 404 Not Found HTTP status code.
      */
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "This entity is not found in the system")
     @ExceptionHandler({NotFoundException.class})

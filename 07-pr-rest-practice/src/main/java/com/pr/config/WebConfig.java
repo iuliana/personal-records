@@ -2,6 +2,7 @@ package com.pr.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.pr.util.DateFormatter;
 import com.pr.util.HospitalFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,23 +38,6 @@ import java.util.Locale;
 @ComponentScan(basePackages = {"com.pr, com.pr.web, com.pr.rest, com.pr.hateoas"})
 @ImportResource({"classpath:spring/app-service-config.xml", "classpath:spring/db-config.xml"})
 public class WebConfig extends WebMvcConfigurerAdapter {
-
-    /**
-     * Setting the MappingJackson2HttpMessageConverter and configuring it
-     * @param converters
-     */
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        final MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        final ObjectMapper objectMapper = new ObjectMapper();
-        //do not serialize null values
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        converter.setObjectMapper(objectMapper);
-        converters.add(converter);
-        //print Json in pretty format
-        converter.setPrettyPrint(true);
-        super.configureMessageConverters(converters);
-    }
 
     @Bean
     public Validator validator() {
@@ -176,4 +160,28 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return cookieThemeResolver;
     }
 
+    /**
+     * Setting the MappingJackson2HttpMessageConverter and configuring it
+     * @return
+     */
+    @Bean
+    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+        mappingJackson2HttpMessageConverter.setObjectMapper(objectMapper());
+        return mappingJackson2HttpMessageConverter;
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper objMapper = new ObjectMapper();
+        objMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        objMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        return objMapper;
+    }
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        super.configureMessageConverters(converters);
+        converters.add(mappingJackson2HttpMessageConverter());
+    }
 }

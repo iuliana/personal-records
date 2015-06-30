@@ -29,7 +29,7 @@ public class PersonsRestController extends BaseController {
     /**
      * Provide the details of a person with the given id.
      */
-    @RequestMapping(value = "id/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Person getPersonById(@PathVariable Long id) throws NotFoundException {
         logger.info("-----> PERSON: " + id);
         Person person = personManager.findById(id);
@@ -42,7 +42,7 @@ public class PersonsRestController extends BaseController {
     /**
      * Provide the details of a person with the given id.
      */
-    @RequestMapping(value = "pnc/{pnc}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/pnc/{pnc}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Person getPersonByPnc(@PathVariable String pnc) throws NotFoundException {
         logger.info("-----> PERSON: " + pnc);
         Person person = personManager.getByPnc(pnc);
@@ -65,7 +65,7 @@ public class PersonsRestController extends BaseController {
     }
 
     /**
-     * Create a new person and return the resource representation as responsebody
+     * Create a new person and return the resource representation as response body
      *
      * @param newPerson
      * @return
@@ -73,11 +73,13 @@ public class PersonsRestController extends BaseController {
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person createPerson(@RequestBody @Valid Person newPerson) {
+    public Person createPerson(@RequestBody @Valid Person newPerson, @Value("#{request.requestURL}")
+    StringBuffer originalUrl, HttpServletResponse response) {
         logger.info("-----> CREATE");
         Hospital hospital = hospitalManager.findByCode(newPerson.getHospital().getCode());
         newPerson.setHospital(hospital);
         Person person = personManager.save(newPerson);
+        response.setHeader("Location", getLocationForPersonResource(originalUrl, person.getId()));
         logger.info("-----> PERSON: " + person);
         return person;
     }

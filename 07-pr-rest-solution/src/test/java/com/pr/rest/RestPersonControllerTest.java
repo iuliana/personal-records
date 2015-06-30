@@ -80,7 +80,6 @@ public class RestPersonControllerTest {
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("custom", true + "");
 
         final HttpEntity<Person> personRequest = new HttpEntity<>(person, headers);
         URI uri = this.restTemplate.postForLocation(url, personRequest, Person.class);
@@ -98,6 +97,30 @@ public class RestPersonControllerTest {
      */
     @Test
     public void createPerson3() throws URISyntaxException, MalformedURLException {
+        String url = PERSON_BASE_URL + "create";
+        Person person = buildPerson();
+
+        final RequestEntity<Person> entity = RequestEntity.post(new URI(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("custom", "true")
+                .body(person);
+
+        ResponseEntity<Person> response = restTemplate.exchange(entity, Person.class);
+
+        Person newPerson = response.getBody();
+
+        assertNotNull(newPerson);
+        assertEquals(newPerson.getFirstName(), person.getFirstName());
+        assertEquals(newPerson.getLastName(), person.getLastName());
+        assertEquals(newPerson.getIdentityCard().getPnc(), person.getIdentityCard().getPnc());
+    }
+
+    /**
+     * Test person creation using REST POST request sent via RequestEntity
+     */
+    @Test
+    public void createPerson4() throws URISyntaxException, MalformedURLException {
         String url = PERSON_BASE_URL + "create";
         Person person = buildPerson();
 
@@ -140,8 +163,7 @@ public class RestPersonControllerTest {
         Person person  = restTemplate.execute(url, HttpMethod.GET, request -> {
             HttpHeaders headers = request.getHeaders();
             headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
-            System.out.println("Request headers = " + headers);
-        }, new HttpMessageConverterExtractor<Person>(Person.class, restTemplate.getMessageConverters())
+        }, new HttpMessageConverterExtractor<>(Person.class, restTemplate.getMessageConverters())
                 , new HashMap<String, Object>() {{
             put("id", "1");
         }});
