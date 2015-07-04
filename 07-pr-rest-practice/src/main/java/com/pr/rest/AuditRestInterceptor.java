@@ -30,7 +30,7 @@ public class AuditRestInterceptor extends JsonViewResponseBodyAdvice {
     @Override
     protected void beforeBodyWriteInternal(MappingJacksonValue bodyContainer, MediaType contentType, MethodParameter returnType, ServerHttpRequest request, ServerHttpResponse response) {
         logger.info("-----> Audit REST interceptor beforeBodyWrite()");
-        response.getHeaders().add(HttpHeaders.ACCEPT_CHARSET, "UTF-8");
+        response.getHeaders().add(HttpHeaders.CONTENT_ENCODING, "UTF-8");
         super.beforeBodyWriteInternal(bodyContainer, contentType, returnType, request, response);
     }
 }

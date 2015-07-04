@@ -1,15 +1,22 @@
 package com.pr.hateoas;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pr.ents.Person;
 import org.junit.Test;
-import org.springframework.hateoas.MediaTypes;
-import org.springframework.http.HttpHeaders;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.hal.Jackson2HalModule;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.web.client.HttpMessageConverterExtractor;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
+import java.net.URI;
+import java.util.Collections;
 
 import static org.junit.Assert.*;
 
@@ -21,22 +28,26 @@ public class PersonHateoasControllerTest {
 
     @Test
     public void getHateoasPerson() throws Exception {
-        RestTemplate restTemplate = new RestTemplate();
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.registerModule(new Jackson2HalModule());
+
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        converter.setSupportedMediaTypes(MediaType.parseMediaTypes("application/hal+json"));
+        converter.setObjectMapper(mapper);
+
+        RestTemplate restTemplate = new RestTemplate(Collections.<HttpMessageConverter<?>> singletonList(converter));
 
         String url = "http://localhost:8080/mvc-rest/hateoas/{id}";
 
-        PersonHateoas personHateoas  = restTemplate.execute(url, HttpMethod.GET, request -> {
-            HttpHeaders headers = request.getHeaders();
-            headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
-            System.out.println("Request headers = " + headers);
-        }, new HttpMessageConverterExtractor<>(PersonHateoas.class, restTemplate.getMessageConverters())
-                , new HashMap<String, Object>() {{
-            put("id", "1");
-        }});
+        ResponseEntity<PersonHateoas> responseEntity =
+                restTemplate.getForEntity(url, PersonHateoas.class, "1");
+        PersonHateoas personHateoas = responseEntity.getBody();
 
         assertNotNull(personHateoas);
         assertTrue(personHateoas.hasLinks());
-        assertEquals("http://localhost:8080/mvc-rest/hateoas/1" ,personHateoas.getId().getHref());
+        assertEquals("http://localhost:8080/mvc-rest/hateoas/1", personHateoas.getLink("self").getHref());
         assertEquals("John", personHateoas.getPerson().getFirstName());
         assertEquals("Smith", personHateoas.getPerson().getLastName());
     }

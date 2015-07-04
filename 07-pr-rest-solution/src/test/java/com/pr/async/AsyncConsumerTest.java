@@ -1,4 +1,4 @@
-package com.pr.rest;
+package com.pr.async;
 
 import com.pr.async.AppConfig;
 import com.pr.async.RestConsumerService;
@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by iuliana.cosmina on 5/23/15.
  */
-@EnableAsync
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class})
 public class AsyncConsumerTest {

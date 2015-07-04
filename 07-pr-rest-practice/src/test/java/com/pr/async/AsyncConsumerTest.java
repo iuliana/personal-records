@@ -21,13 +21,12 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by iuliana.cosmina on 5/23/15.
  */
-@EnableAsync
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class})
 public class AsyncConsumerTest {
 
-   @Autowired
-   RestConsumerService service;
+    @Autowired
+    RestConsumerService service;
 
     @Before
     public void setUp(){
