@@ -95,7 +95,8 @@ ext {
             securityTaglibs: "org.springframework.security:spring-security-taglibs:$springSecurityVersion",
             securityConfig : "org.springframework.security:spring-security-config:$springSecurityVersion",
             hateoas        : "org.springframework.hateoas:spring-hateoas:0.17.0.RELEASE",
-            plugin         : "org.springframework.plugin:spring-plugin-core:1.1.0.RELEASE"
+            plugin         : "org.springframework.plugin:spring-plugin-core:1.1.0.RELEASE",
+            webflow        : "org.springframework.webflow:spring-webflow:$webflowVersion"
     ]
 
 }
