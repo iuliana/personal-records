@@ -78,13 +78,13 @@
                 <c:if test="${navigationTab eq 'newPerson'}">
                     <strong>
                         <a href="<c:url value="/persons/newPerson"/>">
-                            <fmt:message key="menu.new.persons"/>
+                            <fmt:message key="menu.new.person"/>
                         </a>
                     </strong>
                 </c:if>
                 <c:if test="${navigationTab != 'newPersons'}">
                     <a href="<c:url value="/persons/newPerson"/>">
-                        <fmt:message key="menu.new.persons"/>
+                        <fmt:message key="menu.new.person"/>
                     </a>
                 </c:if>
             </li>

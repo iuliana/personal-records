@@ -2,6 +2,7 @@ package com.pr.config;
 
 import com.pr.util.DateFormatter;
 import com.pr.util.HospitalFormatter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,17 +20,22 @@ import org.springframework.web.servlet.theme.CookieThemeResolver;
 import org.springframework.web.servlet.theme.ThemeChangeInterceptor;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
+import org.springframework.webflow.mvc.servlet.FlowHandlerAdapter;
+import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
 
 import java.util.Locale;
 
 /**
- * Created by iuliana.cosmina on 5/23/15.
+ * Created by iuliana.cosmina on 7/12/15.
  */
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.pr, com.pr.persons, com.pr.hospitals"})
 @ImportResource({"classpath:spring/app-service-config.xml", "classpath:spring/db-config.xml"})
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class MvcConfig extends WebMvcConfigurerAdapter {
+
+    @Autowired
+    private WebFlowConfig webFlowConfig;
 
     @Bean
     public Validator validator() {
@@ -94,7 +100,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         tilesConfigurer.setDefinitions(
                 "/WEB-INF/tiles.xml",
                 "/WEB-INF/persons/tiles.xml",
-                "/WEB-INF/hospitals/tiles.xml"
+                "/WEB-INF/hospitals/tiles.xml",
+                "/WEB-INF/persons/newPerson/tiles.xml"
         );
         tilesConfigurer.setCheckRefresh(true);
         return tilesConfigurer;
@@ -150,6 +157,23 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         cookieThemeResolver.setCookieMaxAge(3600);
         cookieThemeResolver.setCookieName("theme");
         return cookieThemeResolver;
+    }
+
+    // FlowHandlerMapping and FlowHandlerAdapter bean definitions
+    @Bean
+    public FlowHandlerMapping flowHandlerMapping() {
+        FlowHandlerMapping handlerMapping = new FlowHandlerMapping();
+        handlerMapping.setOrder(-1);
+        handlerMapping.setFlowRegistry(this.webFlowConfig.flowRegistry());
+        return handlerMapping;
+    }
+
+    @Bean
+    public FlowHandlerAdapter flowHandlerAdapter() {
+        FlowHandlerAdapter handlerAdapter = new FlowHandlerAdapter();
+        handlerAdapter.setFlowExecutor(this.webFlowConfig.flowExecutor());
+        handlerAdapter.setSaveOutputToFlashScopeOnRedirect(true);
+        return handlerAdapter;
     }
 
 }

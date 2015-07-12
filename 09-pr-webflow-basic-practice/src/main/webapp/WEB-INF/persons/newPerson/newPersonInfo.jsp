@@ -53,7 +53,7 @@
             <tr>
                 <th>
                     <label for="gender">
-                        <spring:message code="label.Person.gender"/> :
+                        <span class="man">*</span> <spring:message code="label.Person.gender"/> :
                     </label>
                 </th>
                 <td>
@@ -85,8 +85,8 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <button id="rewardButton" name="_eventId_submit" type="submit">
-                        <fmt:message key="command.save" />
+                    <button id="newPersonButton" name="_eventId_proceed" type="submit">
+                        <spring:message code="command.proceed" />
                     </button>
                 </td>
             </tr>

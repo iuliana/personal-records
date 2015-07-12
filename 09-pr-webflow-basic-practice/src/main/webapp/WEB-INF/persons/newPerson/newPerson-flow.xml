@@ -4,6 +4,22 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow.xsd">
 
-    <view-state id="enterPersonInfo"/>
+    <var name="person" class="com.pr.ents.Person"/>
+
+    <on-start>
+        <evaluate expression="hospitalManager.findAll()" result="flowScope.hospitalList" />
+    </on-start>
+
+    <view-state id="enterPersonInfo" model="person">
+        <binder>
+            <binding property="firstName" required="true"/>
+            <binding property="lastName" required="true"/>
+            <binding property="dateOfBirth" required="true"/>
+            <binding property="gender" required="true"/>
+            <binding property="hospital" required="true"/>
+        </binder>
+
+    </view-state>
+
 
 </flow>
