@@ -53,7 +53,7 @@
             <tr>
                 <th>
                     <label for="gender">
-                        <spring:message code="label.Person.gender"/> :
+                        <span class="man">*</span> <spring:message code="label.Person.gender"/> :
                     </label>
                 </th>
                 <td>
