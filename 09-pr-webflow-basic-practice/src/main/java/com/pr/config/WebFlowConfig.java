@@ -25,7 +25,7 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
 
     @Autowired
     private
-    MvcConfig webMvcConfig;
+    MvcConfig mvcConfig;
 
     @Bean
     public FlowExecutor flowExecutor() {
@@ -44,7 +44,7 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     public FlowBuilderServices flowBuilderServices() {
         return getFlowBuilderServicesBuilder()
                 .setViewFactoryCreator(mvcViewFactoryCreator())
-                .setValidator(this.webMvcConfig.validator())
+                .setValidator(this.mvcConfig.validator())
                 .setConversionService(conversionService())
                 .setDevelopmentMode(true)
                 .build();
@@ -53,7 +53,7 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     @Bean
     public MvcViewFactoryCreator mvcViewFactoryCreator() {
         MvcViewFactoryCreator factoryCreator = new MvcViewFactoryCreator();
-        factoryCreator.setViewResolvers(Arrays.<ViewResolver>asList(this.webMvcConfig.tilesViewResolver()));
+        factoryCreator.setViewResolvers(Arrays.<ViewResolver>asList(this.mvcConfig.tilesViewResolver()));
         factoryCreator.setUseSpringBeanBinding(true);
         return factoryCreator;
     }
@@ -68,8 +68,8 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     FormattingConversionServiceFactoryBean conversionServiceFactoryBean() {
         FormattingConversionServiceFactoryBean fcs = new FormattingConversionServiceFactoryBean();
         Set<Formatter> fmts = new HashSet<>();
-        fmts.add(this.webMvcConfig.dateFormatter());
-        fmts.add(this.webMvcConfig.hospitalFormatter());
+        fmts.add(this.mvcConfig.dateFormatter());
+        fmts.add(this.mvcConfig.hospitalFormatter());
         fcs.setFormatters(fmts);
         return fcs;
 
