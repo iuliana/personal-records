@@ -97,17 +97,15 @@
           p:cookieMaxAge="3600"/>
 
 
-    <!-- Maps requests to flows in the flowRegistry; e.g. a path of /rewards/newReward looks for a flow with id "rewards/newReward" -->
-    <bean id="flowMappings" class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
-        <property name="order" value="-1"/>
-        <property name="flowRegistry" ref="flowRegistry"/>
-    </bean>
+    <!-- Maps requests to flows in the flowRegistry; e.g. a path of /persons/newPerson looks for a flow with id "persons/newPerson" -->
+    <bean id="flowMappings" class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping"
+          p:order="-1"
+          p:flowRegistry-ref="flowRegistry"/>
 
-    <!-- Note: No need to explicitly list the AnnotationMethodHandlerAdapter, since we're using mvc:annotation-driven -->
 
     <!-- Dispatches requests mapped to flows to FlowHandler implementations -->
-    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
-        <property name="flowExecutor" ref="flowExecutor"/>
-    </bean>
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter"
+        p:flowExecutor-ref="flowExecutor"/>
+
 
 </beans>
