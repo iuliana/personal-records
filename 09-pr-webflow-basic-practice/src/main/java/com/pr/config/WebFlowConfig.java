@@ -1,5 +1,6 @@
 package com.pr.config;
 
+import com.pr.audit.AuditFlowExecutorListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.convert.service.DefaultConversionService;
 import org.springframework.context.annotation.Bean;
@@ -24,12 +25,12 @@ import java.util.Set;
 public class WebFlowConfig extends AbstractFlowConfiguration {
 
     @Autowired
-    private
-    MvcConfig mvcConfig;
+    private MvcConfig mvcConfig;
 
     @Bean
     public FlowExecutor flowExecutor() {
         return getFlowExecutorBuilder(flowRegistry())
+                .addFlowExecutionListener(new AuditFlowExecutorListener(), "*")
                 .build();
     }
 
