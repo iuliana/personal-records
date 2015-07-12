@@ -85,8 +85,8 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <button id="newPersonButton" name="_eventId_proceed" type="submit">
-                        <spring:message code="command.proceed" />
+                    <button id="rewardButton" name="_eventId_submit" type="submit">
+                        <fmt:message key="command.save" />
                     </button>
                 </td>
             </tr>

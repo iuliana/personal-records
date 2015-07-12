@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by iuliana.cosmina on 5/11/15.
  */
-@Service
+@Service("personManager")
 public class PersonManagerImpl implements PersonManager {
 
     @Autowired

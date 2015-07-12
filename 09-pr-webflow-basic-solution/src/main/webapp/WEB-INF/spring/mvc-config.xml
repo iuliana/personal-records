@@ -68,6 +68,7 @@
           p:defaultEncoding="UTF-8"
           p:basename="/WEB-INF/messages/global"/>
 
+
     <!-- Resolves logical view names to Tiles 3 definitions -->
     <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"
           p:order="0"
@@ -81,6 +82,7 @@
     <util:list id="tilesDefList">
         <value>/WEB-INF/tiles.xml</value>
         <value>/WEB-INF/persons/tiles.xml</value>
+        <value>/WEB-INF/persons/newPerson/tiles.xml</value>
     </util:list>
 
     <!-- Enables locale resolution with the help of a browser cookie -->
@@ -93,5 +95,19 @@
     <bean id="themeResolver" class="org.springframework.web.servlet.theme.CookieThemeResolver"
           p:defaultThemeName="green"
           p:cookieMaxAge="3600"/>
+
+
+    <!-- Maps requests to flows in the flowRegistry; e.g. a path of /rewards/newReward looks for a flow with id "rewards/newReward" -->
+    <bean id="flowMappings" class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+        <property name="order" value="-1"/>
+        <property name="flowRegistry" ref="flowRegistry"/>
+    </bean>
+
+    <!-- Note: No need to explicitly list the AnnotationMethodHandlerAdapter, since we're using mvc:annotation-driven -->
+
+    <!-- Dispatches requests mapped to flows to FlowHandler implementations -->
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+        <property name="flowExecutor" ref="flowExecutor"/>
+    </bean>
 
 </beans>

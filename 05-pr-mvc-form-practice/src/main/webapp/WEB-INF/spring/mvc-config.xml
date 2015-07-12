@@ -58,21 +58,6 @@
         </bean>
     </mvc:interceptors>
 
-    <!--
-        Interceptors for locale/theme changing and the setting of caching response headers.
-         Applied automatically against all handler mappings.
-     -->
-    <mvc:interceptors>
-        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
-        <bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor"/>
-        <bean class="org.springframework.web.servlet.mvc.WebContentInterceptor">
-            <property name="cacheSeconds" value="0"/>
-            <property name="supportedMethods">
-                <null/>
-            </property>
-        </bean>
-    </mvc:interceptors>
-
     <!-- Define controllers which only render pages (i.e. nothing added to the model) -->
     <mvc:view-controller path="/" view-name="home"/>
     <mvc:view-controller path="/home" view-name="home"/>

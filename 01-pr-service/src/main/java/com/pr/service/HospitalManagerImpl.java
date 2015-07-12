@@ -11,7 +11,7 @@ import java.util.List;
  * Created by iuliana.cosmina on 5/11/15.
  *  * Description: Service class that manages Hospital entities
  */
-@Service
+@Service("hospitalManager")
 public class HospitalManagerImpl implements HospitalManager {
 
     @Autowired
