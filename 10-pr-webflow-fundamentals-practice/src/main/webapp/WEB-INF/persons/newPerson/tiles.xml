@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <definition name="??" extends="layout">
+        <put-attribute name="pageTitle" value="persons.new.title" />
+        <put-attribute name="content" value="??" />
+        <put-attribute name="menuTab" value="newPerson" />
+    </definition>
+
+    <definition name="??" extends="layout">
+        <put-attribute name="pageTitle" value="persons.review.title" />
+        <put-attribute name="content" value="??" />
+        <put-attribute name="menuTab" value="newPerson" />
+    </definition>
+
+    <!-- TODO 34. Complete the tiles definitions above in order for the views associated to view states to be displayed to the user -->
+
+</tiles-definitions>

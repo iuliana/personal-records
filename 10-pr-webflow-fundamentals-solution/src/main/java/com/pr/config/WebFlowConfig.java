@@ -37,22 +37,27 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     @Bean
     public FlowDefinitionRegistry flowRegistry() {
         return getFlowDefinitionRegistryBuilder(flowBuilderServices())
-        //TODO 28. set up the necessary properties for this flow registry so the flow definitions in the application
-        // can be identified and registered
-                .build();
+                .setBasePath("/WEB-INF")
+                .addFlowLocationPattern("/**/*-flow.xml").build();
     }
 
     @Bean
     public FlowBuilderServices flowBuilderServices() {
         return getFlowBuilderServicesBuilder()
-                //.setViewFactoryCreator(mvcViewFactoryCreator())
+                .setViewFactoryCreator(mvcViewFactoryCreator())
                 .setValidator(this.mvcConfig.validator())
                 .setConversionService(conversionService())
                 .setDevelopmentMode(true)
                 .build();
     }
 
-   //TODO 29. Define a view resolver bean for the Spring Web Flow engine to use
+    @Bean
+    public MvcViewFactoryCreator mvcViewFactoryCreator() {
+        MvcViewFactoryCreator factoryCreator = new MvcViewFactoryCreator();
+        factoryCreator.setViewResolvers(Arrays.<ViewResolver>asList(this.mvcConfig.tilesViewResolver()));
+        factoryCreator.setUseSpringBeanBinding(true);
+        return factoryCreator;
+    }
 
     @Bean
     DefaultConversionService conversionService() {

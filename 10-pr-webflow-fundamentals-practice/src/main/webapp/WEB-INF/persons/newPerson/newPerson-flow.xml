@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+      http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+
+    <view-state id="enterPersonInfo"/>
+    <!-- TODO 30. Complete this file with the required states in order to complete the flow definition -->
+    <!-- TODO 31. After the flow execution ends redirect the user to: /persons/1 -->
+</flow>
