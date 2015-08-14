@@ -27,11 +27,14 @@
     <bean id="mvcViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
         <property name="viewResolvers" ref="tilesViewResolver" />
         <property name="useSpringBeanBinding" value="true"/>
+        <property name="messageCodesResolver" ref="mcr" />
     </bean>
 
     <!-- Configures Web Flow to automatically convert custom types (using the same converter as for Spring MVC) -->
     <bean id="conversionService" class="org.springframework.binding.convert.service.DefaultConversionService">
         <constructor-arg ref="typeConversionService" />
     </bean>
+
+    <bean id="mcr" class="org.springframework.validation.DefaultMessageCodesResolver"/>
 
 </beans>
