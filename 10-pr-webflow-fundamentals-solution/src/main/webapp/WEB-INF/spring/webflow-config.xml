@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/webflow-config
+			http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd">
+
+    <!-- Executes web flows -->
+    <webflow:flow-executor id="flowExecutor"/>
+
+    <!-- Contains the flows defined by this application -->
+    <webflow:flow-registry id="flowRegistry" base-path="/WEB-INF" flow-builder-services="flowBuilderServices">
+        <webflow:flow-location-pattern value="**/*-flow.xml" />
+        <!-- <webflow:flow-location path="persons/newPerson/newPerson-flow.xml"/> -->
+    </webflow:flow-registry>
+
+
+    <!-- Configures services needed to build flow definitions -->
+    <webflow:flow-builder-services id="flowBuilderServices"
+                                   view-factory-creator="mvcViewFactoryCreator"
+                                   conversion-service="conversionService"
+                                   development="true" />
+
+    <!-- Configures Web Flow to render Tiles views resolved by Spring MVC -->
+    <bean id="mvcViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+        <property name="viewResolvers" ref="tilesViewResolver" />
+        <property name="useSpringBeanBinding" value="true"/>
+        <property name="messageCodesResolver" ref="mcr" />
+    </bean>
+
+    <!-- Configures Web Flow to automatically convert custom types (using the same converter as for Spring MVC) -->
+    <bean id="conversionService" class="org.springframework.binding.convert.service.DefaultConversionService">
+        <constructor-arg ref="typeConversionService" />
+    </bean>
+
+    <bean id="mcr" class="org.springframework.validation.DefaultMessageCodesResolver"/>
+
+</beans>

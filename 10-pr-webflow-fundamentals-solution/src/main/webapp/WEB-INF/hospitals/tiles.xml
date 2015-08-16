@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <definition name="hospitals/list" extends="layout">
+        <put-attribute name="pageTitle" value="hospitals.list.title" />
+        <put-attribute name="content" value="/WEB-INF/hospitals/list.jsp" />
+        <put-attribute name="menuTab" value="hospitals" />
+    </definition>
+
+</tiles-definitions>
