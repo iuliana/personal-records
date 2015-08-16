@@ -6,7 +6,7 @@ import org.springframework.webflow.validation.BeanValidationHintResolver;
 /**
  * Created by iuliana.cosmina on 8/16/15.
  */
-@Component("personValidationHintResolver")
+@Component("customValidationHintResolver")
 public class CustomValidationHintResolver extends BeanValidationHintResolver {
 
 }
