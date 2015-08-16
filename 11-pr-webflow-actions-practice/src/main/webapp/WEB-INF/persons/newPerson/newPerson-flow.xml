@@ -16,7 +16,7 @@
             <binding property="lastName" required="true"/>
             <binding property="dateOfBirth" required="true"/>
             <binding property="gender" required="true"/>
-            <binding property="hospital" required="true" bind="false"/>
+            <binding property="hospital" required="true"/>
         </binder>
 
     </view-state>
