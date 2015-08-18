@@ -1,6 +1,7 @@
 package com.pr.config;
 
 import com.pr.audit.AuditFlowExecutorListener;
+import com.pr.resolver.CustomValidationHintResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.convert.service.DefaultConversionService;
 import org.springframework.context.annotation.Bean;
@@ -47,8 +48,14 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
                 .setViewFactoryCreator(mvcViewFactoryCreator())
                 .setValidator(this.mvcConfig.validator())
                 .setConversionService(conversionService())
+                .setValidationHintResolver(customValidationHintResolver())
                 .setDevelopmentMode(true)
                 .build();
+    }
+
+    @Bean
+    public CustomValidationHintResolver customValidationHintResolver(){
+        return new CustomValidationHintResolver();
     }
 
     @Bean
