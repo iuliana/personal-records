@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--suppress WebflowSetupInspection, WebflowSetupInspection -->
 <flow xmlns="http://www.springframework.org/schema/webflow"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow.xsd">
 
     <var name="person" class="com.pr.ents.Person"/>
+    <var name="identityCard" class="com.pr.ents.IdentityCard"/>
 
-    <on-start>
-        <evaluate expression="hospitalManager.findAll()" result="flowScope.hospitalList" />
-    </on-start>
+    <!-- 35. Complete the flow definition to create a person - validate the person data, the identity card data. -->
 
     <view-state id="enterPersonInfo" model="person">
-        <binder>
-            <binding property="firstName" required="true"/>
-            <binding property="lastName" required="true"/>
-            <binding property="dateOfBirth" required="true"/>
-            <binding property="gender" required="true"/>
-            <binding property="hospital" required="true"/>
-        </binder>
 
+        <on-render>
+            <evaluate expression="hospitalManager.findAll()" result="requestScope.hospitalList" />
+        </on-render>
+
+        <transition on="review" to="reviewPerson"/>
     </view-state>
+
+    <view-state id="reviewPerson">
+        <transition on="proceed" to="enterIdentityCardInfo">
+        </transition>
+    </view-state>
+
+    <view-state id="enterIdentityCardInfo" model="identityCard">
+        <transition on="save" to="end"/>
+    </view-state>
+
+    <end-state id="end" view="externalRedirect:contextRelative:/persons/#{savedPerson.id}" />
 </flow>

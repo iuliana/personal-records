@@ -68,6 +68,12 @@ public class DBInitializer {
         list.add(build("Jessica", "Rabbit", "1991-07-22", Gender.FEMALE, hospital));
         list.add(build("Dan", "Smith", "1947-11-01", Gender.MALE, hospital));
         personRepo.save(list);
+
+
+        hospital = new Hospital("121417", "Oxford", "Oxford Central Hospital");
+        hospitalRepo.save(hospital);
+        list.add(build("Stephen", "Hawking", "1942-01-08", Gender.MALE, hospital));
+        personRepo.save(list);
         logger.info("Database initialization finished.");
     }
 

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.Formatter;
 import org.springframework.format.support.FormattingConversionServiceFactoryBean;
+import org.springframework.validation.DefaultMessageCodesResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.webflow.config.AbstractFlowConfiguration;
 import org.springframework.webflow.definition.registry.FlowDefinitionRegistry;
@@ -56,7 +57,13 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
         MvcViewFactoryCreator factoryCreator = new MvcViewFactoryCreator();
         factoryCreator.setViewResolvers(Arrays.<ViewResolver>asList(this.mvcConfig.tilesViewResolver()));
         factoryCreator.setUseSpringBeanBinding(true);
+        factoryCreator.setMessageCodesResolver(messageCodesResolver());
         return factoryCreator;
+    }
+
+    @Bean
+    public DefaultMessageCodesResolver messageCodesResolver(){
+        return new DefaultMessageCodesResolver();
     }
 
     @Bean
