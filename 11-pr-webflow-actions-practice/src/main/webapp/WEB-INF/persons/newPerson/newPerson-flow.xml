@@ -13,15 +13,14 @@
     <view-state id="enterPersonInfo" model="person">
 
         <on-render>
-            <evaluate expression="hospitalManager.findAll()" result="requestScope.hospitalList" />
+            <evaluate expression="hospitalManager.findAll()" result="{??}.hospitalList" />
         </on-render>
 
         <transition on="review" to="reviewPerson"/>
     </view-state>
 
     <view-state id="reviewPerson">
-        <transition on="proceed" to="enterIdentityCardInfo">
-        </transition>
+
     </view-state>
 
     <view-state id="enterIdentityCardInfo" model="identityCard">
