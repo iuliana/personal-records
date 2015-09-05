@@ -3,6 +3,7 @@ package com.pr.persons;
 import com.pr.ents.Hospital;
 import com.pr.ents.Person;
 import com.pr.problem.NotFoundException;
+import com.pr.service.AccountManager;
 import com.pr.service.HospitalManager;
 import com.pr.service.PersonManager;
 import org.slf4j.Logger;
@@ -47,7 +48,7 @@ public class PersonsController {
      */
     @ModelAttribute
     protected Person findPerson(@PathVariable Long id) throws NotFoundException {
-        Person person = personManager.findById(id);
+        Person person = personManager.findByIdWithAccounts(id);
         if(person == null) {
             throw new NotFoundException(Person.class, id);
         }
@@ -60,15 +61,6 @@ public class PersonsController {
     @RequestMapping(method = RequestMethod.GET)
     public String show() {
         return "persons/show";
-    }
-
-    /**
-     * Handler method to show a person details in edit mode
-     * @return
-     */
-    @RequestMapping(value="/edit", method = RequestMethod.GET)
-    public String edit(Model model) {
-        return "persons/edit";
     }
 
     /**

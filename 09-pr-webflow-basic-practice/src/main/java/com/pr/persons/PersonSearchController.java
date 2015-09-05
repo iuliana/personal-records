@@ -7,6 +7,7 @@ import com.pr.service.PersonManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by iuliana.cosmina on 7/8/15.
@@ -24,6 +26,8 @@ import java.util.List;
 @RequestMapping(value = "/persons")
 public class PersonSearchController {
 
+    @Autowired
+    private MessageSource messageSource;
 
     private Logger logger = LoggerFactory.getLogger(PersonSearchController.class);
 
@@ -46,7 +50,7 @@ public class PersonSearchController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String processSubmit(@Valid CriteriaDto criteria, BindingResult result, Model model) {
+    public String processSubmit(@Valid CriteriaDto criteria, BindingResult result, Model model, Locale locale) {
         if (result.hasErrors()) {
             return "persons/search";
         }
@@ -64,8 +68,8 @@ public class PersonSearchController {
             }
 
         } catch (InvalidCriteriaException ice) {
-            // TODO - internationalize this
-            result.addError(new FieldError("criteriaDto", ice.getFieldName(), ice.getMessageKey()));
+            result.addError(new FieldError("criteriaDto", ice.getFieldName(),
+                    messageSource.getMessage(ice.getMessageKey(), null, locale)));
             return "persons/search";
         }
     }

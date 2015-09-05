@@ -1,6 +1,8 @@
 package com.pr.init;
 
 import com.pr.base.Gender;
+import com.pr.base.Status;
+import com.pr.ents.Account;
 import com.pr.ents.Hospital;
 import com.pr.ents.IdentityCard;
 import com.pr.ents.Person;
@@ -41,7 +43,16 @@ public class DBInitializer {
         Hospital hospital = new Hospital("134181", "Constance, Romania", "General Hospital");
         hospitalRepo.save(hospital);
         List<Person> list = new ArrayList<>();
-        list.add(build("John", "Smith", "1935-10-01", Gender.MALE, hospital));
+        Person john = build("John", "Smith", "1935-10-01", Gender.MALE, hospital);
+
+        Account account = new Account();
+        account.setBank("JPMorgan Chase");
+        account.setIban("US1301101250000000012300695");
+        account.setStatus(Status.ACTIVE);
+        account.setAmount(2000.00);
+        john.addAccount(account);
+
+        list.add(john);
         list.add(build("Peter", "Doe", "1940-11-02", Gender.MALE, hospital));
         list.add(build("Joe", "Williams", "1950-12-10", Gender.MALE, hospital));
         list.add(build("Jessica", "Jones", "1960-09-09", Gender.FEMALE, hospital));

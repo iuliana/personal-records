@@ -15,6 +15,9 @@ import java.util.List;
 public interface PersonManager extends BaseManager<Person> {
 
     @Transactional(readOnly = true)
+    Person findByIdWithAccounts(Long id);
+
+    @Transactional(readOnly = true)
     List<Person> getByLastname(String lastName);
 
     @Transactional(readOnly = true)

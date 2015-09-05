@@ -35,6 +35,11 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     @Override
+    public Person findByIdWithAccounts(Long id) {
+        return personRepo.findOneWithAccounts(id);
+    }
+
+    @Override
     public Person save(Person person) {
         return personRepo.save(person);
     }

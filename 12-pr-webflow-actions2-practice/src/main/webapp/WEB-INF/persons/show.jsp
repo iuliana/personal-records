@@ -51,4 +51,31 @@
             <td><fmt:formatDate value="${person.identityCard.emittedAt}"/> - <fmt:formatDate value="${person.identityCard.expiresAt}"/></td>
         </tr>
     </table>
+    <c:if test="${not empty person.accounts}">
+        <div class="account">
+            <h3>
+                <spring:message code="label.bank.accounts"/>
+            </h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th><spring:message code="label.Account.bank"/></th>
+                        <th><spring:message code="label.Account.iban"/></th>
+                        <th><spring:message code="label.Account.status"/></th>
+                        <th><spring:message code="label.Account.amount"/></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="account" items="${person.accounts}">
+                <tr>
+                    <td>${account.bank}</td>
+                    <td>${account.iban}</td>
+                    <td><spring:message code="label.${account.status}"/></td>
+                    <td>${account.amount}</td>
+                </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </c:if>
 </div>

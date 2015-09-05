@@ -5,8 +5,9 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow.xsd">
 
-    <var name="person" class="com.pr.ents.Person"/>
+    <var name="person" class="com.pr.model.PersonObjectModel"/>
     <var name="identityCard" class="com.pr.ents.IdentityCard"/>
+    <var name="account" class="com.pr.ents.Account"/>
 
     <view-state id="enterPersonInfo" model="person">
         <binder>
@@ -22,14 +23,18 @@
             <evaluate expression="hospitalManager.findAll()" result="requestScope.hospitalList" />
         </on-render>
 
-        <transition on="review" to="reviewPerson" >
-            <evaluate expression="personBuilder.buildPersonObject(person)" result="flowScope.newPerson"/>
-        </transition>
+        <transition on="next" to="isNewPerson" />
     </view-state>
 
-    <view-state id="reviewPerson">
-        <transition on="proceed" to="enterIdentityCardInfo">
-        </transition>
+    <decision-state id="isNewPerson">
+        <if test="personService.isNewPerson(person)" then="enterIdentityCardInfo" else="reviewExistingPerson"/>
+    </decision-state>
+
+    <view-state id="reviewExistingPerson">
+        <on-render>
+            <evaluate expression="personManager.getByPnc(person.pnc)" result="flowScope.existingPerson" />
+        </on-render>
+        <transition on="continue" to="confirmAdult" />
     </view-state>
 
     <view-state id="enterIdentityCardInfo" model="identityCard">
@@ -41,10 +46,39 @@
             <binding property="emittedAt" required="true"/>
             <binding property="expiresAt" required="true"/>
         </binder>
-        <transition on="save" to="end">
-            <evaluate expression="personBuilder.savePersonEntity(newPerson, identityCard)" result="flowScope.savedPerson" />
+        <transition on="save" to="confirmAdult">
+            <evaluate expression="personBuilder.savePersonEntity(person, identityCard)" result="flowScope.existingPerson" />
         </transition>
+        <transition on="cancel" to="cancelPerson" bind="false" />
     </view-state>
 
+    <action-state id="confirmAdult">
+        <evaluate expression="personActions.isAdult" />
+        <transition on="success" to="enterAccountInfo" />
+        <transition on="error" to="end" />
+    </action-state>
+
+    <view-state id="enterAccountInfo" model="account">
+        <binder>
+            <binding property="bank" required="true"/>
+            <binding property="iban" required="true"/>
+            <binding property="amount" />
+            <binding property="status" required="true"/>
+        </binder>
+        <transition on="add" to="end">
+            <evaluate expression="accountActions.saveAccount"/>
+        </transition>
+        <transition on="cancel" to="cancelAccount" bind="false" />
+    </view-state>
+
+    <end-state id="cancelAccount" view="cancelAccount"/>
+    <end-state id="cancelPerson" view="cancelPerson"/>
     <end-state id="end" view="externalRedirect:contextRelative:/persons/#{savedPerson.id}" />
+
+    <end-state id="error" view="error"/>
+
+    <global-transitions>
+        <transition on-exception="java.lang.Exception" to="error" />
+    </global-transitions>
+
 </flow>

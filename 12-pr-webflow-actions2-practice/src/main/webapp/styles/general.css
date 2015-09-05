@@ -1,7 +1,8 @@
 table {
     background-color: #FFFFE0;
-    border-collapse: collapse;
+    border-collapse: separate;
     color: #000;
+    border-spacing: 3px;
 }
 
 table thead {
@@ -12,7 +13,7 @@ table thead {
 }
 
 table td th {
-    padding: 5px;
+    padding: 10px;
     border: 0;
     alignment: left;
 }

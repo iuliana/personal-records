@@ -16,39 +16,38 @@
             <th>
                 <label> <spring:message code="label.Person.firstname"/> : </label>
             </th>
-            <td><label>${newPerson.firstName}</label></td>
+            <td><label>${person.firstName}</label></td>
         </tr>
         <tr>
             <th>
                 <label> <spring:message code="label.Person.middlename"/> : </label>
             </th>
-            <td><label>${newPerson.middleName}</label></td>
+            <td><label>${person.middleName}</label></td>
         </tr>
         <tr>
             <th>
                 <label> <spring:message code="label.Person.lastname"/> : </label>
             </th>
-            <td><label>${newPerson.lastName}</label></td>
+            <td><label>${person.lastName}</label></td>
         </tr>
         <tr>
             <th>
                 <label> <spring:message code="label.Person.dob"/> : </label>
             </th>
-            <td><label>${newPerson.dateOfBirth}</label></td>
+            <td><label>${person.dateOfBirth}</label></td>
         </tr>
 
         <tr>
             <th>
                 <label> <spring:message code="label.Person.gender"/> : </label>
             </th>
-            <!-- Internationalize this-->
-            <td><label>${newPerson.gender}</label></td>
+            <td><label>${person.gender}</label></td>
         </tr>
         <tr>
             <th>
                 <label> <spring:message code="label.Hospital"/> : </label>
             </th>
-            <td><label>${newPerson.hospital.name}</label></td>
+            <td><label>${person.hospital.name}</label></td>
         </tr>
     </table>
 
@@ -60,7 +59,7 @@
                         <span class="man">*</span> <spring:message code="label.ic.pnc"/> :
                     </label>
                 </th>
-                <td><sf:input path="pnc" readonly="true" value="${newPerson.pnc}"/></td>
+                <td><sf:input path="pnc" readonly="true" value="${person.pnc}"/></td>
                 <td><sf:errors cssClass="error" path="pnc"/></td>
             </tr>
             <tr>
@@ -109,9 +108,14 @@
                 <td><sf:errors cssClass="error" path="expiresAt"/></td>
             </tr>
             <tr>
-                <td colspan="2">
+                <td>
                     <button id="newIdentityCardButton" name="_eventId_save" type="submit">
                         <spring:message code="command.save"/>
+                    </button>
+                </td>
+                <td>
+                    <button id="cancelButton" name="_eventId_cancel" type="submit">
+                        <spring:message code="command.cancel"/>
                     </button>
                 </td>
             </tr>

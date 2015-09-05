@@ -2,6 +2,7 @@ package com.pr.service;
 
 import com.pr.base.PncBuilder;
 import com.pr.ents.Person;
+import com.pr.model.PersonObjectModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +21,11 @@ public class PersonService {
     @Autowired
     PersonManager personManager;
 
-    public boolean isNewPerson(Person person) {
-        String pnc = PncBuilder.build(person);
-        Person oldPerson =  personManager.getByPnc(pnc);
-        return oldPerson == null;
+    public boolean isNewPerson(PersonObjectModel person) {
+        String pnc = PncBuilder.buildPnc(person.getGender(), person.getDateOfBirth(), person.getHospital().getCode());
+        person.setPnc(pnc);
+        Person existingPerson = personManager.getByPnc(pnc);
+        return existingPerson == null;
     }
 
     public boolean isAdult(Person person){

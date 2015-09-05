@@ -19,15 +19,15 @@ public class IdentityCardValidator {
 
     public void validateEnterIdentityCardInfo(IdentityCard identityCard, ValidationContext validationContext) {
         Person existingPerson = personManager.getByPnc(identityCard.getPnc());
-        if (existingPerson != null) {
+        String existingIcNumber = existingPerson.getIdentityCard().getNumber();
+        if (identityCard.getNumber().equalsIgnoreCase(existingIcNumber)) {
             validationContext.getMessageContext().
                     addMessage(new MessageBuilder().error()
-                            .source("pnc")
-                            .code("duplicate.ic.pnc")
-                            .arg(existingPerson.getFirstName() + ", " + existingPerson.getLastName())
+                            .source("number")
+                            .code("duplicate.ic.number")
                             .defaultText
-                                    ("A person already exists in the system with this personal numeric code: " +
-                                            existingPerson.getFirstName() + ", " + existingPerson.getLastName()).build());
+                                    ("An IdentityCard already exists in the system with this number: " +
+                                            existingIcNumber).build());
         }
     }
 }

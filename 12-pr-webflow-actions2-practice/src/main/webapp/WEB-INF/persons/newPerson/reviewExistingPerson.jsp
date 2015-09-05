@@ -16,25 +16,25 @@
                 <th>
                     <label> <spring:message code="label.Person.firstname"/> : </label>
                 </th>
-                <td><label>${newPerson.firstName}</label></td>
+                <td><label>${person.firstName}</label></td>
             </tr>
             <tr>
                 <th>
                     <label> <spring:message code="label.Person.middlename"/> : </label>
                 </th>
-                <td><label>${newPerson.middleName}</label></td>
+                <td><label>${person.middleName}</label></td>
             </tr>
             <tr>
                 <th>
                     <label> <spring:message code="label.Person.lastname"/> : </label>
                 </th>
-                <td><label>${newPerson.lastName}</label></td>
+                <td><label>${person.lastName}</label></td>
             </tr>
             <tr>
                 <th>
                     <label> <spring:message code="label.Person.dob"/> : </label>
                 </th>
-                <td><label>${newPerson.dateOfBirth}</label></td>
+                <td><label>${person.dateOfBirth}</label></td>
             </tr>
 
             <tr>
@@ -42,24 +42,29 @@
                     <label> <spring:message code="label.Person.gender"/> : </label>
                 </th>
                 <!-- Internationalize this-->
-                <td><label><spring:message code="label.${newPerson.gender}"/></label></td>
+                <td><label><spring:message code="label.${person.gender}"/></label></td>
             </tr>
             <tr>
                 <th>
                     <label> <spring:message code="label.Hospital"/> : </label>
                 </th>
-                <td><label>${newPerson.hospital.name}</label></td>
+                <td><label>${person.hospital.name}</label></td>
             </tr>
             <tr>
                 <th>
                     <label> <spring:message code="label.ic.pnc"/> : </label>
                 </th>
-                <td><label>${newPerson.pnc}</label></td>
+                <td><label>${person.pnc}</label></td>
             </tr>
             <tr>
-                <td colspan="2">
-                    <button type="submit" name="_eventId_proceed">
-                        <spring:message code="command.proceed"/>
+                <td>
+                    <button type="submit" name="_eventId_continue">
+                        <spring:message code="command.continue"/>
+                    </button>
+                </td>
+                <td>
+                    <button type="submit" name="_eventId_cancel">
+                        <spring:message code="command.cancel"/>
                     </button>
                 </td>
             </tr>

@@ -11,16 +11,34 @@
         <put-attribute name="menuTab" value="newPerson" />
     </definition>
 
-    <definition name="reviewPerson" extends="layout">
-        <put-attribute name="pageTitle" value="persons.review.title" />
-        <put-attribute name="content" value="/WEB-INF/persons/newPerson/reviewPerson.jsp" />
-        <put-attribute name="menuTab" value="newPerson" />
-    </definition>
-
     <definition name="enterIdentityCardInfo" extends="layout">
         <put-attribute name="pageTitle" value="persons.ic.title" />
         <put-attribute name="content" value="/WEB-INF/persons/newPerson/enterIdentityCardInfo.jsp" />
         <put-attribute name="menuTab" value="newPerson" />
+    </definition>
+
+    <definition name="reviewExistingPerson" extends="layout">
+        <put-attribute name="pageTitle" value="persons.review.title" />
+        <put-attribute name="content" value="/WEB-INF/persons/newPerson/reviewExistingPerson.jsp" />
+        <put-attribute name="menuTab" value="newPerson" />
+    </definition>
+
+    <definition name="enterAccountInfo" extends="layout">
+        <put-attribute name="pageTitle" value="account.title" />
+        <put-attribute name="content" value="/WEB-INF/persons/newPerson/enterAccountInfo.jsp" />
+        <put-attribute name="menuTab" value="newPerson" />
+    </definition>
+
+    <definition name="cancelPerson" extends="layout">
+        <put-attribute name="pageTitle" value="cancel.process.title" />
+        <put-attribute name="content" value="/WEB-INF/persons/newPerson/cancelPerson.jsp" />
+        <put-attribute name="menuTab" value="home" />
+    </definition>
+
+    <definition name="cancelAccount" extends="layout">
+        <put-attribute name="pageTitle" value="cancel.process.title" />
+        <put-attribute name="content" value="/WEB-INF/persons/newPerson/cancelAccount.jsp" />
+        <put-attribute name="menuTab" value="home" />
     </definition>
 
 </tiles-definitions>

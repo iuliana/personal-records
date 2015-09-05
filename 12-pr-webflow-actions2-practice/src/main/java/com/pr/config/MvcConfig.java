@@ -28,7 +28,7 @@ import java.util.Locale;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.pr, com.pr.persons, com.pr.hospitals, com.pr.validator"},
+@ComponentScan(basePackages = {"com.pr, com.pr.persons, com.pr.hospitals, com.pr.service"},
 includeFilters = @ComponentScan.Filter(
         value = WebFlowAction.class,
         type = FilterType.ANNOTATION
@@ -86,6 +86,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("home");
         registry.addViewController("/home").setViewName("home");
+        registry.addViewController("/cancel").setViewName("cancel");
     }
 
     @Bean

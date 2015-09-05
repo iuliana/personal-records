@@ -55,7 +55,7 @@ public class Person extends AbstractEntity {
     private IdentityCard identityCard;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private Set<Account> accounts = new HashSet<>();
 
 

@@ -85,8 +85,8 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <button id="reviewPerson" name="_eventId_review" type="submit">
-                        <spring:message code="command.review" />
+                    <button id="nextStep" name="_eventId_next" type="submit">
+                        <spring:message code="command.next" />
                     </button>
                 </td>
             </tr>

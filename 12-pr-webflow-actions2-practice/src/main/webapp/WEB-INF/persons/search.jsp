@@ -61,9 +61,7 @@
                     </a>
                 </td>
             </tr>
-            <tr>
-                <td colspan="3"><sf:errors cssClass="error" path="noResults"/></td>
-            </tr>
         </table>
+        <div><sf:errors cssClass="error" path="noResults"/></div>
     </sf:form>
 </div>

@@ -5,6 +5,8 @@ import com.pr.base.Status;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * An entity used as a template for Bank Account instances. An account instance contains in its fields some data
@@ -23,9 +25,11 @@ public class Account extends AbstractEntity {
 
     /**
      * The numerical code for a bank account
+     * The IBAN consists of up to 34 alphanumeric characters, comprising a country code, two check digits and a long and detailed bank account-number.
      */
-    @Column
+    @Column(unique = true)
     @NotEmpty
+    @Size(min=12, max=30)
     private String iban;
 
     /**
@@ -35,12 +39,15 @@ public class Account extends AbstractEntity {
     private Double amount;
 
     @Enumerated(EnumType.STRING)
-    @NotEmpty
+    @NotNull
     private Status status;
 
     @ManyToOne
     @JoinColumn(name = "PERSON_ID", nullable = false)
     private Person person;
+
+    public Account(){
+    }
 
     public Account(String bank, String iban, Person person) {
         this.bank = bank;
