@@ -14,6 +14,15 @@ import java.util.List;
 public interface PersonRepo extends JpaRepository<Person, Long> {
 
     /**
+     * Retrieve a person with all accounts associated with it
+     * @param id
+     * @return
+     */
+    @Query("select p from Person p left join fetch p.accounts where p.id= :id")
+    Person findOneWithAccounts(@Param("id") Long id);
+
+
+    /**
      * Find all persons with the given lastName.
      */
     @Query("select p from Person p where p.lastName = :lastName")

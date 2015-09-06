@@ -21,8 +21,11 @@ include '10-pr-webflow-fundamentals-practice'
 include '10-pr-webflow-fundamentals-solution'
 include '11-pr-webflow-actions-practice'
 include '11-pr-webflow-actions-solution'
-include '12-pr-web-security-practice'
-include '12-pr-web-security-solution'
+include '12-pr-webflow-actions2-practice'
+include '12-pr-webflow-actions2-solution'
+include '13-pr-webflow-subflow-solution'
+include '14-pr-web-security-practice'
+include '14-pr-web-security-solution'
 
 //we check if the modules have gradle configuration files
 println(' This project is a collection of simple code samples. It is meant to be used together with the ' +

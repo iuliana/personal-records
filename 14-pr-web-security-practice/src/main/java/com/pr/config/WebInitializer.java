@@ -1,3 +1,4 @@
+/*
 package com.pr.config;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -6,9 +7,11 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 import javax.servlet.Filter;
 
+*/
 /**
  * Created by iuliana.cosmina on 7/12/15.
- */
+ *//*
+
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
@@ -39,3 +42,4 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 }
 
+*/
