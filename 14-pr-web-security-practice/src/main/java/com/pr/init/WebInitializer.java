@@ -1,19 +1,26 @@
-package com.pr.config;
 
+package com.pr.init;
+
+import com.pr.config.MvcConfig;
+import com.pr.config.SecurityConfig;
+import com.pr.config.WebFlowConfig;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.Filter;
 
+
 /**
  * Created by iuliana.cosmina on 7/12/15.
  */
+
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class<?>[]{
+                SecurityConfig.class,
                 MvcConfig.class,
                 WebFlowConfig.class
         };

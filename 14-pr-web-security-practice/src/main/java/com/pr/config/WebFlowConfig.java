@@ -1,3 +1,4 @@
+
 package com.pr.config;
 
 import com.pr.audit.AuditFlowExecutorListener;
@@ -22,6 +23,7 @@ import java.util.Set;
 /**
  * Created by iuliana.cosmina on 7/12/15.
  */
+
 @Configuration
 public class WebFlowConfig extends AbstractFlowConfiguration {
 
@@ -87,3 +89,4 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
 
     }
 }
+

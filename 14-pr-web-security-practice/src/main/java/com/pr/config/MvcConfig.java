@@ -23,9 +23,11 @@ import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
 
 import java.util.Locale;
 
+
 /**
  * Created by iuliana.cosmina on 7/12/15.
  */
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.pr, com.pr.persons, com.pr.hospitals, com.pr.service"},
@@ -70,8 +72,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     //Declare our static resources. I added cache to the java config but it’s not required.
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/images/**").addResourceLocations("/images/").setCachePeriod(31556926);
-        registry.addResourceHandler("/styles/**").addResourceLocations("/styles/").setCachePeriod(31556926);
+        registry.addResourceHandler("/images/*").addResourceLocations("/images/").setCachePeriod(31556926);
+        registry.addResourceHandler("/styles/*").addResourceLocations("/styles/").setCachePeriod(31556926);
     }
 
 
@@ -81,7 +83,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         configurer.enable();
     }
 
-    // Serves up cached and compressed static content at /resources/* from the webapp root and classpath
+    // Serves up cached and compressed static content at resources from the webapp root and classpath
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("home");
