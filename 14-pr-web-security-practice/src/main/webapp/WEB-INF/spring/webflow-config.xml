@@ -9,6 +9,7 @@
 
     <!-- Executes web flows -->
     <webflow:flow-executor id="flowExecutor" >
+
         <webflow:flow-execution-listeners>
             <webflow:listener ref="auditExecutionListener" criteria="*"/>
         </webflow:flow-execution-listeners>
