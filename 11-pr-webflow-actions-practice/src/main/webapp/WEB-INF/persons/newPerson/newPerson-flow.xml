@@ -8,7 +8,7 @@
     <var name="person" class="com.pr.ents.Person"/>
     <var name="identityCard" class="com.pr.ents.IdentityCard"/>
 
-    <!-- 35. Complete the flow definition to create a person - validate the person data, the identity card data. -->
+    <!--TODO 35. Complete the flow definition to create a person - validate the person data, the identity card data. -->
 
     <view-state id="enterPersonInfo" model="person">
 

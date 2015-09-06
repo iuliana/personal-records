@@ -10,74 +10,40 @@
     <var name="account" class="com.pr.ents.Account"/>
 
     <view-state id="enterPersonInfo" model="person">
-        <binder>
-            <binding property="firstName" required="true"/>
-            <binding property="lastName" required="true"/>
-            <binding property="middleName"/>
-            <binding property="dateOfBirth" required="true"/>
-            <binding property="gender" required="true"/>
-            <binding property="hospital" required="true"/>
-        </binder>
-
-        <on-render>
-            <evaluate expression="hospitalManager.findAll()" result="requestScope.hospitalList" />
-        </on-render>
-
-        <transition on="next" to="isNewPerson" />
+        <!-- TODO 36. Add binder, populate the hospitalList and add transition element to isNewPerson  state -->
     </view-state>
 
     <decision-state id="isNewPerson">
-        <if test="personService.isNewPerson(person)" then="enterIdentityCardInfo" else="reviewExistingPerson"/>
+        <!-- TODO 37. Add content of decision state based on personService.isNewPerson and transitioning to enterIdentityCardInfo
+        or reviewExistingPerson state based on the result -->
     </decision-state>
 
     <view-state id="reviewExistingPerson">
-        <on-render>
-            <evaluate expression="personManager.getByPnc(person.pnc)" result="flowScope.existingPerson" />
-        </on-render>
-        <transition on="continue" to="confirmAdult" />
+       <!-- TODO 38. Add content of this view state to display the existing perosn in the system and transition to the confirmAdult
+        state -->
     </view-state>
 
     <view-state id="enterIdentityCardInfo" model="identityCard">
-        <binder>
-            <binding property="pnc" required="true"/>
-            <binding property="series" required="true"/>
-            <binding property="number" required="true"/>
-            <binding property="address" required="true"/>
-            <binding property="emittedAt" required="true"/>
-            <binding property="expiresAt" required="true"/>
-        </binder>
-        <transition on="save" to="confirmAdult">
-            <evaluate expression="personBuilder.savePersonEntity(person, identityCard)" result="flowScope.existingPerson" />
-        </transition>
-        <transition on="cancel" to="cancelPerson" bind="false" />
+       <!-- TODO 39. Add binder and transition element to save the person info to flowScope.existingPerson and transition to
+        confirmAdult state -->
     </view-state>
 
     <action-state id="confirmAdult">
-        <evaluate expression="personActions.isAdult" />
-        <transition on="success" to="enterAccountInfo" />
-        <transition on="error" to="end" />
+       <!-- TODO 40. Add state content based on personAction.isAdult -->
     </action-state>
 
     <view-state id="enterAccountInfo" model="account">
-        <binder>
-            <binding property="bank" required="true"/>
-            <binding property="iban" required="true"/>
-            <binding property="amount" />
-            <binding property="status" required="true"/>
-        </binder>
-        <transition on="add" to="end">
-            <evaluate expression="accountActions.saveAccount"/>
-        </transition>
-        <transition on="cancel" to="cancelAccount" bind="false" />
+        <!-- TODO 41. Ass binder, and transition to end state after saving account using accountActions.saveAccount-->
     </view-state>
 
-    <end-state id="cancelAccount" view="cancelAccount"/>
-    <end-state id="cancelPerson" view="cancelPerson"/>
-    <end-state id="end" view="externalRedirect:contextRelative:/persons/#{savedPerson.id}" />
+    <view-state id="error"/>
 
-    <end-state id="error" view="error"/>
+    <end-state id="cancel" view="cancel"/>
+
+    <end-state id="end" view="externalRedirect:contextRelative:/persons/#{existingPerson.id}" />
 
     <global-transitions>
+        <transition on="cancel" to="cancel" bind="false" />
         <transition on-exception="java.lang.Exception" to="error" />
     </global-transitions>
 

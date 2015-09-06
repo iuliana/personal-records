@@ -10,5 +10,5 @@
 </h2>
 
 <div class="message">
-    <spring:message code="cancel.account.message"/>
+    <spring:message code="cancel.process.message"/>
 </div>

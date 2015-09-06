@@ -15,5 +15,5 @@ dependencies {
 
 gretty {
     port = 8080
-    contextPath = '/webflow-actions'
+    contextPath = '/actions1'
 }
