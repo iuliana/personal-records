@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
@@ -22,12 +23,12 @@ public class Hospital extends AbstractEntity {
 
     @Column(nullable = false, unique = true)
     @Pattern(regexp = "\\d{6}")
-    @NotEmpty
+    @NotNull
     private String code;
 
     @Size(min = 2, max = 50)
     @Column(nullable = false)
-    @NotEmpty
+    @NotNull
     private String name;
 
     @Size(max = 100)
@@ -36,7 +37,7 @@ public class Hospital extends AbstractEntity {
 
     @Size(max = 20)
     @Column(nullable = false)
-    @NotEmpty
+    @NotNull
     private String location;
 
     @JsonIgnore

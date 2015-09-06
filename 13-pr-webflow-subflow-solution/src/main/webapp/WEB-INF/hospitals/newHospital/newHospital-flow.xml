@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress WebflowSetupInspection, WebflowSetupInspection -->
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+
+    <var name="hospital" class="com.pr.ents.Hospital"/>
+
+    <view-state id="enterHospitalInfo" model="hospital">
+        <binder>
+            <binding property="name" required="true"/>
+            <binding property="code" required="true"/>
+            <binding property="address"/>
+            <binding property="location" required="true"/>
+        </binder>
+        <transition on="save" to="saveHospital"/>
+        <transition on="cancel" to="cancel" bind="false" />
+    </view-state>
+
+    <end-state id="saveHospital">
+        <output name="hospital" value="hospital"/>
+    </end-state>
+
+    <end-state id="cancel"/>
+
+</flow>
