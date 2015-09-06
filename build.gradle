@@ -23,10 +23,10 @@ subprojects {
 
 //We define versions for the libraries we will be using
 ext {
-    springVersion = '4.1.6.RELEASE'
-    springJpaVersion = '1.8.0.RELEASE'
-    springSecurityVersion = '3.2.5.RELEASE'
-    webflowVersion = '2.4.1.RELEASE'
+    springVersion = '4.2.1.RELEASE'
+    springJpaVersion = '1.8.2.RELEASE'
+    springSecurityVersion = '4.0.1.RELEASE'
+    webflowVersion = '2.4.2.RELEASE'
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
     slf4jVersion = '1.7.12'
