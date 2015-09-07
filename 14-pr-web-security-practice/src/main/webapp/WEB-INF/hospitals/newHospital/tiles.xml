@@ -6,7 +6,7 @@
 <tiles-definitions>
 
     <definition name="enterHospitalInfo" extends="layout">
-        <put-attribute name="pageTitle" value="hospitals.new.title" />
+        <put-attribute name="pageTitle" value="hospital.new.title" />
         <put-attribute name="content" value="/WEB-INF/hospitals/newHospital/enterHospitalInfo.jsp" />
         <put-attribute name="menuTab" value="newPerson" />
     </definition>
