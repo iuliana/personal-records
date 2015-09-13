@@ -86,7 +86,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     // Serves up cached and compressed static content at resources from the webapp root and classpath
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("home");
+        registry.addViewController("/auth").setViewName("auth");
         registry.addViewController("/home").setViewName("home");
         registry.addViewController("/cancel").setViewName("cancel");
     }

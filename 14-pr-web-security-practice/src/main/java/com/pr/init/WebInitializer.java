@@ -20,15 +20,16 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class<?>[]{
-                SecurityConfig.class,
-                MvcConfig.class,
-                WebFlowConfig.class
+                SecurityConfig.class
         };
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return null;
+        return new Class<?>[]{
+                MvcConfig.class,
+                WebFlowConfig.class
+        };
     }
 
     @Override
