@@ -63,7 +63,7 @@
 
     <!-- Define controllers which only render pages (i.e. nothing added to the model) -->
     <mvc:view-controller path="/" view-name="home"/>
-    <mvc:view-controller path="/home" view-name="home"/>
+    <mvc:view-controller path="/auth" view-name="auth"/>
     <mvc:view-controller path="/cancel" view-name="cancel"/>
 
     <!-- Resolves messages to support internationalization -->
@@ -74,7 +74,6 @@
 
     <!-- Resolves logical view names to Tiles 3 definitions -->
     <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"
-          p:order="0"
           p:requestContextAttribute="requestContext"/>
 
     <!-- Configures Tiles3 -->
@@ -111,6 +110,4 @@
     <!-- Dispatches requests mapped to flows to FlowHandler implementations -->
     <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter"
           p:flowExecutor-ref="flowExecutor"/>
-
-
 </beans>

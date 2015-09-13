@@ -42,6 +42,9 @@ public class Account extends AbstractEntity {
     @JoinColumn(name = "PERSON_ID", nullable = false)
     private Person person;
 
+    public Account(){
+    }
+
     public Account(String bank, String iban, Person person) {
         this.bank = bank;
         this.iban = iban;

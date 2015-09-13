@@ -3,6 +3,8 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -74,20 +76,27 @@
                     <a href="<c:url value="/hospitals/"/>"><spring:message code="menu.hospitals"/></a>
                 </c:if>
             </li>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
             <li>
                 <c:if test="${navigationTab eq 'newPerson'}">
                     <strong>
                         <a href="<c:url value="/persons/newPerson"/>">
-                            <fmt:message key="menu.new.person"/>
+                            <spring:message code="menu.new.person"/>
                         </a>
                     </strong>
                 </c:if>
                 <c:if test="${navigationTab != 'newPersons'}">
                     <a href="<c:url value="/persons/newPerson"/>">
-                        <fmt:message key="menu.new.person"/>
+                        <spring:message code="menu.new.person"/>
                     </a>
                 </c:if>
             </li>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+            <li>
+                <a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="menu.logout"/></a>
+            </li>
+            </sec:authorize>
         </ul>
     </div>
 

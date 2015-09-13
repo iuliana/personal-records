@@ -52,6 +52,7 @@
     </table>
 
     <sf:form id="newIdentityCard" method="POST" modelAttribute="identityCard">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <table>
             <tr>
                 <th>

@@ -19,4 +19,10 @@
         <put-attribute name="menuTab" value="home" />
     </definition>
 
+    <definition name="auth" extends="layout">
+        <put-attribute name="pageTitle" value="login.title"/>
+        <put-attribute name="content" value="/WEB-INF/auth.jsp"/>
+        <put-attribute name="menuTab" value=""/>
+    </definition>
+
 </tiles-definitions>
