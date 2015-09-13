@@ -94,7 +94,11 @@
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
             <li>
-                <a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="menu.logout"/></a>
+                <spring:url value="/logout" var="logoutUrl" />
+                <form action="${logoutUrl}" id="logout" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+                <a href="#" onclick="document.getElementById('logout').submit();"><spring:message code="menu.logout"/></a>
             </li>
             </sec:authorize>
         </ul>

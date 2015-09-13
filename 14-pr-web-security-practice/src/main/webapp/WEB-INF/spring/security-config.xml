@@ -19,7 +19,7 @@
         <intercept-url pattern="/**" access="hasAnyRole('USER, ADMIN')"/>
         <form-login login-page="/auth" authentication-failure-url="/auth?auth_error=1"
                         default-target-url="/"/>
-        <logout logout-url="/j_spring_security_logout"/>
+        <logout logout-url="/logout"   delete-cookies="JSESSIONID" logout-success-url="/home"/>
     </http>
 
     <authentication-manager>
