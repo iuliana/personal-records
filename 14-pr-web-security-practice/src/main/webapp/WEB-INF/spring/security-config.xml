@@ -13,8 +13,7 @@
     <http pattern="/resources/*" security="none"/>
 
     <http auto-config="true" use-expressions="true">
-        <csrf disabled="true"/>
-        <headers disabled="true"/>
+        <csrf token-repository-ref="tokenRepo"/>
         <intercept-url pattern="/auth*" access="permitAll"/>
         <intercept-url pattern="/persons/newPerson" access="hasRole('ADMIN')"/>
         <intercept-url pattern="/**" access="hasAnyRole('USER, ADMIN')"/>
@@ -32,4 +31,8 @@
             </user-service>
         </authentication-provider>
     </authentication-manager>
+
+    <beans:bean id="tokenRepo" class="org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository">
+        <beans:property name="sessionAttributeName" value="_csrf"/>
+    </beans:bean>
 </beans:beans>
