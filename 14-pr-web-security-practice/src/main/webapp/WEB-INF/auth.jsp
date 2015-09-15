@@ -15,8 +15,9 @@
 
     <p><h3><spring:message code="login.message"/></h3></p>
 
-    <form action="<c:url value='/login'/>" method="post">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <spring:url value="/login" var="loginUrl" />
+    <form action="${loginUrl}" method="post">
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <table>
             <tr>
                 <td><label for="username"><spring:message code="login.username"/></label></td>

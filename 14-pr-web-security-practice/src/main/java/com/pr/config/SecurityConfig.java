@@ -20,9 +20,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) {
         try {
-            auth.inMemoryAuthentication().withUser("john").password("doe").roles("USER");
-            auth.inMemoryAuthentication().withUser("jane").password("doe").roles("USER,ADMIN");
-            auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+            auth.inMemoryAuthentication().withUser("john").password("doe").roles("USER")
+                    .and()
+            .withUser("jane").password("doe").roles("USER,ADMIN")
+            .and().withUser("admin").password("admin").roles("ADMIN");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -31,25 +32,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .authorizeRequests()
+                .antMatchers("/resources/**","/images/**","/styles/**").permitAll()
+                .antMatchers("/persons/newPerson").hasRole("ADMIN")
+                .antMatchers("/**").hasAnyRole("ADMIN","USER")
+                .anyRequest()
+                .authenticated()
+                .and()
             .formLogin()
-                .loginPage("/auth")
                 .usernameParameter("username")
                 .passwordParameter("password")
+                .loginProcessingUrl("/login")
+                .loginPage("/auth")
                 .failureUrl("/auth?auth_error=1")
                 .defaultSuccessUrl("/home")
+                .permitAll()
                 .and()
             .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
             .and()
-            .authorizeRequests()
-            .antMatchers("/resources/*","/images/*","/styles/*","/auth").permitAll()
-                .antMatchers("/persons/newPerson").hasRole("ADMIN")
-                .antMatchers("/**").hasAnyRole("ADMIN","USER")
-                .anyRequest()
-                .authenticated()
-            .and()
-                .csrf().disable();
+               .csrf().disable();
 
         //.csrfTokenRepository(repo())
         //.and()
