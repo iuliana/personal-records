@@ -5,6 +5,7 @@ import com.pr.base.Status;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * An entity used as a template for Bank Account instances. An account instance contains in its fields some data
@@ -35,7 +36,7 @@ public class Account extends AbstractEntity {
     private Double amount;
 
     @Enumerated(EnumType.STRING)
-    @NotEmpty
+    @NotNull
     private Status status;
 
     @ManyToOne

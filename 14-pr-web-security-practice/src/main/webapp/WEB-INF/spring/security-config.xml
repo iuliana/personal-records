@@ -19,8 +19,10 @@
         <intercept-url pattern="/**" access="hasAnyRole('USER, ADMIN')"/>
         <form-login login-page="/auth" authentication-failure-url="/auth?auth_error=1"
                         default-target-url="/"/>
-        <logout logout-url="/logout"   delete-cookies="JSESSIONID"
-                logout-success-url="/home"/>
+        <logout logout-url="/logout"
+                delete-cookies="JSESSIONID"
+                invalidate-session="true"
+                logout-success-url="/"/>
     </http>
 
     <authentication-manager>
@@ -35,5 +37,7 @@
 
     <beans:bean id="tokenRepo" class="org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository">
         <beans:property name="sessionAttributeName" value="_csrf"/>
+        <beans:property name="headerName" value="X-CSRF-TOKEN"/>
     </beans:bean>
+
 </beans:beans>
