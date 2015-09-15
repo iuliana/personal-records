@@ -52,18 +52,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
             .and()
-               .csrf().disable();
-
-        //.csrfTokenRepository(repo())
-        //.and()
+               .csrf().csrfTokenRepository(repo())
+        .and();
 
     }
 
-    /*@Bean
+    @Bean
     public CsrfTokenRepository repo() {
         HttpSessionCsrfTokenRepository repo = new HttpSessionCsrfTokenRepository();
         repo.setParameterName("_csrf");
+        repo.setHeaderName("X-CSRF-TOKEN");
         return repo;
-    }*/
+    }
 
 }
