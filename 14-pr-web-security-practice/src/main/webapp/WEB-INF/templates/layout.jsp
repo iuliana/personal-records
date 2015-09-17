@@ -76,7 +76,7 @@
                     <a href="<c:url value="/hospitals/"/>"><spring:message code="menu.hospitals"/></a>
                 </c:if>
             </li>
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <sec:authorize url="/persons/newPerson">
                 <li>
                     <c:if test="${navigationTab eq 'newPerson'}">
                         <strong>
@@ -94,7 +94,7 @@
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
                 <li>
-                    <spring:url value="/logout" var="logoutUrl" />
+                    <spring:url value="/logout" var="logoutUrl"/>
                     <form action="${logoutUrl}" id="logout" method="post">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </form>
@@ -109,6 +109,11 @@
     </div>
 
     <div class="footer">
+        <sec:authorize access="isAuthenticated()">
+            <p><spring:message code="user.loggedin"/>:
+                <sec:authentication property="principal.username"/>
+            </p>
+        </sec:authorize>
         <p><spring:message code="footer.text"/></p>
     </div>
 

@@ -8,7 +8,7 @@ dependencies {
             spring.jdbc, spring.orm, spring.contextSupport, spring.data,
             spring.webmvc, spring.webflow,
             spring.securityWeb, spring.securityTaglibs,spring.securityConfig,
-            misc.dbcp, misc.h2, misc.joda, misc.jstl, misc.tilesJsp, misc.tilesReqApi, misc.javaxEl,
+            misc.dbcp, misc.h2, misc.joda, misc.servlet, misc.jstl, misc.tilesJsp, misc.tilesReqApi, misc.javaxEl,
             misc.poi,misc.jacksonCore, misc.jacksonDatabind, misc.jacksonAnnotations
 
     testCompile tests.junit, tests.mockito, spring.test, tests.hamcrestCore, tests.hamcrestLib

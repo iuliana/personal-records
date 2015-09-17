@@ -7,6 +7,8 @@ import com.pr.service.AccountManager;
 import com.pr.service.PersonManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.message.MessageBuilder;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.webflow.action.MultiAction;
 import org.springframework.webflow.execution.Event;
 import org.springframework.webflow.execution.RequestContext;
@@ -23,6 +25,8 @@ public class AccountActions extends MultiAction {
     @Autowired
     PersonManager personManager;
 
+    @Secured("ROLE_ADMIN")
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Event saveAccount(RequestContext context) {
         Person person = (Person) context.getFlowScope().get("existingPerson");
         try {

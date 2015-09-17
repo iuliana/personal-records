@@ -11,6 +11,7 @@
 
 <div class="person">
     <sf:form id="reviewPerson" method="POST">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <table>
             <tr>
                 <th>

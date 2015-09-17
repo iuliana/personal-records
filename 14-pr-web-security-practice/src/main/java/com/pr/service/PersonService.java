@@ -27,13 +27,4 @@ public class PersonService {
         Person existingPerson = personManager.getByPnc(pnc);
         return existingPerson == null;
     }
-
-    public boolean isAdult(Person person){
-        Date input = person.getDateOfBirth();
-        Instant instant = input.toInstant();
-        ZonedDateTime zdt = instant.atZone(ZoneId.systemDefault());
-        LocalDate birthday = zdt.toLocalDate();
-        long yearsDelta = birthday.until(LocalDate.now(), ChronoUnit.YEARS);
-        return yearsDelta>=18;
-    }
 }

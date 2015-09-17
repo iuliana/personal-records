@@ -12,6 +12,7 @@
 <div class="account">
 
     <sf:form id="newAccountForm" method="POST" modelAttribute="account">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <table>
             <tr>
                 <th>
