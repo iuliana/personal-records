@@ -11,10 +11,14 @@
     <webflow:flow-executor id="flowExecutor" >
         <webflow:flow-execution-listeners>
             <webflow:listener ref="auditExecutionListener" criteria="*"/>
+            <webflow:listener ref="securityFlowExecutionListener" criteria="*"/>
         </webflow:flow-execution-listeners>
     </webflow:flow-executor>
 
     <bean id="auditExecutionListener" class="com.pr.audit.AuditFlowExecutorListener"/>
+
+    <bean id="securityFlowExecutionListener"
+          class="org.springframework.webflow.security.SecurityFlowExecutionListener"/>
 
     <!-- Contains the flows defined by this application -->
     <webflow:flow-registry id="flowRegistry" base-path="/WEB-INF" flow-builder-services="flowBuilderServices">
