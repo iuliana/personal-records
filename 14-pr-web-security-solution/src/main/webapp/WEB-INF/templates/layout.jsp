@@ -76,7 +76,7 @@
                     <a href="<c:url value="/hospitals/"/>"><spring:message code="menu.hospitals"/></a>
                 </c:if>
             </li>
-           <!--TODO 50.secure this element so it will be accessible only to ADMIN users -->
+            <sec:authorize url="/persons/newPerson">
                 <li>
                     <c:if test="${navigationTab eq 'newPerson'}">
                         <strong>
@@ -91,7 +91,7 @@
                         </a>
                     </c:if>
                 </li>
-
+            </sec:authorize>
             <sec:authorize access="isAuthenticated()">
                 <li>
                     <spring:url value="/logout" var="logoutUrl"/>

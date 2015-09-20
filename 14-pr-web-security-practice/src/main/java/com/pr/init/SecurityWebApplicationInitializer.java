@@ -1,9 +1,8 @@
 package com.pr.init;
 
-import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
-
-/**
- * Created by iuliana.cosmina on 9/14/15.
- */
-public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer {
+public class SecurityWebApplicationInitializer
+{
+    /*TODO 47. Complete the implementation of this class in order
+    to add a new filter of type org.springframework.web.filter.DelegatingFilterProxy
+     with the filter name springSecurityFilterChain.*/
 }

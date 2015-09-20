@@ -10,30 +10,30 @@
     <var name="account" class="com.pr.ents.Account"/>
 
     <view-state id="enterPersonInfo" model="person">
-        <!-- TODO 36. Add binder, populate the hospitalList and add transition element to isNewPerson  state -->
+        <!-- TODO 41. Add binder, populate the hospitalList and add transition element to isNewPerson  state -->
     </view-state>
 
     <decision-state id="isNewPerson">
-        <!-- TODO 37. Add content of decision state based on personService.isNewPerson and transitioning to enterIdentityCardInfo
+        <!-- TODO 42. Add content of decision state based on personService.isNewPerson and transitioning to enterIdentityCardInfo
         or reviewExistingPerson state based on the result -->
     </decision-state>
 
     <view-state id="reviewExistingPerson">
-       <!-- TODO 38. Add content of this view state to display the existing perosn in the system and transition to the confirmAdult
+       <!-- TODO 43. Add content of this view state to display the existing perosn in the system and transition to the confirmAdult
         state -->
     </view-state>
 
     <view-state id="enterIdentityCardInfo" model="identityCard">
-       <!-- TODO 39. Add binder and transition element to save the person info to flowScope.existingPerson and transition to
+       <!-- TODO 44. Add binder and transition element to save the person info to flowScope.existingPerson and transition to
         confirmAdult state -->
     </view-state>
 
     <action-state id="confirmAdult">
-       <!-- TODO 40. Add state content based on personAction.isAdult -->
+       <!-- TODO 45. Add state content based on personAction.isAdult -->
     </action-state>
 
     <view-state id="enterAccountInfo" model="account">
-        <!-- TODO 41. Ass binder, and transition to end state after saving account using accountActions.saveAccount-->
+        <!-- TODO 46. Add binder, and transition to end state after saving account using accountActions.saveAccount-->
     </view-state>
 
     <view-state id="error"/>
