@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <definition name="persons/search" extends="layout">
+        <put-attribute name="pageTitle" value="persons.search.title" />
+        <put-attribute name="content" value="/templates/persons/search.jsp" />
+        <put-attribute name="menuTab" value="search" />
+    </definition>
+
+    <definition name="persons/list" extends="layout">
+        <put-attribute name="pageTitle" value="persons.list.title" />
+        <put-attribute name="content" value="/templates/persons/list.jsp" />
+        <put-attribute name="menuTab" value="persons" />
+    </definition>
+
+    <definition name="persons/show" extends="layout">
+        <put-attribute name="pageTitle" value="person.title" />
+        <put-attribute name="content" value="/templates/persons/show.jsp" />
+        <put-attribute name="menuTab" value="persons" />
+    </definition>
+
+</tiles-definitions>

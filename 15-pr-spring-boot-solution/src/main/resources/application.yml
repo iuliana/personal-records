@@ -1,0 +1,11 @@
+app:
+  port: 8080
+  context: /pr-boot
+
+# H2 Web Console (H2ConsoleProperties)
+spring:
+  h2.console.enabled: false # Enable the console
+  h2.console.path: /h2-console # Path at which the console can be accessed
+  http.encoding.charset: UTF-8 # the encoding of HTTP requests/responses
+  http.encoding.enabled: true # enable http encoding support
+  http.encoding.force: true # force the configured encoding

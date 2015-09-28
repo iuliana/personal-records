@@ -26,6 +26,7 @@ include '12-pr-webflow-actions2-solution'
 include '13-pr-webflow-subflow-solution'
 include '14-pr-web-security-practice'
 include '14-pr-web-security-solution'
+include '15-pr-spring-boot-solution'
 
 //we check if the modules have gradle configuration files
 println(' This project is a collection of simple code samples. It is meant to be used together with the ' +
