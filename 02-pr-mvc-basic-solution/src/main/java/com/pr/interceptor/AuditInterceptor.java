@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by iuliana.cosmina on 5/6/15.
  */
+@SuppressWarnings("unchecked")
 @Component
 public class AuditInterceptor extends HandlerInterceptorAdapter {
     private Logger logger = LoggerFactory.getLogger(AuditInterceptor.class);

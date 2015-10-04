@@ -10,23 +10,18 @@ buildscript {
     }
 }
 
-jar {
-    baseName = 'pr-boot'
-    version = '1.0'
-}
-
 dependencies {
 
     compile (boot.starterWeb){
         exclude module : "spring-boot-starter-tomcat"
     }
-    compile boot.starterJetty, boot.actuator, boot.yaml, boot.starterSecurity, boot.starterJpa
+    compile boot.starterJetty, boot.actuator, boot.yaml
 
-    compile project(':01-pr-service')
+    /*compile project(':01-pr-service')
     compile hibernate.ehcache, hibernate.em, hibernate.core, hibernate.validator,
             spring.webflow,
             misc.dbcp, misc.h2, misc.joda, misc.jstl, misc.tilesJsp, misc.tilesReqApi, misc.javaxEl,
             misc.jacksonCore, misc.jacksonDatabind, misc.jacksonAnnotations
 
-    testCompile tests.junit, tests.mockito, spring.test, tests.hamcrestCore, tests.hamcrestLib
+    testCompile tests.junit, tests.mockito, spring.test, tests.hamcrestCore, tests.hamcrestLib*/
 }

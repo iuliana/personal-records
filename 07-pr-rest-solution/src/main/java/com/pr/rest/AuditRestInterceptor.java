@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 /**
  * Created by iuliana.cosmina on 5/23/15.
  */
+@SuppressWarnings("unchecked")
 @ControllerAdvice(basePackages = "com.pr.rest")
 public class AuditRestInterceptor extends JsonViewResponseBodyAdvice {
     private Logger logger = LoggerFactory.getLogger(AuditRestInterceptor.class);
