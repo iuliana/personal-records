@@ -17,6 +17,8 @@ dependencies {
     }
     compile boot.starterJetty, boot.actuator, boot.yaml
 
+    compile misc.tilesJsp, misc.tilesReqApi
+
     /*compile project(':01-pr-service')
     compile hibernate.ehcache, hibernate.em, hibernate.core, hibernate.validator,
             spring.webflow,
