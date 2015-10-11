@@ -30,4 +30,10 @@
         <put-attribute name="menuTab" value="search" />
     </definition>
 
+    <definition name="persons/rest-search" extends="layout">
+        <put-attribute name="pageTitle" value="persons.search.title" />
+        <put-attribute name="content" value="/WEB-INF/persons/rest-search.jsp" />
+        <put-attribute name="menuTab" value="rest-search" />
+    </definition>
+
 </tiles-definitions>

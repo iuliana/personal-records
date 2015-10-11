@@ -53,4 +53,8 @@ public class CriteriaDto {
     public void setNoResults(String noResults) {
         this.noResults = noResults;
     }
+
+    public boolean isEmpty(){
+        return fieldName == null && fieldValue == null;
+    }
 }

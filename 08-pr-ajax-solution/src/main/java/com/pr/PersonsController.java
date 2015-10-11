@@ -1,23 +1,14 @@
 package com.pr;
 
-import com.pr.ents.Hospital;
 import com.pr.ents.Person;
 import com.pr.problem.NotFoundException;
-import com.pr.repos.HospitalRepo;
-import com.pr.repos.PersonRepo;
-import com.pr.service.HospitalManager;
 import com.pr.service.PersonManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by iuliana.grajdeanu on 3/2/15.
@@ -25,20 +16,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/persons/{pnc}")
 public class PersonsController {
-    private Logger logger = LoggerFactory.getLogger(PersonsController.class);
     private PersonManager personManager;
-    private HospitalManager hospitalManager;
 
     @Autowired
     public PersonsController(PersonManager personManager) {
         this.personManager = personManager;
     }
-
-    @Autowired
-    public void setHospitalManager(HospitalManager hospitalManager) {
-        this.hospitalManager = hospitalManager;
-    }
-
     /**
      * Finds the person managed by the methods in this controller and adds it to the model
      * @param pnc

@@ -100,38 +100,42 @@
                     var fieldName = $("#fieldName").val();
                     var fieldValue = $("#fieldValue").val();
                     var exactMatch = $("#exactMatch").is(':checked');
-                    //console.log('Criteria:' + fieldName + ", " + fieldValue + ", " + exactMatch);
 
                     if (isValid(fieldName, fieldValue)) {
                         var params = {
                             fieldName: fieldName,
                             fieldValue: fieldValue,
                             exactMatch: exactMatch
-                        }
+                        };
                         $(".error").hide();
                         $.getJSON("${personsUrl}/ajax", params, displayResults);
+                        //legacySearch(params,displayResults);
                     }
-                    return false;
                 });
 
 
-        $("#cleanButton").click(
+        $("#cancelButton").click(
                 function (event) {
                     event.preventDefault();
                     $("#resultDiv").fadeOut('fast');
+                    $("#noResults").fadeOut('fast');
                     $(".error").hide();
                     $("#resultTable").empty();
-                    return false;
                 });
     });
 
     function displayResults(results) {
+        console.log(results);
         if (results.length == 0) {
             $("#noResults").text("No results for search");
+            $("#resultTable").empty();
+            $("#resultDiv").fadeOut('fast');
+            $("#noResults").fadeIn('fast');
         } else {
             $("#resultTable").empty();
             results.forEach(function(person){
-                $("#resultTable").append('<tr><td><a href="#" onclick="getPersonDetails(\''+ person.identityCard.pnc +'\')">'
+                $("#resultTable").append('<tr><td>' +
+                        '<a href="#"' + 'onclick="getPersonDetails(' + "'"+ person.identityCard.pnc +"'" + ')">'
                 + person.identityCard.pnc +'</a></td>' +
                 '<td>'+ person.firstName+ '</td>' + '<td>'+ person.lastName+ '</td>' +
                 '</tr>');
@@ -175,5 +179,21 @@
     function isValidDate(dateString) {
         var regEx = /^\d{4}-\d{2}-\d{2}$/;
         return dateString.match(regEx) != null;
+    }
+
+    /////////////// legacy code using XMLHttpRequest///////////////////
+    function legacySearch(params, callback) {
+        var url="${personsUrl}/ajax?fieldName=" + params.fieldName + "&fieldValue="
+                + params.fieldValue
+                + "&exactMatch="+ params.exactMatch;
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.send();
+        xhr.onreadystatechange =
+                function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        displayResults($.parseJSON(xhr.response));
+                    }
+                };
     }
 </script>

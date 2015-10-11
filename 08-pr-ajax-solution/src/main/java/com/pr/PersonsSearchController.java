@@ -30,8 +30,6 @@ import java.util.Locale;
 @RequestMapping(value = "/persons")
 public class PersonsSearchController {
 
-    private Logger logger = LoggerFactory.getLogger(PersonsSearchController.class);
-
     private PersonManager personManager;
 
     @Autowired

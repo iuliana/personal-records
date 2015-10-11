@@ -68,6 +68,13 @@
                     <a href="<c:url value="/persons/search/"/>"><spring:message code="menu.search"/></a>
                 </c:if>
             </li>
+            <li><c:if test="${menuTab eq 'rest'}">
+                <strong><a href="<c:url value="/rest-search/"/>"><spring:message code="menu.rest.search"/></a></strong>
+            </c:if>
+                <c:if test="${menuTab != 'rest'}">
+                    <a href="<c:url value="/rest-search/"/>"><spring:message code="menu.rest.search"/></a>
+                </c:if>
+            </li>
         </ul>
     </div>
 
