@@ -1,7 +1,8 @@
-package com.pr.problem;
+package com.pr;
 
 import com.pr.dto.CriteriaDto;
 import com.pr.ents.Person;
+import com.pr.problem.InvalidCriteriaException;
 import com.pr.service.PersonManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,11 +28,12 @@ public class RestSearchController {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<Person> getAll(@RequestBody CriteriaDto criteria) throws InvalidCriteriaException {
         if (criteria.getFieldValue() == null || criteria.getFieldValue().isEmpty()) {
-            return personManager.getByCriteriaDto(criteria);
+            return new ArrayList<>();
         }
+        return personManager.getByCriteriaDto(criteria);
         /*if (true) {
             throw new NullPointerException("Intentional bubu");
         }*/
-        return new ArrayList<>();
+
     }
 }

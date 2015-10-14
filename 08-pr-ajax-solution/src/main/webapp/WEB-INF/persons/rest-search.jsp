@@ -33,7 +33,7 @@
             <tr>
                 <td></td>
                 <td colpan="2">
-                    <checkbox path="exactMatch" id="exactMatch"/>
+                    <input type="checkbox" id="exactMatch" />
                     <spring:message code="label.Criteria.exactmatch"/>
                 </td>
             </tr>
@@ -93,7 +93,7 @@
     });
 
     function displayResults(results) {
-        //console.log(results.length);
+        console.log(results.length);
         if (results.length == 0) {
             $("#noResults").text("No results for search");
             $("#resultTable").empty();
@@ -115,7 +115,7 @@
     function sendAjaxReq(){
         var fieldValue = $("#fieldValue").val();
         var exactMatch = $("#exactMatch").is(':checked');
-        //console.log('Criteria:' + fieldValue + ', ' + exactMatch);
+        console.log('Criteria:' + fieldValue + ', ' + exactMatch);
 
         if (fieldValue != '') {
             $.postJSON("${searchUrl}",

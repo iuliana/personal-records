@@ -1,4 +1,4 @@
-package com.pr.problem;
+package com.pr;
 
 import com.pr.dto.CriteriaDto;
 import org.hibernate.Criteria;
