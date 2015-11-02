@@ -23,7 +23,7 @@
             <evaluate expression="hospitalManager.findAll()" result="requestScope.hospitalList" />
         </on-render>
 
-        <transition on="next" to="isNewPerson" />
+        <transition on="next" to="isNewPerson"/>
         <transition on="addHospital" to="newHospital"/>
     </view-state>
 
@@ -38,8 +38,6 @@
     </subflow-state>
 
     <decision-state id="isNewPerson">
-        <!-- sample of code used to secure a state -->
-        <secured attributes="IS_AUTHENTICATED_FULLY"/>
         <if test="personService.isNewPerson(person)" then="enterIdentityCardInfo" else="reviewExistingPerson"/>
     </decision-state>
 

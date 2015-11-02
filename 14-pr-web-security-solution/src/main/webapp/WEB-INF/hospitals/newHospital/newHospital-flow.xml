@@ -6,6 +6,7 @@
         http://www.springframework.org/schema/webflow/spring-webflow.xsd">
 
     <var name="hospital" class="com.pr.ents.Hospital"/>
+    <input name="manager" required="true"/>
 
     <view-state id="enterHospitalInfo" model="hospital">
         <binder>

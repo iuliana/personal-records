@@ -5,7 +5,7 @@ import com.pr.ents.Person;
 /**
  * Created by iuliana.cosmina on 9/1/15.
  */
-public class DuplicatePersonException extends Exception {
+public class DuplicatePersonException extends RuntimeException {
 
     private Person person;
 
