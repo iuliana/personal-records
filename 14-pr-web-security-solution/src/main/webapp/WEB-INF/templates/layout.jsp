@@ -78,14 +78,14 @@
             </li>
             <sec:authorize url="/persons/newPerson">
                 <li>
-                    <c:if test="${navigationTab eq 'newPerson'}">
+                    <c:if test="${menuTab eq 'newPerson'}">
                         <strong>
                             <a href="<c:url value="/persons/newPerson"/>">
                                 <spring:message code="menu.new.person"/>
                             </a>
                         </strong>
                     </c:if>
-                    <c:if test="${navigationTab != 'newPersons'}">
+                    <c:if test="${menuTab != 'newPersons'}">
                         <a href="<c:url value="/persons/newPerson"/>">
                             <spring:message code="menu.new.person"/>
                         </a>
