@@ -1,4 +1,4 @@
-package con.pr.persons;
+package com.pr.persons;
 
 import com.pr.ents.Hospital;
 import com.pr.model.PersonObjectModel;

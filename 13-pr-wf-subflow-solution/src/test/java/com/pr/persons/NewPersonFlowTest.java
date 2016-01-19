@@ -1,4 +1,4 @@
-package con.pr.persons;
+package com.pr.persons;
 
 import com.pr.ents.Hospital;
 import com.pr.model.PersonObjectModel;
@@ -31,7 +31,6 @@ import static org.mockito.Mockito.*;
 /**
  * Created by iuliana.cosmina on 7/17/15.
  */
-@SuppressWarnings("unchecked")
 @RunWith(MockitoJUnitRunner.class)
 public class NewPersonFlowTest extends AbstractXmlFlowExecutionTests {
 

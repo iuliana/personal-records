@@ -1,4 +1,4 @@
-package con.pr.persons;
+package com.pr.persons;
 
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
