@@ -87,7 +87,7 @@ ext {
     hibernate = [
             validator: "org.hibernate:hibernate-validator:5.2.4.Final",
             ehcache  : "org.hibernate:hibernate-ehcache:$hibernateVersion",
-            em       : "org.hibernate:hibernate-entitymanager:$hibernateVersion",
+            em       : "org.hibernate:hibernate-entitymanager:5.1.0.Final",
             core     : "org.hibernate:hibernate-core:$hibernateVersion",
     ]
 
