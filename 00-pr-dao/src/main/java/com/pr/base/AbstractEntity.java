@@ -2,15 +2,20 @@ package com.pr.base;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * An template class which defines the common template for all entities in the project
- * Created by iuliana.cosmina on 12/27/14.
+ * An template class which defines the common template for all entities in the project.
+ *
+ * @author Iuliana Cosmina
  */
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
@@ -18,11 +23,12 @@ public abstract class AbstractEntity implements Serializable {
     @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column( updatable = false)
+    @Column(updatable = false)
     protected Long id;
 
     /**
-     * This field is used for auditory and logging purposes. It is populated by the system when an entity instance is created. 
+     * This field is used for auditory and logging purposes. It is populated by the system when an entity instance is
+     * created.
      */
     @JsonIgnore
     @Column(name = "CREATED_AT", nullable = false)
@@ -31,7 +37,8 @@ public abstract class AbstractEntity implements Serializable {
     protected Date createdAt;
 
     /**
-     * This field is used for auditory and logging purposes. It is populated by the system when an entity instance is modified.
+     * This field is used for auditory and logging purposes. It is populated by the system when an entity instance is
+     * modified.
      */
     @JsonIgnore
     @Column(name = "MODIFIED_AT", nullable = false)
@@ -52,22 +59,21 @@ public abstract class AbstractEntity implements Serializable {
     }
 
     /**
-     * Returns the entity identifier. This identifier is unique per entity. It is used by persistence frameworks used in a project,
-     * and although is public, it should not be used by application code.
-     * This identifier is mapped by ORM (Object Relational Mapper) to the database primary key of the Person record to which
-     * the entity instance is mapped.
+     * Returns the entity identifier. This identifier is unique per entity. It is used by persistence frameworks used in
+     * a project, and although is public, it should not be used by application code. This identifier is mapped by ORM
+     * (Object Relational Mapper) to the database primary key of the Person record to which the entity instance is mapped.
      *
-     * @return the unique entity identifier
+     * @return the unique entity identifier.
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * Sets the entity identifier. This identifier is unique per entity.  Is is used by persistence frameworks
-     * and although is public, it should never be set by application code.
+     * Sets the entity identifier. This identifier is unique per entity.  Is is used by persistence frameworks and
+     * although is public, it should never be set by application code.
      *
-     * @param id the unique entity identifier
+     * @param id the unique entity identifier.
      */
     public void setId(Long id) {
         this.id = id;
@@ -89,13 +95,10 @@ public abstract class AbstractEntity implements Serializable {
         this.modifiedAt = modifiedAt;
     }
 
-    // IDE generated methods
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         AbstractEntity that = (AbstractEntity) o;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         return true;
@@ -115,4 +118,5 @@ public abstract class AbstractEntity implements Serializable {
                 ", version=" + version +
                 '}';
     }
+
 }

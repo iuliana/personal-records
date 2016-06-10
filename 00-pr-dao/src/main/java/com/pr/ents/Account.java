@@ -4,36 +4,42 @@ import com.pr.base.AbstractEntity;
 import com.pr.base.Status;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  * An entity used as a template for Bank Account instances. An account instance contains in its fields some data
  * specific to a real bank account.
- * Created by iuliana.cosmina on 12/27/14.
+ *
+ * @author Iuliana Cosmina
  */
 @Entity
 public class Account extends AbstractEntity {
 
     /**
-     * Name of the bank
+     * Name of the bank.
      */
     @Column
     @NotEmpty
     private String bank;
 
     /**
-     * The numerical code for a bank account
-     * The IBAN consists of up to 34 alphanumeric characters, comprising a country code, two check digits and a long and detailed bank account-number.
+     * The numerical code for a bank account. The IBAN consists of up to 34 alphanumeric characters, comprising a
+     * country code, two check digits and a long and detailed bank account-number.
      */
     @Column(unique = true)
     @NotEmpty
-    @Size(min=12, max=30)
+    @Size(min = 12, max = 30)
     private String iban;
 
     /**
-     * Amount of money in the account
+     * Amount of money in the account.
      */
     @Column
     private Double amount;
@@ -46,7 +52,7 @@ public class Account extends AbstractEntity {
     @JoinColumn(name = "PERSON_ID", nullable = false)
     private Person person;
 
-    public Account(){
+    public Account() {
     }
 
     public Account(String bank, String iban, Person person) {
@@ -95,18 +101,14 @@ public class Account extends AbstractEntity {
         this.status = status;
     }
 
-    // IDE generated methods
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Account account = (Account) o;
         if (id != null && id.equals(account.id)) return true;
         if (bank != null ? !bank.equals(account.bank) : account.bank != null) return false;
         if (iban != null ? !iban.equals(account.iban) : account.iban != null) return false;
-
         return true;
     }
 
@@ -120,7 +122,8 @@ public class Account extends AbstractEntity {
 
     @Override
     public String toString() {
-        return String.format("Account[person='%s', bank='%s', iban='%s', amount='%,.2f', status='%s']", person.getFirstName() + " " +
-                person.getLastName(), bank, iban, amount, status.toString());
+        return String.format("Account[person='%s', bank='%s', iban='%s', amount='%,.2f', status='%s']",
+                person.getFirstName() + " " + person.getLastName(), bank, iban, amount, status.toString());
     }
+
 }

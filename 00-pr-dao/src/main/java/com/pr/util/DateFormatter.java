@@ -1,16 +1,15 @@
 package com.pr.util;
 
 import org.springframework.format.Formatter;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 /**
- * Created by iuliana.cosmina on 3/18/15.
+ * @author Iuliana Cosmina.
  */
-public class DateFormatter implements Formatter<Date>{
+public class DateFormatter implements Formatter<Date> {
     public static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
@@ -22,5 +21,6 @@ public class DateFormatter implements Formatter<Date>{
     public String print(Date date, Locale locale) {
         return formatter.format(date);
     }
+
 }
 
