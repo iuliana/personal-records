@@ -1,12 +1,13 @@
 package com.pr.base;
 
 /**
- * Created by iuliana.cosmina on 12/27/14.
+ * @author Iuliana Cosmina
  */
 public enum Gender {
+
     MALE(1),
     FEMALE(2);
-    
+
     private int code;
 
     Gender(int code) {
@@ -17,7 +18,8 @@ public enum Gender {
         return code;
     }
 
-    public Character getInitial(){
+    public Character getInitial() {
         return this.name().charAt(0);
     }
+
 }

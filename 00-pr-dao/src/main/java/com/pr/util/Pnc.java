@@ -8,10 +8,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by iuliana.cosmina on 5/15/15.
+ * @author Iuliana Cosmina
  */
 @Constraint(validatedBy = PncValidator.class)
-@Target( { ElementType.METHOD, ElementType.FIELD })
+@Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Pnc {
 
@@ -20,4 +20,5 @@ public @interface Pnc {
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
 }

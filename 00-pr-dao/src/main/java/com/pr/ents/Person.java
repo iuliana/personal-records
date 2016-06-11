@@ -6,8 +6,16 @@ import com.pr.base.AbstractEntity;
 import com.pr.base.Gender;
 import com.pr.util.JsonDateSerializer;
 import org.hibernate.validator.constraints.NotEmpty;
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -15,16 +23,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * An entity used as a template for Person instances. A Person instance contains in its fields some data related to a real
- * person.
- * Created by iuliana.cosmina on 12/27/14.
+ * An entity used as a template for Person instances. A Person instance contains in its fields some data related to a
+ * real person.
+ *
+ * @author Iuliana Cosmina
  */
 @Entity
 @SequenceGenerator(name = "seqGen", allocationSize = 1)
 public class Person extends AbstractEntity {
 
     @Column(nullable = false)
-    @Size(min=2, max=50)
+    @Size(min = 2, max = 50)
     @NotEmpty
     public String firstName;
 
@@ -32,14 +41,16 @@ public class Person extends AbstractEntity {
     public String middleName;
 
     @Column(nullable = false)
-    @Size(min=2, max=50)
+    @Size(min = 2, max = 50)
     @NotEmpty
     public String lastName;
 
+    /**
+     * Specialized JSON annotation in order to describe how the date will be formatted in the JSON output.
+     */
     @Column
     @NotNull
-    //Specialized JSON annotation in order to describe how the date will be formatted in the JSON output
-    @JsonSerialize(using=JsonDateSerializer.class)
+    @JsonSerialize(using = JsonDateSerializer.class)
     private Date dateOfBirth;
 
     @Enumerated(EnumType.STRING)
@@ -58,8 +69,6 @@ public class Person extends AbstractEntity {
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private Set<Account> accounts = new HashSet<>();
 
-
-    //required by JPA
     public Person() {
         super();
     }
@@ -152,22 +161,19 @@ public class Person extends AbstractEntity {
         identityCard.setPerson(this);
     }
 
-    // IDE generated methods
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-
         Person person = (Person) o;
         if (id != null && id.equals(person.id)) return true;
         if (dateOfBirth != null ? !dateOfBirth.equals(person.dateOfBirth) : person.dateOfBirth != null) return false;
         if (firstName != null ? !firstName.equals(person.firstName) : person.firstName != null) return false;
         if (gender != person.gender) return false;
-        if (identityCard != null ? !identityCard.getPnc().equals(person.identityCard.getPnc()) : person.identityCard != null) return false;
+        if (identityCard != null ? !identityCard.getPnc().equals(person.identityCard.getPnc()) : person.identityCard != null)
+            return false;
         if (lastName != null ? !lastName.equals(person.lastName) : person.lastName != null) return false;
-
         return true;
     }
 
@@ -184,7 +190,9 @@ public class Person extends AbstractEntity {
 
     @Override
     public String toString() {
-        return String.format("Person[firstName='%s', lastName='%s', dateOfBirth='%s', gender='%s', hospital='%s']", getFirstName(),
-                getLastName(), String.format("%tY-%tm-%td", dateOfBirth, dateOfBirth, dateOfBirth), gender.toString(), hospital.getCode());
+        return String.format("Person[firstName='%s', lastName='%s', dateOfBirth='%s', gender='%s', hospital='%s']",
+                getFirstName(), getLastName(), String.format("%tY-%tm-%td", dateOfBirth, dateOfBirth, dateOfBirth),
+                gender.toString(), hospital.getCode());
     }
+
 }
