@@ -35,7 +35,7 @@ ext {
     aspectjVersion = '1.8.9'
     jodaVersion = '2.9.4'
     tilesVersion = '3.0.5'
-    hibernateVersion = '5.2.0.Final'
+    hibernateVersion = '4.3.11.Final'
     h2Version = '1.4.192'
     logbackVersion = '1.1.7'
     poiVersion = '3.14'
