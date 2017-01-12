@@ -19,8 +19,7 @@ sourceSets {
 dependencies {
     compile project(':01-pr-service')
     compile log.slf4jApi, log.slf4jJcl, log.logback, log.slf4jLog4j,
-            hibernate.ehcache, hibernate.em, hibernate.core, hibernate.validator,
-            spring.jdbc, spring.orm, spring.contextSupport, spring.data,
+            spring.contextSupport,
             spring.webmvc,spring.mvcPortlet, misc.standard,
             misc.javaxEl,misc.poi,
             misc.dbcp, misc.h2, misc.joda, misc.jstl
