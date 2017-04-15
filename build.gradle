@@ -75,7 +75,8 @@ ext {
 			standard          : "taglibs:standard:1.1.2",
 			servlet           : "javax.servlet:javax.servlet-api:3.1.0",
 			liferayService    : "com.liferay.portal:portal-service:6.2.5",
-			xmlapis           : "xml-apis:xml-apis:1.4.01"
+			xmlapis           : "xml-apis:xml-apis:1.4.01",
+			javaEl            : "javax.el:javax.el-api:2.2.4"
 	]
 
 	tests = [

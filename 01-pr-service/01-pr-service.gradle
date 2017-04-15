@@ -3,7 +3,7 @@ dependencies {
     compile log.slf4jApi, log.slf4jJcl, log.logback, log.slf4jLog4j,
             hibernate.ehcache, hibernate.em, hibernate.core, hibernate.validator,
             spring.jdbc, spring.orm, spring.contextSupport, spring.data,
-            misc.dbcp, misc.h2, misc.joda,
+            misc.dbcp, misc.h2, misc.joda, misc.javaEl,
             misc.jacksonCore, misc.jacksonDatabind, misc.jacksonAnnotations
 
     testCompile tests.junit, tests.mockito, spring.test, tests.hamcrestCore, tests.hamcrestLib

@@ -40,7 +40,7 @@ public class PersonsControllerTest {
         Model model = new BindingAwareModelMap();
         String view = personsController.list(model);
         assertEquals("persons/list", view);
-        assertTrue(((List<Person>) model.asMap().get("persons")).size() == 16);
+        assertTrue(((List<Person>) model.asMap().get("persons")).size() == 17);
     }
 
 

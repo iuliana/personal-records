@@ -37,6 +37,7 @@ public class IdentityCardRepoTest extends RepoTestCase {
         DateTime dt1 = DateTime.parse("1953-11-05");
         DateTime dt2 = DateTime.parse("1963-11-05");
         IdentityCard identityCard = new IdentityCard(person, "BL", "187313", dt1.toDate(), dt2.toDate());
+        identityCard.setAddress("whatever");
         person.setIdentityCard(identityCard);
         personRepo.save(person);
 
@@ -46,6 +47,7 @@ public class IdentityCardRepoTest extends RepoTestCase {
         dt1 = DateTime.parse("1956-01-05");
         dt2 = DateTime.parse("1966-11-05");
         identityCard = new IdentityCard(person, "SH", "189313", dt1.toDate(), dt2.toDate());
+        identityCard.setAddress("whatever");
         person.setIdentityCard(identityCard);
         personRepo.saveAndFlush(person);
 
