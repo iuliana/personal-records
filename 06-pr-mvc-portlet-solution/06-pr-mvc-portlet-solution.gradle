@@ -30,19 +30,21 @@ dependencies {
 }
 
 
-task warCreate << {
-    description 'Task used build a new war every time this task is executed'
-    this.getTasksByName("clean", true).each { t ->
-        t.execute();
-    }
-    this.getTasksByName("compileJava", true).each { t ->
-        t.execute();
-    }
-    this.getTasksByName("processResources", true).each { t ->
-        t.execute();
-    }
-    this.getTasksByName("war", true).each { t ->
-        t.execute();
+task warCreate {
+    doLast {
+        description 'Task used build a new war every time this task is executed'
+        this.getTasksByName("clean", true).each { t ->
+            t.execute();
+        }
+        this.getTasksByName("compileJava", true).each { t ->
+            t.execute();
+        }
+        this.getTasksByName("processResources", true).each { t ->
+            t.execute();
+        }
+        this.getTasksByName("war", true).each { t ->
+            t.execute();
+        }
     }
 }
 
